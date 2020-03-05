@@ -1,0 +1,801 @@
+<top-menu-landing></top-menu-landing>
+<!-- Header -->
+<style>
+.right-inner-addon {
+    position: relative;
+
+}
+.right-inner-addon input {
+    padding-right: 30px;
+    border-radius: 5px;
+        width: 250px;
+}
+
+.card-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.card-1:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+h3 .rotate {
+    cursor:pointer;
+    font-size: 23px;
+}
+
+
+h3 .rotate:hover{
+    color: red;
+    transition: 0.9s;
+    transform: rotateY(180deg);
+}
+
+.hint-container{
+
+ background-color: #FFFFFF;
+/* width: 53.5%; */
+width:249px;
+/*position: relative;*/
+z-index: 9;
+}
+.hint-container div div{
+   padding:5px;
+   cursor: pointer;
+   font-size: 12px;
+}
+.hint-container div div:hover{
+  background-color:#faf8f8 !important;
+}
+
+.paramselcss:hover{
+  color:#333 !important;
+  font-weight: bold;
+  animation-duration: 3s;
+    /*background-color:#faf8f8 !important;*/
+}
+
+#glow {
+  cursor: pointer;
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -ms-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  -webkit-text-shadow: 0 0 0 transparent, 0 0 0 transparent;
+  -moz-text-shadow: 0 0 0 transparent, 0 0 0 transparent;
+  -ms-text-shadow: 0 0 0 transparent, 0 0 0 transparent;
+  -o-text-shadow: 0 0 0 transparent, 0 0 0 transparent;
+  /*text-shadow: 0 0 0 transparent, 0 0 0 transparent;
+  color: rgba(0, 0, 0, 0.1);*/
+  overflow: visible;
+}
+#glow:hover {
+  color: #333;
+  -webkit-text-shadow: 0 0 10px #45526E, 0 0 50px #ff9b1a;
+  -moz-text-shadow: 0 0 10px #45526E, 0 0 50px #ff9b1a;
+  -ms-text-shadow: 0 0 10px #45526E, 0 0 50px #ff9b1a;
+  -o-text-shadow: 0 0 10px #45526E, 0 0 50px #ff9b1a;
+  text-shadow: 0 0 10px #45526E, 0 0 50px #ff9b1a;
+}
+
+.wrapper{
+	margin: 75px auto;
+	width: 90%;
+	text-align: center;
+	position: relative;
+}
+
+.shape{
+	display: inline-block;
+	margin: 20px;
+	vertical-align: middle;
+}
+
+
+
+.bubble{
+	background-image: -webkit-linear-gradient(top, #fdfdfd, #f3f3f4);
+	border-radius: 10px;
+	position: relative;
+	border: 2px solid #a7a8ab;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.bubble p{
+	/*font-family: helvetica, Arial, sans-serif;*/
+	font-size: 1.15em;
+	font-weight: normal;
+	color: #303334;
+	padding: 0 15px;
+	margin: 10px 0;
+}
+
+.bubble:after{
+	content: "";
+	position: absolute;
+	top: 90%;
+	left: 46%;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	box-shadow: 2px 2px 2px #a7a8ab;
+	border: 4px solid;
+	border-color: transparent #f3f3f4 #f3f3f4 transparent;
+}
+
+.Paramtags{
+
+  margin: 10px;
+  position: relative;
+  top: 5px;
+  background-color: #555;
+  color: #EEE;
+  float: left;
+  font-size: 12px;
+  padding: 7px 6px;
+  border-radius: 3px;
+  margin-left: 5px;
+  margin-top: 4px;
+  animation-duration: 1s;
+  cursor: pointer;
+
+}
+
+.tablee td{
+  padding: 5px;
+  border-bottom: 1px solid #dddddd;
+}
+
+</style>
+
+<div style="height:70px;"></div>
+<!-- Contact Container -->
+<div class="container">
+
+
+
+
+
+
+
+
+<div class="material-detail-info">
+  <label class="text-center"><h3><b>Compare Products</b></h3></label>
+    <hr style="border-bottom:0px solid grey;">
+
+  <div class="row text-center">
+      <div class="col-sm-3 text-center">
+        <br /><br />
+        <!-- <h3>#</h3> -->
+      </div>
+
+      <div class="col-sm-4" >
+
+            <!-- <input type="" class="form-control text-capitalize cmpSearch1" placeholder="Search" style="border-radius: 5px;width: 250px;font-size:15px;"
+            (keyup)="hintFilter($event.target.value,'0'); searchObject1=$event.target.value;"
+            [(ngModel)]="searchObject1" autocomplete="off"
+            (keyup.enter)="hintFilter($event.target.value,'0');searchObject1=$event.target.value;"
+            />
+
+            <div style="position:absolute;z-index:99;">
+            <div class="hint-container border-deda" (mouseleave)='closeSearchBoxHintContainer()' *ngIf="hintContainer1==true"
+style="position: relative; top: -15px;">
+              <div class="animation-bottom10">
+                 <table class="table table-bordered table-hover pointer">
+                            <tr *ngFor="let hint of hintProducts1; let i=index;" (click)=" hintPull(hint.name,'','0');getSingleProduct(hint.productId,'0');hintContainer1=false;" >
+                              <td width="25%">
+                                <img style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center img-rounded" *ngIf="hint.images!=undefined" src="{{getApiUrl}}images/src/{{hint.images.image1}}" height="50" width="50"/>
+                              </td>
+                              <td class="text-capitalize text-left">{{hint.name}}</td>
+                            </tr>
+                        </table>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="text-center">Product 1 &nbsp;&nbsp;<i class="fa fa-times-circle rotate" id="{{compareProd1.productId}}" (click)="ReloadPage(compareProd1.productId);compareProd1='';" data-toggle="tooltip" title="Clear Product 1"></i></h3>
+           -->
+
+
+
+          <h3 class="text-center text-capitalize">{{compareProd1.name}} &nbsp;&nbsp;<i class="fa fa-times-circle rotate" id="{{compareProd1.productId}}"
+            (click)="ReloadPage(compareProd1.productId);compareProd1='';redirect('page-listing',{});"
+             data-toggle="tooltip" title="Change Product"></i></h3>
+
+      </div>
+
+      <div class="col-sm-4" >
+
+            <!-- <input type="" class="form-control text-capitalize cmpSearch2" placeholder="Search" style="border-radius: 5px;width: 250px;font-size:15px;"
+            (keyup)="hintFilter($event.target.value,'1'); searchObject2=$event.target.value;"
+            [(ngModel)]="searchObject2" autocomplete="off"
+            (keyup.enter)="hintFilter($event.target.value,'1');searchObject2=$event.target.value;"
+            />
+
+            <div style="position:absolute;z-index:99;">
+            <div class="hint-container border-deda" (mouseleave)='closeSearchBoxHintContainer()' *ngIf="hintContainer2==true"
+style="position: relative; top: -15px;">
+              <div class="animation-bottom10">
+                 <table class="table table-bordered table-hover pointer">
+                            <tr *ngFor="let hint of hintProducts2; let i=index;" (click)=" hintPull(hint.name,'','1');getSingleProduct(hint.productId,'1');hintContainer2=false;" >
+                              <td width="25%">
+                                <img style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center img-rounded" *ngIf="hint.images!=undefined" src="{{getApiUrl}}images/src/{{hint.images.image1}}" height="50" width="50"/>
+                              </td>
+                              <td class="text-capitalize text-left">{{hint.name}}</td>
+                            </tr>
+                        </table>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-center">Product 2 &nbsp;&nbsp;<i *ngIf="Product4CompareLength>1" class="fa fa-times-circle rotate" id="{{compareProd2.productId}}" (click)="ReloadPage(compareProd2.productId);compareProd2='';" data-toggle="tooltip" title="Clear Product 2"></i></h3>
+          -->
+
+
+            <h3 class="text-center text-capitalize" *ngIf="Product4CompareLength>1">{{compareProd2.name}} &nbsp;&nbsp;<i *ngIf="Product4CompareLength>1" class="fa fa-times-circle rotate" id="{{compareProd2.productId}}" (click)="ReloadPage(compareProd2.productId);compareProd2='';redirect('page-listing',{});" data-toggle="tooltip" title="Change Product"></i></h3>
+      </div>
+      <!--<div class="col-sm-3">
+
+           <input type="" class="form-control text-capitalize cmpSearch3 " placeholder="Search" style="border-radius: 5px;width: 250px;font-size:15px;"
+          (keyup)="hintFilter($event.target.value,'2'); searchObject3=$event.target.value;"
+          [(ngModel)]="searchObject3" autocomplete="off"
+          (keyup.enter)="hintFilter($event.target.value,'2');searchObject3=$event.target.value;"
+          />
+
+          <div style="position:absolute;z-index:99;">
+          <div class="hint-container border-deda" (mouseleave)='closeSearchBoxHintContainer()' *ngIf="hintContainer3==true"
+style="position: relative; top: -15px;">
+            <div class="animation-bottom10">
+               <table class="table table-bordered table-hover pointer">
+                          <tr *ngFor="let hint of hintProducts3; let i=index;" (click)=" hintPull(hint.name,'','2');getSingleProduct(hint.productId,'2');hintContainer3=false;" >
+                            <td width="25%">
+                              <img style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center img-rounded" *ngIf="hint.images!=undefined" src="{{getApiUrl}}images/src/{{hint.images.image1}}" height="50" width="50"/>
+                            </td>
+                            <td class="text-capitalize text-left">{{hint.name}}</td>
+                          </tr>
+                      </table>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-center">Product 3 &nbsp;&nbsp;<i *ngIf="Product4CompareLength>2" class="fa fa-times-circle rotate" id="{{compareProd3.productId}}" (click)="ReloadPage(compareProd3.productId);compareProd3='';" data-toggle="tooltip" title="Clear Product 3"></i></h3>
+
+
+        <h3 class="text-center">Product 3 &nbsp;&nbsp;<i *ngIf="Product4CompareLength>2" class="fa fa-times-circle rotate" id="{{compareProd3.productId}}" (click)="ReloadPage(compareProd3.productId);compareProd3='';redirect('page-listing',{});" data-toggle="tooltip" title="Change Product"></i></h3>
+      </div>  -->
+  </div>
+<br />
+  <!-- <div class="row">
+      <div class="col-sm-3 text-center">
+        <b>Product Name</b>
+      </div>
+
+      <div class="col-sm-4" *ngIf="Product4CompareLength>0">
+          <p class="text-center">{{compareProd1.name}}</p>
+      </div>
+      <div class="col-sm-4" *ngIf="Product4CompareLength>1">
+          <p class="text-center">{{compareProd2.name}}</p>
+      </div>
+      <div class="col-sm-3" *ngIf="Product4CompareLength>2">
+          <p class="text-center">{{compareProd3.name}}</p>
+      </div>
+  </div>
+<br /> -->
+  <div class="row">
+      <div class="col-sm-3 text-center">
+        <br /><br /><br /><b>Product Image</b>
+      </div>
+
+      <div class="col-sm-4 text-center pointer" *ngIf="Product4CompareLength>0">
+          <img (click)="productPageSlider(compareProd1.productId)" style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center img-rounded card-1" *ngIf="compareProd1.images!=undefined" src="{{getApiUrl}}images/src/{{compareProd1.images.image1}}" height="150" width="200"/>
+      </div>
+      <div class="col-sm-4 text-center pointer" *ngIf="Product4CompareLength>1">
+          <img (click)="productPageSlider(compareProd2.productId)" style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center img-rounded card-1" *ngIf="compareProd2.images!=undefined" src="{{getApiUrl}}images/src/{{compareProd2.images.image1}}" height="150" width="200"/>
+      </div>
+      <!-- <div class="col-sm-3 text-center pointer" *ngIf="Product4CompareLength>2">
+        <img (click)="productPageSlider(compareProd3.productId)" style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center img-rounded card-1" *ngIf="compareProd3.images!=undefined" src="{{getApiUrl}}images/src/{{compareProd3.images.image1}}" height="150" width="200"/>
+      </div> -->
+  </div>
+  <br />
+
+  <!-- <div class="row">
+      <div class="col-sm-3 text-center">
+        <b>Product Description</b>
+      </div>
+
+      <div class="col-sm-3 " *ngIf="Product4CompareLength>0">
+          <p  class="product-description text-center">{{compareProd1.description| slice:0:30}}..</p>
+      </div>
+      <div class="col-sm-3" *ngIf="Product4CompareLength>1">
+          <p  class="product-description text-center">{{compareProd2.description| slice:0:30}}..</p>
+      </div>
+      <div class="col-sm-3" *ngIf="Product4CompareLength>2">
+          <p  class="product-description  text-center">{{compareProd3.description| slice:0:30}}..</p>
+      </div>
+  </div>
+<br /> -->
+  <!-- <div class="row" >
+      <div class="col-sm-3 text-center">
+        <b>Manufacturer</b>
+      </div>
+
+      <div class="col-sm-3 text-center " *ngIf="Product4CompareLength>0">
+          <p class="text-center" *ngIf="compareProd1.manufacturer!=undefined">{{compareProd1.manufacturer.name}}</p>
+      </div>
+      <div class="col-sm-3 text-center" *ngIf="Product4CompareLength>1">
+        <p class="text-center" *ngIf="compareProd2.manufacturer!=undefined">{{compareProd2.manufacturer.name}}</p>
+      </div>
+      <div class="col-sm-3 text-center" *ngIf="Product4CompareLength>2">
+      <p class="text-center" *ngIf="compareProd3.manufacturer!=undefined">{{compareProd3.manufacturer.name}}</p>
+      </div>
+  </div> -->
+  <div class="row">
+      <div class="col-sm-3 text-center">
+        <br /><b>Manufacturer</b>
+      </div>
+
+      <div class="col-sm-4 text-center " *ngIf="Product4CompareLength>0">
+          <img *ngIf="compareProd1.manufacturer!=undefined" src="./webroot/images/manufacturer/{{compareProd1.manufacturer.logo}}" width="100" />
+      </div>
+      <div class="col-sm-4 text-center" *ngIf="Product4CompareLength>1">
+          <img *ngIf="compareProd2.manufacturer!=undefined" src="./webroot/images/manufacturer/{{compareProd2.manufacturer.logo}}" width="100" />
+      </div>
+      <!-- <div class="col-sm-3 text-center" *ngIf="Product4CompareLength>2">
+          <img *ngIf="compareProd3.manufacturer!=undefined" src="./webroot/images/manufacturer/{{compareProd3.manufacturer.logo}}" width="100" />
+      </div> -->
+  </div>
+
+
+  <br />
+
+  <div class="row">
+      <div class="col-sm-3 text-center">
+        <b>URL</b>
+      </div>
+
+      <div class="col-sm-4 text-center " *ngIf="Product4CompareLength>0" >
+          <a href="{{compareProd1.websiteUrl}}" target="_blank" style="word-wrap: break-word; width: 250px;">{{compareProd1.websiteUrl}}</a>
+      </div>
+      <div class="col-sm-4 text-center" *ngIf="Product4CompareLength>1">
+          <a href="{{compareProd2.websiteUrl}}" target="_blank" style="word-wrap: break-word; width: 250px;">{{compareProd2.websiteUrl}}</a>
+      </div>
+      <!-- <div class="col-sm-3 text-center" *ngIf="Product4CompareLength>2">
+          <a href="{{compareProd3.websiteUrl}}" target="_blank" style="word-wrap: break-word; width: 250px;">{{compareProd2.websiteUrl}}</a>
+      </div> -->
+  </div>
+  <br />
+
+  <!-- <div class="row">
+      <div class="col-sm-3 text-center">
+        <br /><b>Manufacturer Logo</b>
+      </div>
+
+      <div class="col-sm-3 text-center " *ngIf="Product4CompareLength>0">
+          <img *ngIf="compareProd1.manufacturer!=undefined" src="./webroot/images/manufacturer/{{compareProd1.manufacturer.logo}}" width="100" />
+      </div>
+      <div class="col-sm-3 text-center" *ngIf="Product4CompareLength>1">
+          <img *ngIf="compareProd2.manufacturer!=undefined" src="./webroot/images/manufacturer/{{compareProd2.manufacturer.logo}}" width="100" />
+      </div>
+      <div class="col-sm-3 text-center" *ngIf="Product4CompareLength>2">
+          <img *ngIf="compareProd3.manufacturer!=undefined" src="./webroot/images/manufacturer/{{compareProd3.manufacturer.logo}}" width="100" />
+      </div>
+  </div> -->
+  <br />
+
+  <!-- <div class="row">
+      <div class="col-sm-3 text-center">
+        <b>Category</b>
+      </div>
+
+      <div class="col-sm-3 " *ngIf="Product4CompareLength>0">
+          <p class="text-center">{{compareProd1.category}}</p>
+      </div>
+      <div class="col-sm-3" *ngIf="Product4CompareLength>1">
+          <p class="text-center">{{compareProd2.category}}</p>
+      </div>
+      <div class="col-sm-3" *ngIf="Product4CompareLength>2">
+          <p class="text-center">{{compareProd3.category}}</p>
+      </div>
+  </div>
+
+  <br /> -->
+
+  <div class="row">
+
+      <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-3">
+              <b>Product Parameters</b>
+            </div>
+        </div>
+        <div class="row">
+          <br />
+          <!-- <div style="border-radius: 4px;width:100%;position: relative;top: -10px;" >
+            <div class="pull-left">
+                 <span data-toggle="modal" data-target="#ChartViewModal" class="Paramtags animated zoomIn card-1"
+                 *ngFor="let params of ProductParamerRef;let i=index;"
+                 title="Click to Compare Parameter in chart" (click)="CompareChartData(params,i);"
+                 ><b>{{params}}</b>&nbsp;<b><i class="fa fa-bar-chart pull-right" style="font-size:15px;"></i></b>
+               </span>
+             </div>
+
+          </div> -->
+
+        </div>
+
+        <div class="table-responsive">
+         <table class="table table-bordered product-param-table" style="margin-top:0.6em;  width:90%;">
+
+           <tbody> <!-- GlobalProductobj -->
+             <tr *ngFor="let paramObj of ProductParamerRef; let i=index;">
+               <td width="300">
+                 {{paramObj}} &nbsp;
+                 <i id="glow" data-toggle="modal" data-target="#ChartViewModal"
+                 *ngIf="(convertInt(CheckThresold1(GlobalProductobj[paramObj],i))>=0) && (convertInt(CheckThresold2(GlobalProductobj[paramObj],i))>=0)"
+                  class="fa fa-bar-chart pull-right" style="color:#708A96;font-size:15px;cursor:pointer;"
+                  (click)="CompareChartData(paramObj,convertInt(CheckThresold1(GlobalProductobj[paramObj],i)),convertInt(CheckThresold2(GlobalProductobj[paramObj],i)) )"
+                  ></i>
+                <div *ngIf="paramObj=='Environmental Product Declaration'">
+                  <table class="tablee" style="width:80%;">
+                    <tr>
+                      <td>
+                        <label>Acidification</label>&nbsp;  <i id="glow" data-toggle="modal" data-target="#ChartViewModal"
+                        class="fa fa-bar-chart pull-right" style="color:#708A96;font-size:15px;cursor:pointer;"
+                        (click)="CompareChartData('Acidification',GlobalProductobj[paramObj].p1.submenu2.Acidification,GlobalProductobj[paramObj].p2.submenu2.Acidification)"
+                        ></i>
+
+                      </td>
+                      </tr>
+                      <tr>
+                      <td>
+                        <label>Eutrophication</label>&nbsp;
+                        <i id="glow" data-toggle="modal" data-target="#ChartViewModal"
+                        class="fa fa-bar-chart pull-right" style="color:#708A96;font-size:15px;cursor:pointer;"
+                        (click)="CompareChartData('Eutrophication',GlobalProductobj[paramObj].p1.submenu2.Eutrophication,GlobalProductobj[paramObj].p2.submenu2.Eutrophication)"
+                        ></i>
+
+
+
+                      </td>
+                      </tr>
+                      <tr>
+                      <td>
+                        <label>GlobalWarming</label>&nbsp;
+                        <i id="glow" data-toggle="modal" data-target="#ChartViewModal"
+                        class="fa fa-bar-chart pull-right" style="color:#708A96;font-size:15px;cursor:pointer;"
+                        (click)="CompareChartData('Global Warming',GlobalProductobj[paramObj].p1.submenu2.GlobalWarming,GlobalProductobj[paramObj].p2.submenu2.GlobalWarming)"
+                        ></i>
+
+
+                      </td>
+                      </tr>
+                      <tr>
+                      <td>
+                        <label>NonrenewableEnergy</label>&nbsp;
+
+                        <i id="glow" data-toggle="modal" data-target="#ChartViewModal"
+                        class="fa fa-bar-chart pull-right" style="color:#708A96;font-size:15px;cursor:pointer;"
+                        (click)="CompareChartData('NonrenewableEnergy',GlobalProductobj[paramObj].p1.submenu2.NonrenewableEnergy,GlobalProductobj[paramObj].p2.submenu2.NonrenewableEnergy)"
+                        ></i>
+
+                      </td>
+                      </tr>
+                      <tr>
+                      <td>
+                        <label>StratosphericOzone</label>&nbsp;
+                        <i id="glow" data-toggle="modal" data-target="#ChartViewModal"
+                        class="fa fa-bar-chart pull-right" style="color:#708A96;font-size:15px;cursor:pointer;"
+                        (click)="GetExponentionalVal('StratosphericOzone',GlobalProductobj[paramObj].p1.submenu2.StratosphericOzone,GlobalProductobj[paramObj].p2.submenu2.StratosphericOzone)"
+                        ></i>
+
+                      </td>
+                      </tr>
+                      <tr>
+                      <td>
+                        <label>TroposphericOzone</label>&nbsp;
+                        <i id="glow" data-toggle="modal" data-target="#ChartViewModal"
+                        class="fa fa-bar-chart pull-right" style="color:#708A96;font-size:15px;cursor:pointer;"
+                        (click)="CompareChartData('TroposphericOzone',GlobalProductobj[paramObj].p1.submenu2.TroposphericOzone,GlobalProductobj[paramObj].p2.submenu2.TroposphericOzone)"
+                        ></i>
+
+                      </td>
+                      </tr>
+
+                  </table>
+              </div>
+                <!-- {{i}} {{toFor( GlobalProductobj[paramObj] )}} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+              </td> <!-- align-right -->
+               <td   align="center">
+                 <span *ngIf="GlobalProductobj[paramObj].p1">
+                   <span *ngIf="checkSubmenu1( GlobalProductobj[paramObj].p1,GlobalProductobj[paramObj].p2)!='EFD'">
+                     <!-- {{checkSubmenu1( GlobalProductobj[paramObj].p1,GlobalProductobj[paramObj].p2)}} -->
+                      <span class="wid80"></span>
+                     <span *ngIf="CheckThresold1(GlobalProductobj[paramObj],i)!='tick'" >
+                     {{CheckThresold1(GlobalProductobj[paramObj],i)}} <span class="wid80"></span>
+                      </span>
+                      <span style="text-align: center;" *ngIf="CheckThresold1(GlobalProductobj[paramObj],i)=='tick'" >
+                        <i class="fa fa-check-circle fa-lg" style="color:green;"></i>
+                       </span> <span class="wid80"></span>
+                   </span>
+                   <span  *ngIf="checkSubmenu1( GlobalProductobj[paramObj].p1,GlobalProductobj[paramObj].p2)=='EFD'">
+                   {{GlobalProductobj[paramObj].p1.submenu1}}
+                  <span class="wid60"></span>
+                     <table class="table text-right"  >
+                       <tr>
+
+                         <td>
+                           {{GlobalProductobj[paramObj].p1.submenu2.Acidification}} <span class="wid80"></span>
+                          </td>
+                         </tr>
+                         <tr>
+                         <td>
+                            {{GlobalProductobj[paramObj].p1.submenu2.Eutrophication}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+                         <tr>
+                         <td>
+                           {{GlobalProductobj[paramObj].p1.submenu2.GlobalWarming}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+                         <tr>
+                         <td>
+                            {{GlobalProductobj[paramObj].p1.submenu2.NonrenewableEnergy}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+                         <tr>
+                         <td>
+                             {{GlobalProductobj[paramObj].p1.submenu2.StratosphericOzone}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+                         <tr>
+                         <td>
+                             {{GlobalProductobj[paramObj].p1.submenu2.TroposphericOzone}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+
+                     </table>
+                   </span>
+
+
+                 </span>
+
+               </td>
+               <td  align="center" *ngIf="Product4CompareLength>1">
+                 <span *ngIf="GlobalProductobj[paramObj].p2">
+
+                   <span *ngIf="checkSubmenu2( GlobalProductobj[paramObj].p2)!='EFD'">
+                     <!-- {{checkSubmenu2( GlobalProductobj[paramObj].p2)}} <span class="wid80"></span> -->
+                     <!-- <span style="text-align: center;" *ngIf="CheckThresold2(GlobalProductobj[paramObj],i)!='tick'" >
+                     {{CheckThresold2(GlobalProductobj[paramObj],i)}} <span class="wid80"></span>
+                      </span> -->
+                        <span class="wid80"></span>
+                      <span *ngIf="CheckThresold2(GlobalProductobj[paramObj],i)!='tick'" >
+                      {{CheckThresold2(GlobalProductobj[paramObj],i)}} <span class="wid80"></span>
+                       </span>
+                      <span style="text-align: center;" *ngIf="CheckThresold2(GlobalProductobj[paramObj],i)=='tick'" >
+                        <i class="fa fa-check-circle fa-lg" style="color:green;"></i>
+                       </span> <span class="wid80"></span>
+                   </span>
+                   <span *ngIf="checkSubmenu2( GlobalProductobj[paramObj].p2)=='EFD'">
+                     {{GlobalProductobj[paramObj].p2.submenu1}}
+                     <span class="wid60"></span>
+                     <table class="table text-right"  >
+                       <tr>
+                         <td>
+                           {{GlobalProductobj[paramObj].p2.submenu2.Acidification}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+                         <tr>
+                         <td>
+                            {{GlobalProductobj[paramObj].p2.submenu2.Eutrophication}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+                         <tr>
+                         <td>
+                           {{GlobalProductobj[paramObj].p2.submenu2.GlobalWarming}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+                         <tr>
+                         <td>
+                            {{GlobalProductobj[paramObj].p2.submenu2.NonrenewableEnergy}} <span class="wid80"></span>
+                         </td>
+                         </tr>
+                         <tr>
+                         <td>
+                             {{GlobalProductobj[paramObj].p2.submenu2.StratosphericOzone}} <span class="wid80"></span>
+                            </td>
+                         </tr>
+                         <tr>
+                         <td>
+                             {{GlobalProductobj[paramObj].p2.submenu2.TroposphericOzone}}  <span class="wid80"></span>
+                         </td>
+                         </tr>
+                     </table>
+                   </span>
+
+
+
+                 </span>
+               </td>
+
+             </tr>
+           </tbody>
+         </table>
+       </div>
+
+
+        <!-- <div class="table-responsive">
+          <table class="table table-bordered product-param-table" style="margin-top:0.6em">
+            (mouseover)='displayBarChart=true;hoverLoadCart(params);'
+             (mouseleave)='hoverLeaveCart();'
+             (mouseover)='hoverLoadCart(params.name,i);'
+
+            <tbody>
+              <tr class="" *ngFor="let params of ProductParamerRef;let i=index;">
+                <td class="col-sm-3 text-left" id="glow"
+
+
+                >{{params}} &nbsp;<i class="fa fa-bar-chart pull-right" style="color:#708A96;font-size:15px;"></i>
+              </td>
+
+                <td class="col-sm-3 text-center" *ngIf="compareProd1.parameters!=undefined && Product4CompareLength>0 ">
+                  <span>
+                    {{CheckParameter(params.name,compareProd1.parameters)}}
+                  </span>
+                </td>
+                <td class="col-sm-3 text-center"  >
+                  <span *ngIf="compareProd2.parameters!=undefined && Product4CompareLength>1">
+                    {{CheckParameter(params.name,compareProd2.parameters)}}
+                  </span>
+                  </td>
+                <td class="col-sm-3 text-center">
+                  <span *ngIf="compareProd3.parameters!=undefined && Product4CompareLength>2">
+                    {{CheckParameter(params.name,compareProd3.parameters)}}
+                  </span>
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div> -->
+
+      </div>
+
+      <!-- <div class="col-sm-3 " *ngIf="Product4CompareLength>0">
+        <br /><br />
+        <div class="table-responsive">
+          <table class="table table-bordered product-param-table" style="margin-top:0.6em">
+
+            <tbody>
+              <tr *ngFor="let param of ProductParamerRef">
+                <td *ngIf="compareProd1.parameters!=undefined">{{CheckParameter(param,compareProd1.parameters)}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-3" *ngIf="Product4CompareLength>1">
+        <div class="table-responsive">
+          <table class="table table-bordered product-param-table" style="margin-top:0.6em">
+
+            <tbody>
+              <tr *ngFor="let param of compareProd2.parameters">
+                <td>{{param.name}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-3" *ngIf="Product4CompareLength>2">
+        <div class="table-responsive">
+          <table class="table table-bordered product-param-table" style="margin-top:0.6em">
+            <tbody>
+              <tr *ngFor="let param of compareProd3.parameters">
+                <td>{{param.name}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> -->
+  </div>
+
+
+
+
+</div>
+
+
+<!-- <div class="container" *ngIf="displayBarChart==true">
+
+  <div class="row">
+  <div class="col-sm-6">
+    <div class="animated pulse" id="containerChart1" ></div>
+  </div>
+
+  </div>
+
+</div> -->
+
+<!-- <div class="wrapper">
+  <div class="shape bubble"><p>Comment</p></div>
+  <div class="shape bubble"><p>View all 121 comments</p></div>
+
+
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Content -->
+<a  (click)="scroll2Top()" class="scrollToTop zoomIn animated"></a>
+
+
+</div>
+
+
+<div style="height: 100px;"></div>
+<div id="ChartViewModal" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="displayBarChart=false;ParamNameForChart='';">&times;</button>
+                <h4 class="modal-title">
+                  <b class="text-center" style="color:#827E7E;margin-left: 190px;font-size: 20px;">{{ParamNameForChart}}</b></h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+              <div class="col-sm-12">
+                <div class="animated pulse chartWindowStyle" id="containerChart1" ></div>
+              </div>
+              <!-- <div class="col-sm-6">
+                <div class="animated pulse chartWindowStyle" id="containerChart2" ></div>
+              </div> -->
+
+              </div>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+    <common-footer></common-footer>

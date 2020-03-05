@@ -1,0 +1,316 @@
+
+
+
+<top-menu-merchant></top-menu-merchant>
+<div class="acc-container-fluid">
+<div class="row account-main-container "  >
+  <div class="col-sm-2 col-xs-1 left-main-wrap">
+    <div  class="account-left-menu"  >
+
+            <account-left-menu></account-left-menu>
+
+    </div>
+  </div>
+  <div class="col-sm-10 col-xs-11 right-main-wrap">
+      <div class="header-title-area">
+        <h3>Welcome to GBCI Material Dashboard</h3>
+      </div>
+
+
+
+
+      <section *ngIf="accountType=='user'">
+
+
+        <div class="border-deda bg-white " style="padding:30px;">
+
+          <div class="row " style="margin-bottom:1%">
+            <div class="Heading">Account Information</div>
+            <div class="heading-border"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="control-label">First Name</label>
+              <input class="form-control" id="productName">
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="control-label">Last Name</label>
+              <input class="form-control" id="productName">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="control-label">Email</label>
+              <input class="form-control" id="productName">
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="control-label">Mobile</label>
+              <input class="form-control" id="productName">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="control-label">Password</label>
+              <input class="form-control" type="password" id="productName">
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="control-label">Location</label>
+              <input class="form-control" id="productName">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="control-label">City</label>
+              <input class="form-control" id="productName">
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="control-label">State</label>
+              <input class="form-control" id="productName">
+            </div>
+          </div>
+
+          <button class="btn btn-default pull-right  waves-effect   ">Update Profile Information</button>
+<div style="height:60px;"></div>
+       </div>
+
+
+
+
+
+
+
+<div style="margin-top:20px;"></div>
+
+
+</section>
+
+
+      <section *ngIf="accountType=='merchant'">
+
+
+
+
+
+
+
+
+
+<div style="margin-top:20px;"></div>
+        <div class="row animated fadeIn">
+          <div class="col-sm-4">
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-bell" aria-hidden="true"></i></td>
+                  <td style="width: 100%;font-size:17px;" align="right"><span class="count">0</span><br>Notifications</td>
+                </tr>
+              </table>
+             </div>
+
+          </div>
+          <div class="col-sm-4">
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-map-marker" aria-hidden="true"></i></td>
+                  <td
+                    title="Total unique visitors from last 24 hours"
+                   style="width: 100%;font-size:17px;" align="right"><span class="count">8</span><br>Total Unique Views</td>
+                </tr>
+              </table>
+             </div>
+          </div>
+          <div class="col-sm-4">
+
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-database" aria-hidden="true"></i></td>
+                  <td style="width: 100%;font-size:17px;" align="right"><span class="count">{{totalProducts}}</span><br>Products</td>
+                </tr>
+              </table>
+             </div>
+
+            </div>
+          <!-- <div class="col-sm-3">
+            <div class="boxx"><span class="count">10</span> <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; Orders today</div>
+          </div> -->
+        <!--  <div class="col-sm-3">
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-users" aria-hidden="true"></i></td>
+                  <td style="width: 100%;" align="right"><span class="count">20</span><br>Team Members</td>
+                </tr>
+              </table>
+             </div>
+           </div> -->
+
+        </div>
+
+<div style="margin-top:30px;"></div>
+ <div class="row animated fadeIn">
+   <div class="col-md-6">
+     <!-- Graph -->
+     <div class="border-deda" style="overflow: hidden;">
+       <div style="position: absolute;top: 9px;left: 25px;z-index: 99;font-size:16px;">
+          <a (click)="selcFlag=0;loadChart();" >Weekly</a> <span style="color:grey;">|
+          </span>
+          <a (click)="selcFlag=1;loadChart();">Monthly</a>
+       </div>
+      <div id="containerChart"  ></div>
+    </div>
+     <!-- Graph -->
+   </div>
+   <div class="col-md-6">
+     <div class="activity-boxx border-deda" style="height: 402px;width: 103%;">
+       <div class='title '>Total Views<i class="fa fa-ellipsis-v pull-right" aria-hidden="true" style="margin-top: 5px;"></i> </div>
+       <!-- <img src="./webroot/images/dashboard/world-map.png" style="width: 100%; padding: 50px;" /> -->
+       <div class="containerMap animated fadeIn">
+
+
+     <div class="mapcontainer">
+         <div class="map">
+
+         </div>
+         <div style="margin-top:10px;"></div>
+         <div class="areaLegend" style="display: none;">
+
+         </div>
+         <div class="plotLegend">
+
+         </div>
+     </div>
+
+
+
+ </div>
+      <!-- <div id="containerChartBrowser" style="display:none;min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
+    </div>
+   </div>
+
+ </div>
+
+
+ <div style="margin-top:30px;"></div>
+
+  <div class="row animated fadeIn">
+    <div class="col-md-8">
+      <div class="activity-boxx border-deda">
+      <div class='title '>
+        Manage Products<i class="fa fa-ellipsis-v pull-right" aria-hidden="true" style="margin-top: 5px;"></i>
+        <a class="pull-right" [routerLink]="['/page-merchant-products-add']">Add New Product</a>
+      </div>
+      <table class="table table-bordered table-striped" style="background-color:white;font-size:16px;">
+        <tr class="">
+          <th class="text-center bg-darkgreen" style="width:25%">Name</th>
+          <!-- <th class="text-center bg-darkgreen" style="width:25%">Description</th> -->
+          <th class="text-center bg-darkgreen" style="width:25%">Category</th>
+           <th class="text-center bg-darkgreen" style="width:25%"><b>Views</b></th>
+          <th class="text-center bg-darkgreen" style="width:25%">Actions</th>
+        </tr>
+        <tr *ngFor="let item of products" >
+          <td class="text-capitalize" style="width:25%">{{item.name}}</td>
+
+          <!-- <td class="text-capitalize" style="width:25%">{{item.description | slice:0:15 }}...</td> -->
+          <td class="text-capitalize" style="width:25%">{{item.category | slice:0:15}}</td>
+          <td class="text-center" style="width:25%">
+            <img style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center  waves-effect "
+            *ngIf="item.images!=undefined"   src="{{getApiUrl}}images/src/{{item.images.image1}}" height="80" width="100"/>
+           <img  *ngIf="item.images==undefined" class="waves-effect" src="webroot/images/loading_img.gif" height="80" width="100" />
+
+            </td>
+          <td class="text-center" style="width:25%">
+
+                <button class="btn btn-sm btn-outline-primary waves-effect"  title="Edit Product" (click)="editProduct(item.productId)" style="padding: 10px 10px 10px 10px;border: 1px solid #4285F4;">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger waves-effect"  title="Delete Product" (click)="deleteProduct(item.productId)" style="padding: 10px 10px 10px 10px;border: 1px solid #f44;">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+
+           </td>
+        </tr>
+         <tr *ngIf="products?.length<1"><td colspan="8" class="text-center" style="font-size:16px;">No Products Found</td></tr>
+      </table>
+    </div>
+    </div>
+    <div class="col-md-4">
+      <div class="activity-boxx border-deda" style="min-height:588px;">
+        <div class='title '>Activity<i class="fa fa-ellipsis-v pull-right" aria-hidden="true" style="margin-top: 5px;"></i> </div>
+   <!-- <div align="center"><img src="webroot/images/dashboard/img-shadow.png" width="99%" style="opacity:0.8" /></div> -->
+       <ul class="stepper" *ngIf="recentActivities!=undefined">
+
+    <li *ngFor="let activity of recentActivities" class="active stepperli">
+
+      <a>
+         <span class="circle"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+         <label><span *ngIf="userInfo!=undefined">{{userInfo.firstName}} {{userInfo.lastName}}</span> {{activity.action}} {{activity.type}}</label>
+          <ul class="sublist">
+            <li style="text-transform: lowercase !important;"> &nbsp; &nbsp; {{activity.title| slice:0:20}}</li>
+            <li><i class="fa fa-clock-o"></i>&nbsp;{{activity.time| date:'MMM dd yyyy h:mm a'}}</li>
+         </ul>
+      </a>
+     </li>
+
+     <!--   <li class="active stepperli">
+         <a>
+            <span class="circle"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
+            <label>User A addded new product</label>
+             <ul class="sublist">
+               <li> &nbsp; &nbsp; Marlowe Tall Bookcase</li>
+               <li><small><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;May - 02 - 2017 11:00 AM</small></li>
+            </ul>
+         </a>
+        </li>
+        <li class="warning stepperli">
+         <a>
+            <span class="circle "><i class="fa fa-pencil-square" aria-hidden="true"></i></span>
+            <label>William updated the product</label>
+             <ul class="sublist">
+               <li> &nbsp; &nbsp; Wood Panelling</li>
+               <li><small><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;May - 02 - 2017 10:10 AM</small></li>
+            </ul>
+         </a>
+        </li>
+        <li class="active stepperli">
+         <a>
+            <span class="circle"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
+            <label>George addded new product</label>
+             <ul class="sublist">
+               <li> &nbsp; &nbsp; Wood Panelling</li>
+               <li><small><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;May - 02 - 2017 10:10 AM</small></li>
+            </ul>
+         </a>
+        </li>
+        <li class="danger stepperli">
+         <a>
+            <span class="circle"><i class="fa fa-trash" aria-hidden="true"></i></span>
+            <label>Smith removed the product</label>
+             <ul class="sublist">
+               <li> &nbsp; &nbsp; Polyflor LVT</li>
+               <li><small><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;May - 02 - 2017 10:10 AM</small></li>
+            </ul>
+         </a>
+       </li> -->
+
+      </ul> <hr>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div style="margin-top:50px;"></div>
+
+
+      </section>
+  </div>
+</div>
+</div>
+
+
+
+<common-footer></common-footer>

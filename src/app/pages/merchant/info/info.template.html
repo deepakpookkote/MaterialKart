@@ -1,0 +1,332 @@
+<top-menu-merchant></top-menu-merchant>
+<div class="acc-container-fluid">
+  <div class="row account-main-container ">
+    <div class="col-sm-2 col-xs-1 left-main-wrap">
+      <div class="account-left-menu">
+
+        <account-left-menu></account-left-menu>
+
+      </div>
+    </div>
+    <div class="col-sm-10 col-xs-11 right-main-wrap">
+      <div class="header-title-area">
+        <h3>
+          <span *ngIf="accountType=='merchant'" >Merchant Information</span>
+          <span *ngIf="accountType!='merchant'" >Account Information</span>
+           <!-- <small><span class=" pull-right hidden-xs">Dashboard / Merchant Information &nbsp; &nbsp; &nbsp; &nbsp;</span></small> -->
+         </h3>
+      </div>
+      <section>
+
+        <div style="margin-top:20px;">
+
+        </div>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+        <style>
+          .md-form .prefix~input,
+          .md-form .prefix~textarea {
+            margin-left: 2rem;
+            width: 92%;
+            width: calc(100% - 3rem);
+          }
+
+          i {
+            padding-top: 10px;
+          }
+
+          .md-form .prefix~label {
+            margin-left: 3.5rem;
+          }
+
+          .card-block {
+            padding: 10px;
+          }
+        </style>
+
+
+        <!-- <div *ngIf="userInformation!=undefined">
+          <div class="card-block second ">
+            <div class="text-center">
+              <h3><i class="fa fa-contact"></i>General Manufacturer Information</h3>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <div class="card">
+          <div class="card-block">
+            <!--Body-->
+            <div class="row">
+              <div class="md-form col-lg-6 col-md-6">
+                <i class="fa fa-user prefix" style="font-size: 30px"></i>
+                <input type="text" id="name"  class="form-control" [(ngModel)]="ContactInfo.name">
+                <label class="active" for="form1" draggable="" *ngIf="ContactInfo.name!=''" >Name</label>
+                <label  for="form1" draggable="" *ngIf="ContactInfo.name==''" >Name</label>
+              </div>
+              <div class="md-form col-lg-6 col-md-6">
+                <i class="fa fa-building-o prefix" style="font-size: 30px"></i>
+                <input type="text" id="desc" value="" class="form-control" [(ngModel)]="ContactInfo.desc">
+                <label  class="active" for="form2" *ngIf="ContactInfo.desc!=''">Description</label>
+                <label   for="form2" *ngIf="ContactInfo.desc==''">Description</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="md-form col-lg-6 col-md-6">
+                <i class="fa fa-external-link prefix" style="font-size: 29px;"></i>
+                <input type="text" id="weburl" value="" class="form-control" [(ngModel)]="ContactInfo.weburl">
+                <label class="active" for="form3" *ngIf="ContactInfo.weburl!=''">Website Url</label>
+                <label  for="form3" *ngIf="ContactInfo.weburl==''">Website Url</label>
+              </div>
+              <div class="md-form col-lg-6 col-md-6">
+                <i class="fa fa-image prefix" style="font-size:26px;"></i>
+                <input id="img" class="form-control file-path validate" type="file" style=" display: none;">
+                <input for="img" class="form-control file-path validate" type="text" autocomplete="off" readonly style="background: transparent;">
+                <label for="img" class="" style="width: 100%;">&nbsp;Upload Your Logo</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-block second ">
+          <div class="text-center">
+            <h3><i class="fa fa-contact"></i>
+                <span *ngIf="accountType=='merchant'" >Global Headquarter Contact Information</span>
+                  <span *ngIf="accountType!='merchant'" >Contact Information</span>
+              </h3>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-block">
+            <!--Body-->
+            <div class="row">
+              <div class="md-form col-lg-6 col-md-6">
+                <i class="fa fa-address-book prefix" style="font-size: 30px"></i>
+                <input type="text" id="offadd" value="" class="form-control" [(ngModel)]="ContactInfo.officeAdd">
+                <label class="active" for="form1" *ngIf="ContactInfo.officeAdd!=''">Office Address</label>
+                  <label  for="form1" *ngIf="ContactInfo.officeAdd==''">Office Address</label>
+              </div>
+              <div class="md-form col-lg-6 col-md-6">
+                <i class="fa fa-mobile prefix" style="font-size: 30px"></i>
+                <input type="number" id="contactForm" value="" class="form-control"
+                name="contact" (change)="store()" [(ngModel)]="contact"  (keyup)="CheckIntVal($event)">
+                <label class="active" for="contactForm" *ngIf="contact!=''">Contact Number</label>
+                <label  for="contactForm" *ngIf="contact==''">Contact Number</label>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="md-form col-lg-6 col-md-6">
+                <i class="fa fa-envelope prefix" style="font-size: 30px"></i>
+                <input type="email" id="email" value="" class="form-control" [(ngModel)]="ContactInfo.email">
+                <label class="active" for="form1" *ngIf="ContactInfo.email!=''" >Email</label>
+                <label  for="form1" *ngIf="ContactInfo.email==''" >Email</label>
+              </div>
+
+              <div class="md-form col-lg-6 col-md-6 pull-right" style="margin-top: -40px;margin-right: -44px;" >
+                <ul style="display:flex">
+                    <li class="cont" *ngFor="let contact of contactList; let i=index;" style="margin-left:10px;">{{contact}}&nbsp;
+                      <i class="fa fa-times-circle rotate" aria-hidden="true" (click)="removeContact(i)" style="cursor: pointer;"></i></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="card-block second" *ngIf="accountType=='merchant'" >
+          <div class="text-center">
+            <h3><i class="fa fa-contact"></i> Regional Contact Information</h3>
+          </div>
+        </div>
+        <div class="card" *ngIf="accountType=='merchant'" >
+          <div class="card-block" id="regContactContainer">
+
+
+            <div>
+              <div class="row">
+                <div style="padding:20px;">
+              <table class="table table-bordered"   *ngIf="regContactDatas?.length>0">
+                <tr>
+                  <th class="text-center">#</th>
+                  <th>Contact Person</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>Email</th>
+                  <th>Store</th>
+                  <th>Country</th>
+                  <th class="text-center">Delete</th>
+                </tr>
+                <tr *ngFor="let item of regContactDatas; let i=index;" >
+                  <td class="text-center">{{i+1}}</td>
+                  <td>{{item.contact}}</td>
+                  <td>{{item.phone}}</td>
+                  <td>{{item.address}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.store}}</td>
+                  <td>{{item.country}}</td>
+                  <td class="text-center">
+                    <div
+                      style=" font-size: 16px; color: red;"
+                     ><i class="fa fa-trash-o pointer"
+                     style="padding-top:0px;"
+                     title="Remove the parameter" aria-hidden="true"
+                     (click)="removeRegContactInfo(i)"
+                     ></i></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            </div>
+          </div>
+
+              <!--First row-->
+              <div class="row">
+                <!--First column-->
+                <div class="col-md-4">
+                  <div class="md-form">
+                    <i class="fa fa-globe prefix" style="font-size:2rem;"></i>
+                    <div class="btn-group" style="width: 100%">
+                      <input id="region" type="text" name="vehicle" class="form-control dropdown-toggle col-lg-12" style="display: none;">
+                      <select class="form-control" id="region" data-toggle="dropdown" style="border-top: 0px;border-left: 0px;border-right: 0px;height: 49px;width: 90%;margin-left: 34px;border-radius: 0px;border-bottom: 1px solid #ccc;"
+                      [(ngModel)]="regContactInfo.regions"
+                      (change)="SelectedRegion(regContactInfo.regions)"
+                      >
+													  <option selected>Region</option>
+													   <option *ngFor="let region of countryRegion">{{region}}</option>
+
+													</select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="md-form">
+                    <i class="fa fa-globe prefix" style="font-size:2rem;"></i>
+                    <div class="btn-group" style="width: 100%">
+                      <input id="sr" type="text" name="vehicle" class="form-control dropdown-toggle col-lg-12" style="display: none;">
+                      <select class="form-control" id="sr" data-toggle="dropdown" style="border-top: 0px;border-left: 0px;border-right: 0px;height: 49px;width: 90%;margin-left: 34px;border-radius: 0px;border-bottom: 1px solid #ccc;"
+                        [(ngModel)]="regContactInfo.subregions"
+                        (change)="SelectedSubRegion(regContactInfo.subregions)">
+													  <option>Sub Region</option>
+													   <option *ngFor="let subRegion of countrySubRegiondisp" >{{subRegion}}</option>
+													</select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="md-form">
+                    <i class="fa fa-globe prefix" style="font-size:2rem;"></i>
+                    <div class="btn-group" style="width: 100%">
+                      <input id="sr" type="text" name="vehicle" class="form-control dropdown-toggle col-lg-12" style="display: none;">
+                      <select class="form-control" id="sr" data-toggle="dropdown" style="border-top: 0px;border-left: 0px;border-right: 0px;height: 49px;width: 90%;margin-left: 34px;border-radius: 0px;border-bottom: 1px solid #ccc;"
+                      [(ngModel)]="regContactInfo.country"
+                      >
+													  <option>Country</option>
+													   <option *ngFor="let Country of countryDisp" >{{Country}}</option>
+													</select>
+                    </div>
+                  </div>
+                </div>
+                <!--Second column-->
+
+              </div>
+              <!--/.First row-->
+
+              <!--Second row-->
+              <div class="row">
+                <!--First column-->
+                <div class="col-md-4">
+
+                  <div class="md-form">
+                    <i class="fa fa-address-book prefix"></i>
+                    <input type="text" id="rec3" class="form-control" [(ngModel)]="regContactInfo.address">
+                    <label class="active" for="rec3" *ngIf="regContactInfo.address!=''">Address</label>
+                    <label  for="rec3" *ngIf="regContactInfo.address==''">Address</label>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+                  <div class="md-form">
+                    <i class="fa fa-user prefix"></i>
+                    <input type="text" id="rec2" class="form-control" [(ngModel)]="regContactInfo.contact">
+                    <label class="active" *ngIf="regContactInfo.contact!=''"
+                    for="rec2" data-error="wrong" data-success="right">Contact Person</label>
+                    <label  *ngIf="regContactInfo.contact==''"
+                    for="rec2" data-error="wrong" data-success="right">Contact Person</label>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="md-form">
+                    <i class="fa fa-mobile prefix" style="font-size: 46px; margin-top: -10px;"></i>
+                    <input type="number" id="rec4" class="form-control" [(ngModel)]="regContactInfo.phone" (keyup)="CheckIntVal($event)" >
+                    <label class="active" for="rec4" class="" *ngIf="regContactInfo.phone!=''">Contact Number</label>
+                    <label  for="rec4" class="" *ngIf="regContactInfo.phone==''">Contact Number</label>
+                  </div>
+                </div>
+
+              </div>
+              <!--/.Second row-->
+
+              <!--Third row-->
+              <div class="row">
+
+                <!--First column-->
+
+
+                <!--Second column-->
+                <div class="col-md-4">
+                  <div class="md-form">
+                    <i class="fa fa-envelope prefix" style="font-size:30px;"></i>
+                    <input type="email" id="rec5" class="form-control validate" [(ngModel)]="regContactInfo.email">
+                    <label class="active" for="rec5"  *ngIf="regContactInfo.email!=''">Email</label>
+                    <label for="rec5"  *ngIf="regContactInfo.email==''">Email</label>
+                  </div>
+                </div>
+
+                <!--Third column-->
+                <div class="col-md-4">
+                  <div class="md-form">
+                    <i class="fa fa-map-marker prefix" style="font-size:35px; margin-top: -3px"></i>
+                    <input type="text" id="rec6" class="form-control" [(ngModel)]="regContactInfo.store">
+                    <label class="active" for="rec6" *ngIf="regContactInfo.store!=''">Store Locator</label>
+                    <label  for="rec6"  *ngIf="regContactInfo.store==''">Store Locator</label>
+                  </div>
+                </div>
+              </div>
+              <!--/.Third row-->
+
+          </div>
+        </div>
+        <div class="col-md-12 form-group card-block" *ngIf="accountType=='merchant'"  >
+          <button type="button" title="Add Region"
+          (click)="addRegContactInfo()"
+          class="btn btn-sm btn-primary pull-right waves-effect"><i class="fa fa-plus-circle" style="margin-left:5px;margin-top:-9px;"></i>&nbsp;Add another region</button>
+          <!-- <button type="button" class="btn btn-warning pull-left">Save Draft</button> -->
+        </div>
+
+          <!-- border-deda bg-white padding10 -->
+          <div *ngIf="ContactInfoDisp=='' || ContactInfoDisp==null">
+            <button type="button" class="btn btn-sm btn-primary pull-right waves-effect" style="margin-right:17px;"
+             (click)="saveDetails();">
+              <i class="fa fa-floppy-o" style="margin-top: -12px;"></i>&nbsp;
+              Update Information
+            </button>
+          </div>
+          <div *ngIf="ContactInfoDisp!=''">
+            <button type="button" class="btn btn-sm btn-primary pull-right waves-effect" style="margin-right:17px;"
+             (click)="updateDetails();">
+              <i class="fa fa-floppy-o" style="margin-top: -12px;"></i>&nbsp;
+              Update Information
+            </button>
+          </div>
+      </section>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:100px;"></div>
+
+  <common-footer></common-footer>

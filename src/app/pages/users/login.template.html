@@ -1,0 +1,65 @@
+<!-- <top-menu></top-menu> -->
+<top-menu-landing></top-menu-landing>
+<div style="height: 50px;"></div>
+<div class="container-fluid merchant-bg-image" align="center" >
+  <div>
+   <div class="row">
+    <div class="col-sm-8" style="margin-top: 35px;">
+     <div style="margin-top: 10px; display:none;" class="header-content hidden-xs fadeIn animated">
+        <h1>Login Form</h1>
+        <!-- <h4>Sample content will be replaced with original paragraph later.</h4> -->
+        <h4 class='hidden-xs'>*Note: Newly registered accounts will be verified and approved by backend team,<br>Before going live in website.</h4>
+     </div>
+    </div>
+    <div class="col-sm-4 zoomIn animated" >
+      <div style="margin-top: 45px;"></div>
+           <div class="login text-left">
+            <!-- <div class="login-triangle"></div> -->
+
+            <h2 class="login-header">Login</h2>
+
+            <form class="login-container" id="merchant_signup_form">
+           <p><label>Email</label> <input id='email' type="email" >
+             <span *ngIf="errEMl=='1'" class="text-shadow fadeIn animated" style="color: #D8000C;font-style: oblique;font-size:13px;" ><i class="fa fa-times-circle"></i> Enter Email</span>
+             <span *ngIf="errEMl=='2'" class="text-shadow fadeIn animated" style="color: #D8000C;font-style: oblique;font-size:13px;" ><i class="fa fa-times-circle"></i> Not a valid Email ID</span>
+           </p>
+             <p><label>Password</label> <input id='password' type="password">
+               <span *ngIf="errPwd=='1'" class="text-shadow fadeIn animated" style="color: #D8000C;font-style: oblique;font-size:13px;" ><i class="fa fa-times-circle"></i> Enter Password</span>
+             </p>
+
+             <!-- <p class="form-group">
+               <label>Account Type</label>
+               <select class="" id="selAccType" style="background-color: white;border-radius: 5px; width:100%;height: 34px;color:#757575;font-size: 14px;">
+
+                 <option value="">Select account type</option>
+                 <option value="user">Regular account</option>
+                 <option value="merchant">Manufacture account</option>
+                 <option value="gbcistaff">GBCI staff</option>
+               </select>
+               <span *ngIf="errACTy=='1'" class="text-shadow fadeIn animated" style="color: #D8000C;font-style: oblique;font-size:13px;" ><i class="fa fa-times-circle"></i> Select Account Type</span>
+             </p>
+             <br />
+             <div id="re_captcha" class="g-recaptcha  " align="center" data-callback="verifyCallback" data-sitekey="6LexsR0UAAAAAAOYF-WmDk7R_IpFKlS-9FP4ZJ0C"></div>
+             <br /> -->
+             <p id="error"></p>
+             <p>
+   <!-- <a href="#page-merchant-dashboard" style="text-decoration:none;"> -->
+     <button id="merchantbutton" (click)="merchantSubmit();" type="button" class="submit waves-effect"  ><i class="fa fa-lightbulb-o" aria-hidden="true"></i> &nbsp; Submit</button>
+   <!-- </a> -->
+            </p>
+            <!-- <p class="text-center">
+             <small> Don't have an account? <a href="#page-register"><b>Sign up instead</b></a>.</small> <br>
+             <small><a>Forgot your password?</a></small>
+            </p> -->
+            <div style="height: 30px;"></div>
+           </form>
+          </div>
+<div style="margin-top: 93px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="panel">
+
+</div> -->
+</div>

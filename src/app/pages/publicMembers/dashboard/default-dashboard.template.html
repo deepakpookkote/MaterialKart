@@ -1,0 +1,163 @@
+<top-menu-merchant></top-menu-merchant>
+<div class="acc-container-fluid">
+<div class="row account-main-container "  >
+  <!-- <div class="col-sm-2 col-xs-1 left-main-wrap">
+    <div  class="account-left-menu"  >
+
+            <account-left-menu></account-left-menu>
+
+    </div>
+  </div> -->
+  <div class="col-sm-12 col-xs-11 right-main-wrap">
+    <div class="header-title-area" style="
+   position: fixed; width: 85%; height: 60px; z-index:99;
+    padding-left: 30px;  padding-right: 10px; padding-top:10px;">
+
+      <div  class="animated fadeInDown" >
+      <input class="form-control"
+      placeholder="Search for materials, Brands, Categories"
+         style="padding-left: 32px!important;
+                border: 1px solid silver;
+                 border-radius: 3px;"
+                  (keyup.enter)="getProducts($event.target.value)"
+         value="{{searchTitle}}" />
+         <i class="fa fa-search pull-left" style="position: relative; top: -42px; left: 10px; color:grey; " aria-hidden="true"></i>
+        <button class=" btn btn-mdb padding7 pull-right " style="position: relative; top: -55px; left: 5px; ">Search Materials</button>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+<!-- border-deda bg-white -->
+<style>
+
+.activity-boxx{
+  border-radius: 5px;
+  border:1px solid #d6d4d4;
+}
+  .activity-boxx .title .pull-right{
+    color: #5596a5;
+        font-size: 81%;
+        margin-top: 5px;
+  }
+  .activity-boxx .title .title-span{
+    position:relative; top: 5px;
+  }
+  .activity-boxx .img-thumbnail img{
+    min-height: 150px;
+  }
+  .img-thumbnail img{
+    min-height: 250px;
+  }
+.wish-list-products .table td{
+  border-top: 0px solid!important;
+
+}
+
+.wish-list-products table td{
+  padding-right: 0px;
+}
+
+.wishlist-slider-nav-right i,.wishlist-slider-nav-left i{
+  position: relative;
+  top: -100px; z-index: 99999;
+  border-radius: 50%;
+  background-color: white;
+padding: 10px;
+  border: 1px solid silver;
+}
+
+</style>
+
+        <div style="margin-top:90px;"></div>
+
+        <div class="activity-boxx">
+          <div class='title '><span class="title-span">My wish list</span>
+            <span class="pull-right">
+              <i class="fa fa-cog" aria-hidden="true"></i> Manage
+              <span>
+                <i class="fa fa-filter" aria-hidden="true" style="position:relative; left: 20px;"></i>
+              <select style="border:0px solid; padding-left: 16px!important;">
+                <option>Category</option>
+                <option><i class="icon-filter"></i> General</option>
+              </select>
+            </span>
+            </span>
+         </div>
+          <div style="height: 5px;"></div>
+
+<div class="wish-list-products table-responsive product-slider padding10 bg-white ">
+
+
+<table class=""  >
+<tr>
+  <td *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]" style="min-width: 240px;">
+    <div class="img img-thumbnail padding7 border-deda">
+      <div class="view hm-zoom">
+        <img class="waves-effect img-fluid" height="150" width="200" src="http://128.199.209.142/green-building/dev-1/api/app/images/src/3d25b0b5bfaa8d4e59982d3068536f4e">
+     </div>
+
+          <div>Dummy Product
+           <span class="pull-right">
+             <span><i aria-hidden="true" class="rubberBand animated pointer fa fa-heart-o fa-lg"></i> </span>
+           </span>
+          </div>
+     </div>
+  </td>
+ </tr>
+</table>
+
+
+<div class="pull-right wishlist-slider-nav-right">
+  <ul>
+    <!-- <li (click)="doScroll('L')"><i  class="fa fa-backward" aria-hidden="true"></i></li> -->
+    <li (click)="doScroll('R')"><i  class="fa fa-forward" aria-hidden="true"></i></li>
+    <!-- <li (click)="scrollPos=-1;doScroll('L')"><i class="fa fa-home" aria-hidden="true"></i></li> -->
+  </ul>
+</div>
+<div class="pull-left wishlist-slider-nav-left">
+  <ul>
+    <li (click)="doScroll('L')"><i  class="fa fa-backward" aria-hidden="true"></i></li>
+    <!-- <li (click)="doScroll('R')"><i  class="fa fa-forward" aria-hidden="true"></i></li> -->
+    <!-- <li (click)="scrollPos=-1;doScroll('L')"><i class="fa fa-home" aria-hidden="true"></i></li> -->
+  </ul>
+</div>
+
+
+</div>
+
+
+
+     </div>
+
+
+
+
+
+
+
+
+
+
+<div style="margin-top:100px;"></div>
+
+
+
+
+
+
+ 
+  </div>
+</div>
+</div>
+
+
+
+<common-footer></common-footer>

@@ -1,0 +1,339 @@
+<style>
+  input[type="file"] {
+    display: none;
+  }
+
+  .form-control {
+    border-radius: 5px !important;
+  }
+
+  .Heading,
+  .heading {
+    font-size: 17px;
+  }
+</style>
+<top-menu-merchant></top-menu-merchant>
+<div class="acc-container-fluid">
+  <div class="row account-main-container ">
+    <div class="col-sm-2 col-xs-1 left-main-wrap">
+      <div class="account-left-menu">
+        <account-left-menu></account-left-menu>
+      </div>
+    </div>
+    <div class="col-sm-10 col-xs-11 right-main-wrap">
+      <div class="header-title-area">
+        <h3>Product Information
+          <!-- <small><span class=" pull-right hidden-xs">Dashboard / Products / Add New &nbsp; &nbsp; &nbsp; &nbsp;</span></small> -->
+          <div class="pull-right" style="font-size:16px; font-weight:normal;">
+          <!--  <a href="#page-listing"  ><i class="fa fa-search" aria-hidden="true"></i> Go back to search</a> -->
+          <a (click)="goback()"><i class="fa fa-backward" aria-hidden="true"></i> Go Back</a> &nbsp; &nbsp; &nbsp;
+          </div>
+        </h3>
+
+      </div>
+      <section>
+        <div style="margin-top:20px;"></div>
+        <!--cut from here-->
+        <div class="border-deda bg-white padding10" style="">
+          <div class="product-information-fields" style="padding:2%">
+            <div class="row" style="margin-bottom:1%">
+              <div class="Heading">Product Information</div>
+              <div class="heading-border"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label class="control-label">Product Name <span style="color: #2196f3;">*</span></label>
+                <input class="form-control" [(ngModel)]="productName" name="productName" #prdName="ngModel" required>
+
+
+              </div>
+              <div class="col-md-6 form-group">
+                <label class="control-label">Manufacturing Location <span style="color: #2196f3;">*</span></label>
+                <input class="form-control" [(ngModel)]="manufactLocation">
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-md-6 form-group">
+                <label class="control-label">Product Category <span style="color: #2196f3;">*</span></label>
+
+
+                <select [(ngModel)]="prdCategory" (change)="parameterCategCheckbox={}; input_parameter={};"
+                 class="form-control" id="productCategory">
+
+                          <option value="">Select Category</option>
+                          <option  *ngFor="let catKey of ratingCategoriesArray" value="{{catKey.key}}">{{catKey.key}}</option>
+                        </select>
+              </div>
+            </div>
+          </div>
+          <div class="product-description-fields" style="padding:2%">
+            <div class="row" style="margin-bottom:1%">
+              <div class="Heading">Product Description</div>
+              <div class="heading-border"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label class="control-label">About the product <span style="color: #2196f3;">*</span></label>
+                <textarea class="form-control" [(ngModel)]="productDescription" style="height:40px;"></textarea>
+              </div>
+              <div class="col-md-6 form-group">
+                <label class="control-label">Website URL <span style="color: #2196f3;">*</span></label>
+                <input class="form-control" [(ngModel)]="websiteUrl" style="height:40px;">
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Listing out available parameters -->
+          <div class="product-parameters" style="padding:3px">
+            <div class="row" style="margin-bottom:1%">
+              <div class="col-md-12">
+                <div class="heading">Product Parameters</div>
+                <div class="heading-border"></div>
+
+
+              </div>
+            </div>
+          </div>
+
+
+<!--
+         <div style="margin:3px;" *ngIf="editParam!=true">
+           <div>
+             <button class="btn btn-sm btn-mdb pull-right" (click)="editParam=true;prdCategory=''">Edit</button>
+           </div>
+             <div *ngFor="let inp_param of view_Parameters; let indx=index;" style="padding-bottom:10px; border-bottom:1px solid silver;" >
+               <label>{{inp_param.key}} </label>
+
+               <div style="margin:5px; ">
+
+               <div style="margin:3px; border-top: 1px solid silver;" *ngIf="inp_param.value.submenu1 && inp_param.value.entryField" >
+                 <label>Sub Menu 1</label> <br> &nbsp; {{inp_param.value.submenu1}}<br>
+                 <label>Entry Field</label> <br> &nbsp; {{inp_param.value.entryField}}
+               </div>
+               <div   *ngIf="inp_param.value.submenu2" class="row" >
+                <div class="col-sm-12"  > <label>Submenu 2</label></div>
+                 <div class="col-sm-4"  *ngFor="let subm2 of toArrayKeyValue(inp_param.value.submenu2)">
+                  <label>{{subm2.key}}</label><br>
+                  {{subm2.value}}
+                 </div>
+             </div>
+
+           </div>
+
+
+             </div>
+         </div>
+-->
+
+
+                    <!--content begins here-->
+                    <div class="col-md-12 text-center"  >
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div align="left">
+                            <div *ngFor="let category of ratingsService.ratingCategories[prdCategory];let j=index;">
+                              <div *ngIf="prdCategory!=''" style="font-size:16px;padding:10px;">
+                                <!-- <input type="checkbox" checked="true" /> -->
+                              <input type="checkbox" *ngIf="parameterCategCheckbox[j]!=1 && addedParameters[category]==undefined" (click)=" resetCategory(category); parameterCategCheckbox[j]=(parameterCategCheckbox[j]!=1?1:0);PrintIndex(j);" />
+                               <input type="checkbox" checked="true" *ngIf="parameterCategCheckbox[j]==1 || addedParameters[category]" (click)="resetCategory(category); parameterCategCheckbox[j]=(parameterCategCheckbox[j]!=1?1:0);PrintIndex(j);" />
+                                {{category}}
+                                <div *ngIf="parameterCategCheckbox[j]==1 || addedParameters[category]">
+                                <div class="row" style="font-size:15px;padding-left:10px;" >
+                                  <div class="col-md-4" *ngIf="ratingsService.parametersExplorer[category] && ratingsService.parametersExplorer[category].subMenu1?.length>0">
+                                    <div >
+                                      <label>Sub Menu 1</label>
+                                      <select (change)="productparametersValues(category,$event.target.value);
+                                          addSubmenu1(category,$event.target.value);"
+                                       class="form-control">
+                                       <option *ngIf="addedParameters[category] && addedParameters[category]['submenu1']" selected
+                                         value="{{addedParameters[category]['submenu1']}}"
+                                       >
+                                         {{addedParameters[category]['submenu1']}} {{productparametersValues(category,addedParameters[category]['submenu1'])}}
+                                       </option>
+                                        <option value="">Select</option>
+                                        <option
+                                          *ngFor="let item of ratingsService.parametersExplorer[category].subMenu1">{{item}}
+                                      </option>
+                                    </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-8"  > 
+                                      <label>Document URL</label>
+                                      <input class="form-control"
+                                       value="{{ (addedParameters[category]==undefined || addedParameters[category]['documentUrl']==undefined) ? '': addedParameters[category]['documentUrl']}}"
+                                       (change)="addDocumentUrl(category,$event.target.value);">
+                                  </div>
+                                </div>
+                                <div class="row" style="font-size:15px;padding-left:10px;">
+                                  <div class="col-md-4">
+                                    <div *ngIf=" ( userInput[category] && userInput[category]['submenu1'] )  ">
+                                      <label>Entry Field</label>
+                                      <div *ngIf="(ratingsService.parametersExplorer[category]).entryField?.length==1 ">
+                                        <div>{{(ratingsService.parametersExplorer[category]).entryField[0]}}</div>
+                                        <input class="form-control" (change)="addEntryField(category,$event.target.value);"
+                                        value="{{(addedParameters[category] && addedParameters[category]['entryField'])?addedParameters[category]['entryField']:''}}" />
+                                      </div>
+                                      <div *ngIf="(ratingsService.parametersExplorer[category]).entryField?.length>1  ">
+                                        <div style="min-height:30px;">{{(ratingsService.parametersExplorer[category]).entryField[( ((ratingsService.parametersExplorer[category])).subMenu1).indexOf(userInput[category]['submenu1'])]}}</div>
+                                        <input class="form-control" (change)="addEntryField(category,$event.target.value);"
+                                         value="{{(addedParameters[category] && addedParameters[category]['entryField'])?addedParameters[category]['entryField']:''}}"/>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div *ngIf="userInput[category] && userInput[category]['submenu1']">
+                                      <label></label>
+                                      <div *ngIf="(ratingsService.parametersExplorer[category]).requirements?.length==1">
+                                        <div class="alert alert-info"> *{{(ratingsService.parametersExplorer[category]).requirements[0]}}</div>
+                                      </div>
+                                      <div *ngIf="(ratingsService.parametersExplorer[category]).requirements?.length>1">
+                                        <div class="alert alert-info" style="min-height:30px;padding-top:48px;">
+                                          * {{(ratingsService.parametersExplorer[category]).requirements[( ((ratingsService.parametersExplorer[category])).subMenu1).indexOf(userInput[category]['submenu1'])]}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row" style="font-size:15px;padding-left:10px;" >
+                                  <div class="col-md-12" style="border:1px dotted #0374d8;padding:10px;margin-left:13px;" *ngIf="ratingsService.parametersExplorer[category].subMenu2?.length>0">
+                                    <label >Sub Menu 2</label><br>
+                                    <div>
+                                      <div *ngFor="let subItem2 of ratingsService.parametersExplorer[category].subMenu2" class="col-md-4">
+                                        <div style="min-height:50px;">{{subItem2}}</div>
+                                        <input class="form-control"  (change)="addSubmenu2(category,subItem2,$event.target.value);"
+                                        *ngIf="addedParameters[category] && addedParameters[category]['submenu2'] && addedParameters[category]['submenu2'][subItem2]"
+                                        value="{{addedParameters[category]['submenu2'][subItem2]}}"
+                                        >
+                                        <input class="form-control"  (change)="addSubmenu2(category,subItem2,$event.target.value);"
+                                        *ngIf="addedParameters[category]==undefined || addedParameters[category]['submenu2']==undefined || addedParameters[category]['submenu2'][subItem2]==undefined"
+                                      value=""
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                            <!--content ends here-->
+
+
+
+
+
+
+                  <!-- listing out available parameters -->
+
+
+                  <!-- Adding New Parameter -->
+
+                  <div class="product-parameters" style="padding:2%" id="addProductParameterScroll">
+
+
+
+                  </div>
+
+                  <div style="height: 10px;"></div>
+
+
+
+                  <div class="product-Images" style="padding:2%">
+                    <div class="row" style="margin-bottom:1%">
+                      <div class="heading">Product Images</div>
+                      <div class="heading-border"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3 text-center">
+
+                        <table class="table">
+                          <tr>
+                            <!-- <td  style="padding-top:0px;"><i class="fa fa-picture-o fa-3x" aria-hidden="true"></i></td> -->
+                            <td style="padding-top:0px;border:none" align="center">
+                              <div style="min-height:300px;"><label for="image1"><img src="{{productImage1}}" class="img" style="width:240px; margin:3px;" ></label></div>
+                              <div><label for="image1" class="custom-file-upload">
+                              <i class="fa fa-cloud-upload"></i> Upload Image 1
+                      </label>
+                                <input type="file" class="form-control image-input" id="image1" (change)="readUrl($event,'image1')" /></div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+
+                      <div class="col-md-3 text-center" style="display:none;">
+
+                        <table class="table">
+                          <tr>
+                            <!-- <td  style="padding-top:0px;"><i class="fa fa-picture-o fa-3x" aria-hidden="true"></i></td> -->
+                            <td style="padding-top:0px;border:none" align="center">
+                              <div style="min-height:300px;"><label for="image2"><img src="{{productImage2}}" class="img" style="width:240px; margin:3px;" ></label></div>
+                              <label for="image2" class="custom-file-upload">
+                              <i class="fa fa-cloud-upload"></i> Upload Image 2
+                          </label>
+                              <input type="file" class="form-control image-input" id="image2" (change)="readUrl($event,'image2')" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+
+                      <div class="col-md-3 text-center" style="display:none;">
+
+                        <table class="table">
+                          <tr>
+                            <!-- <td  style="padding-top:0px;"><i class="fa fa-picture-o fa-3x" aria-hidden="true"></i></td> -->
+                            <td style="padding-top:0px;border:none" align="center">
+                              <div style="min-height:300px;"> <label for="image3"><img src="{{productImage3}}" class="img" style="width:240px; margin:3px;" ></label></div>
+                              <label for="image3" class="custom-file-upload">
+                              <i class="fa fa-cloud-upload"></i> Upload Image 3
+                          </label>
+                              <input type="file" class="form-control image-input" id="image3" (change)="readUrl($event,'image3')" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div style="height: 10px;"></div>
+
+
+                      <div class="alert  alert-danger" *ngIf="formErrors?.length>0">
+                        <ul>
+                          <li *ngFor="let error of formErrors" class="error">{{error}}</li>
+                        </ul>
+                      </div>
+
+
+                      <div class="alert alert-success text-center" *ngIf="successMessage">
+                        <strong>Processing </strong>, Please wait until get confirmation.
+                      </div>
+                      <div class="alert alert-danger text-center" *ngIf="failureMessage">
+                        <strong>Failed! </strong> Your product is not added successfully.Please try again.
+                        <div id="errorMessage"></div>
+                      </div>
+                      <button class="btn btn-primary pull-right  waves-effect " id="addProductBtn" (click)="updateProduct()"><i class="fa fa-save mr5" aria-hidden="true"></i> Update Product</button>
+                      <div style="height: 20px;"></div>
+                    </div>
+                  </div>
+
+                </div>
+                <!--cut ends hree-->
+                <div style="margin-top:50px;"></div>
+
+
+      </section>
+
+      </div>
+      </div>
+      </div>
+      <common-footer></common-footer>

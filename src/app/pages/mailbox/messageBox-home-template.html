@@ -1,0 +1,543 @@
+<top-menu-landing></top-menu-landing>
+<div style="height:60px;"></div>
+
+
+
+
+<div class="">
+ <div class="mail-box">
+                  <aside class="sm-side">
+                      <div class="user-head">
+
+                          <a class="inbox-avatar">
+                              <img   src="webroot/images/profile-image/Icon-user.jpg"  style="width: 80px; height: 80px; padding: 10px;">
+                          </a>
+                          <div class="user-name" *ngIf="userInfo!='' && userInfo!=undefined">
+
+                                <!-- <a href="#">{{userInfo.firstName}} {{userInfo.lastName}}</a> -->
+                                  <span style="font-size: 16px;font-weight: bold;">{{userInfo.firstName}} {{userInfo.lastName}}</span><br />
+
+
+                              <span><small>{{userInfo.email}}</small></span>
+                          </div>
+                          <!-- <a class="mail-dropdown pull-right" >
+                              <i class="fa fa-chevron-down"></i>
+                          </a> -->
+                      </div>
+                      <div class="inbox-body">
+                          <!-- <a data-target="#replyModal" data-toggle="modal"  title="Compose"  class="btn btn-compose waves-effect card-1">
+                              New Message
+                          </a> -->
+                          <!-- Modal -->
+
+
+
+                      </div>
+                      <ul class="inbox-nav inbox-divider">
+                        <li class="waves-effect" id="writeSel1">
+                            <a
+                            (click)="getInboxSendData('write');makeActive($event.target.id);"
+                            data-target="#composeModal" data-toggle="modal"  data-dismiss="modal"
+                            id="writeSel" >
+                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Write Message
+                              <!-- <span class="label label-danger pull-right">{{SentCnt}}</span> -->
+                            </a>
+                        </li>
+                          <li class="active waves-effect" id="inboxSel1">
+                              <a (click)="getInboxSendData('inbox');makeActive($event.target.id);" id="inboxSel"  >
+                                <i class="fa fa-inbox"></i> Inbox Message
+                                <!-- <span class="label label-danger pull-right">{{InboxCnt}}</span> -->
+                              </a>
+
+                          </li>
+                          <li class="waves-effect" id="sentSel1">
+                              <a (click)="getInboxSendData('sent');makeActive($event.target.id);" id="sentSel" >
+                                <i class="fa fa-envelope-o"></i> Sent Message
+                                <!-- <span class="label label-danger pull-right">{{SentCnt}}</span> -->
+                              </a>
+                          </li>
+                          <!-- <li>
+                              <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
+                          </li> -->
+                          <!-- <li>
+                              <a href="#"><i class=" fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
+                          </li> -->
+                          <li class="waves-effect" id="trashSel1">
+                              <a (click)="makeActive($event.target.id);inboxLists=[];"  id="trashSel"><i class=" fa fa-trash-o"></i> Trash</a>
+                          </li>
+                      </ul>
+                      <div style="height:120px;"></div>
+
+                      <!-- <ul class="nav nav-pills nav-stacked labels-info inbox-divider">
+                          <li> <h4>Labels</h4> </li>
+                          <li> <a href="#"> <i class=" fa fa-sign-blank text-danger"></i> Work </a> </li>
+                          <li> <a href="#"> <i class=" fa fa-sign-blank text-success"></i> Design </a> </li>
+                          <li> <a href="#"> <i class=" fa fa-sign-blank text-info "></i> Family </a>
+                          </li><li> <a href="#"> <i class=" fa fa-sign-blank text-warning "></i> Friends </a>
+                          </li><li> <a href="#"> <i class=" fa fa-sign-blank text-primary "></i> Office </a>
+                          </li>
+                      </ul>
+                      <ul class="nav nav-pills nav-stacked labels-info ">
+                          <li> <h4>Buddy online</h4> </li>
+                          <li> <a href="#"> <i class=" fa fa-circle text-success"></i>Alireza Zare <p>I do not think</p></a>  </li>
+                          <li> <a href="#"> <i class=" fa fa-circle text-danger"></i>Dark Coders<p>Busy with coding</p></a> </li>
+                          <li> <a href="#"> <i class=" fa fa-circle text-muted "></i>Mentaalist <p>I out of control</p></a>
+                          </li><li> <a href="#"> <i class=" fa fa-circle text-muted "></i>H3s4m<p>I am not here</p></a>
+                          </li><li> <a href="#"> <i class=" fa fa-circle text-muted "></i>Dead man<p>I do not think</p></a>
+                          </li>
+                      </ul> -->
+
+                      <!-- <div class="inbox-body text-center">
+                          <div class="btn-group">
+                              <a class="btn mini btn-primary" href="javascript:;">
+                                  <i class="fa fa-plus"></i>
+                              </a>
+                          </div>
+                          <div class="btn-group">
+                              <a class="btn mini btn-success" href="javascript:;">
+                                  <i class="fa fa-phone"></i>
+                              </a>
+                          </div>
+                          <div class="btn-group">
+                              <a class="btn mini btn-info" href="javascript:;">
+                                  <i class="fa fa-cog"></i>
+                              </a>
+                          </div>
+                      </div> -->
+
+                  </aside>
+                  <style>
+
+
+
+
+                  </style>
+                  <aside class="lg-side">
+                      <div class="inbox-head">
+
+                          <h3>
+                            <span *ngIf="messageType=='inbox'" style="color:#827E7E;">Inbox Messages </span>
+                            <span *ngIf="messageType=='sent'" style="color:#827E7E;">Sent Messages </span>
+                         </h3>
+                          <form action="#" class="pull-right position">
+                              <div class="input-append">
+                                  <input type="" class="sr-input" placeholder="Search Message">
+                                  <button class="btn sr-btn waves-effect" type="button"><i class="fa fa-search"></i></button>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="inbox-body">
+                         <div class="mail-option">
+                                <!-- <span data-tooltip="I’m a button with a tooltip" class=""
+                                >I’m a button with a tooltip
+                              </span> -->
+
+                             <div class="chk-all waves-effect" *ngIf="inboxLists?.length>0">
+
+
+                          <input type="checkbox" class="mail-checkbox mail-group-checkbox"  title="Check all messages" id="ckall" (click)="checkAll($event)">&nbsp;All
+
+                                 <!-- <div class="btn-group">
+                                     <a data-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
+                                         All
+                                         <i class="fa fa-angle-down "></i>
+                                     </a>
+                                     <ul class="dropdown-menu">
+                                         <li><a href="#"> None</a></li>
+                                         <li><a href="#"> Read</a></li>
+                                         <li><a href="#"> Unread</a></li>
+                                     </ul>
+                                 </div> -->
+                             </div>
+                             <!-- *ngIf="deleteMsgArr?.length>0"  -->
+                             <div class="chk-all waves-effect" >
+
+                                <i class=" fa fa-trash-o text-danger" title="Delete messages"></i>
+
+                                <i class="fa fa-ban text-danger" title="Mark as Spam" ></i>
+
+                             </div>
+                             <div class="chk-all waves-effect">
+                              <i class="fa fa-refresh"></i>
+                            </div>
+                             <!-- <div class="btn-group">
+                                 <a  title="Refresh" class="btn waves-effect" style="color:#595959!important;">
+                                     <i class="fa fa-refresh"></i>
+                                 </a>
+                             </div> -->
+                             <!-- <div class="btn-group hidden-phone">
+                                 <a data-toggle="dropdown" href="#" class="btn mini blue" aria-expanded="false">
+                                     More
+                                     <i class="fa fa-angle-down "></i>
+                                 </a>
+                                 <ul class="dropdown-menu">
+                                     <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                                     <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
+                                     <li class="divider"></li>
+                                     <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                 </ul>
+                             </div>
+                             <div class="btn-group">
+                                 <a data-toggle="dropdown" href="#" class="btn mini blue">
+                                     Move to
+                                     <i class="fa fa-angle-down "></i>
+                                 </a>
+                                 <ul class="dropdown-menu">
+                                     <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                                     <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
+                                     <li class="divider"></li>
+                                     <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                 </ul>
+                             </div> -->
+
+                             <ul class="unstyled inbox-pagination">
+                                 <li><span>1-50 of 234</span></li>
+                                 <li>
+                                     <a class="np-btn waves-effect" ><i class="fa fa-angle-left  pagination-left"></i></a>
+                                 </li>
+                                 <li>
+                                     <a class="np-btn waves-effect" ><i class="fa fa-angle-right pagination-right"></i></a>
+                                 </li>
+                             </ul>
+                         </div>
+                          <table class="table table-inbox table-hover">
+                            <tbody>
+                              <!-- <tr class="unread"> -->
+                                <!-- <tr *ngIf="inboxLists?.length>0"
+                                  class="waves-effect" *ngFor="let inboxlist of inboxLists; let i=index;" > (mouseover)="MouseOverDelete('1',i);" (mouseout)="MouseOverDelete('0',i);"-->
+                                   <tr *ngFor="let inboxlist of inboxLists; let i=index;" style="animation-duration: 1s;color:#827E7E;"  >
+                                  <td class="inbox-small-cells" style="width:20px;">
+                                      <!-- <input type="checkbox" class="mail-checkbox" id="ckbox{{i}}"> -->
+                                      <input type="checkbox" (click)="SingleMsgSelect($event.target.checked,inboxlist.messageTracker);" class="mail-checkbox" [checked]="inboxlist.checked" />
+                                      <!-- <input type="checkbox" name="ckboxname[{{i}}]"  [checked]="inboxlist.selected"
+                                      value="inboxlist.selected" id="ckbox{{i}}" (change)="inboxlist.selected = !(inboxlist.selected)"/> -->
+                                  </td>
+
+                                  <td *ngIf="messageType=='inbox'" class="view-message  dont-show  animated fadeIn" data-target="#ViewMsgModal" data-toggle="modal"
+                                  (click)="messageDetail=inboxlist" style="width:10%;">{{inboxlist.fromName}}</td>
+                                  <td *ngIf="messageType=='sent'" class="view-message  dont-show  animated fadeIn" data-target="#ViewMsgModal" data-toggle="modal"
+                                  (click)="messageDetail=inboxlist" style="width:10%;">{{inboxlist.toName}}</td>
+
+
+                                  <td class="view-message  inbox-small-cells  animated fadeIn" data-target="#ViewMsgModal" data-toggle="modal"
+                                  (click)="messageDetail=inboxlist" style="width:30%;">{{inboxlist.productName}}</td>
+                                  <td class="view-message  animated fadeIn" data-target="#ViewMsgModal" data-toggle="modal"
+                                  (click)="messageDetail=inboxlist" style="width:50%;">
+                                  <!-- Template for reply meassages -->
+                                  <div *ngIf="inboxlist.replyMessages" class="reply-message-header-on-list">
+                                      {{inboxlist.replyMessages[0].message|slice:0:20}}
+                                   </div>
+                                   <span *ngIf="inboxlist.replyMessages"><i class="fa fa-retweet reply-message-header-on-list" aria-hidden="true"></i> </span>
+                                  {{inboxlist.message|slice:0:40}}
+                                </td>
+
+                                  <td  class="view-message  animated fadeIn text-right" data-target="#ViewMsgModal" data-toggle="modal"
+                                   (click)="messageDetail=inboxlist" style="width:20%;">{{inboxlist.dateAdded.date|date:'short'}}</td>
+                                   <!-- <td *ngIf="mouseOverDelete[i]==true" class="view-message  animated fadeIn text-right" style="width:20%;">
+                                     <i class="fa fa-trash-o fa-2x delIcon"></i></td> -->
+
+
+                              </tr>
+
+                                   <tr *ngIf="inboxLists?.length<1">
+                                     <td colspan="8" class="text-center animated pulse text-capitalize" style="animation-duration: 1s;color:#999FBF">
+                                       <i class="fa fa-frown-o"></i>&nbsp;Message Box Empty !</td>
+                                   </tr>
+
+
+
+                          </tbody>
+                          </table>
+                      </div>
+                  </aside>
+
+
+
+
+              </div>
+</div>
+
+
+
+<!-- /.modal View message -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="ViewMsgModal" class="modal fade" style="display: none;">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">
+    <span *ngIf="messageType=='inbox'" style="color:#827E7E;">Inbox Message </span>
+    <span *ngIf="messageType=='sent'" style="color:#827E7E;">Sent Message </span>
+
+    <div class="pull-right" style="font-size: 14px; margin:5px; position:relative; right: 20px;">
+      <div class="chk-all waves-effect" >
+
+         <i class="fa fa-reply-all " title="Reply" data-target="#replyModal" data-toggle="modal"  data-dismiss="modal"></i> &nbsp;
+         <i class="fa fa-ban " title="Mark as Spam"></i> &nbsp;
+          <i class="fa fa-trash text-danger " title="Delete Message"></i>
+
+      </div>
+    </div>
+
+  </h3>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="messageDetail">
+      <div  style="background-color: #F7F7F7;">
+       <h4>{{messageDetail.productName}}</h4>
+
+
+     </div>
+
+<div style="padding:10px; max-height:300px; overflow-y: auto;">
+
+<div *ngIf="messageDetail.replyMessages" >
+    <div *ngFor="let replyMessage of messageDetail.replyMessages" class="border-bottom-silver-dashed">
+      <div class="text-left padding5">
+        <i class="fa fa-user" aria-hidden="true"></i> {{replyMessage.toName}}<br>
+        <i class="fa fa-clock-o" aria-hidden="true"></i> {{replyMessage.dateAdded.date|date:'medium'}}</div>
+      <p class="reply-message-header-on-list padding5 text-justify">
+        {{replyMessage.message}}
+      </p>
+    </div>
+ </div>
+ <!-- Parent message -->
+ <div class="text-left padding5" *ngIf="messageType=='inbox'">
+     <i class="fa fa-user" aria-hidden="true"></i> {{messageDetail.fromName}}<br>
+     <i class="fa fa-clock-o" aria-hidden="true"></i> {{messageDetail.dateAdded.date|date:'medium'}}
+ </div>
+ <div class="text-left padding5" *ngIf="messageType=='sent'">
+   <i class="fa fa-user" aria-hidden="true"></i> {{messageDetail.toName}}<br>
+   <i class="fa fa-clock-o" aria-hidden="true"></i> {{messageDetail.dateAdded.date|date:'medium'}}
+ </div>
+         <p class="text-justify padding5" >
+           {{messageDetail.message}}
+         </p>
+</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="messageType=='inbox'" type="button" data-target="#replyModal" data-toggle="modal" class="btn btn-sm btn-blue-grey pull-right waves-effect" data-dismiss="modal">
+       Reply
+      </button>
+    <button type="button" class="btn btn-sm btn-mdb pull-right waves-effect" data-dismiss="modal">Cancel</button>
+
+  </div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal compose message -->
+
+
+
+
+<!-- /.modal Reply message -->
+<div aria-hidden="true"  role="dialog" tabindex="-1" id="replyModal" class="modal fade" style="display: none;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" style="color:#827E7E;">Reply to message</h4>
+      </div>
+      <div class="modal-body">
+      <h4 style="color:#827E7E;">Message to : {{messageDetail.fromName}}</h4>
+      <h5 style="color:#827E7E;">Product : {{messageDetail.productName}}</h5>
+      <div class="form-group">
+        <h3 style="color:#827E7E;"><b>Message</b></h3><br />
+        <textarea class="form-control" id="ReplyMSG" style="width: 100%;height: 130px;resize: none;overflow:auto;"></textarea>
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        <span *ngIf="showErr==true" >
+              <div class="alert alert-danger animated zoomIn pull-left">
+                  <strong><i class="fa fa-exclamation-circle"></i></strong> {{showErrMsg}}
+              </div>
+           </span>
+           <span *ngIf="showsuccssMsg==true" >
+                 <div class="alert alert-success animated zoomIn pull-left">
+                     <strong><i class="fa fa-check"></i></strong> {{showErrMsg}}
+                 </div>
+              </span>
+
+        <button type="button" class="btn btn-sm btn-mdb waves-effect" data-dismiss="modal" (click)="ClearData();">Cancel <i class="fa fa-times-circle"></i></button>
+        <!-- <button type="button" class="btn btn-warning pull-left">Save Draft</button> -->
+        <button type="button" class="btn btn-sm btn-primary waves-effect"
+        (click)="SendPress(messageDetail)"
+        >Send &nbsp;<i  class="fa fa-arrow-circle-right"></i></button>
+
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal compose message -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- /.modal Compose message -->
+<div aria-hidden="true"  role="dialog" tabindex="-1" id="composeModal" class="modal fade" style="display: none;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" style="color:#827E7E;">Write a message</h4>
+      </div>
+      <div class="modal-body" style="max-height: 420px; overflow-y:scroll;">
+      <!-- <label style="color:#827E7E;">Message to : </label>
+      <input class="form-control" placeholder="Message to" /> -->
+
+      <!-- Project Selection -->
+
+              <!-- Product Hint -->
+              <div>
+
+                  <label style="color:#827E7E;">Select Project : </label>
+                  <br />
+                  <input  type="" class="form-control emlSearch" placeholder="Search Product"
+                  (click)="writeMsgProjectFilter(); writeMsgProjHintContainer=true;"
+                  (keyup)="writeMsgProjectFilter(); writeMsgProjHintContainer=true;"
+                  [(ngModel)]="writeMsgProjectFilterModel" autocomplete="off"
+                  (keyup.enter)="writeMsgProjectFilter()" style="width:75%;border-radius: 4px;"
+                  (change)="writeMessageUpdateProjectList()"
+                  />
+                  <div style="position:absolute;z-index:999;background-color: #fff;"
+                  *ngIf="writeMsgProjHintContainer==true && writeMsgProjectFilterModel!=''"
+                  >
+                  <div class="sharehint-container border-deda" style="position: relative; top: -10px;">
+                    <div class="animation-bottom10">
+                       <table class="table table-hover pointer">
+                                  <tr *ngFor="let hint of writeMsgWishlistCategories; let i=index;"
+                                  (click)="writeMsgProjectFilterModel=hint;writeMsgProjHintContainer=false;" >
+                                  <td class=" text-left">{{hint}}</td>
+                                  </tr>
+                              </table>
+                      </div>
+                    </div>
+
+                  </div>
+
+            </div>
+            <!-- Product hint -->
+      <!-- Project Selection -->
+
+
+
+              <!-- Product Hint -->
+              <div>
+
+                  <label style="color:#827E7E;">Product : </label>
+                  <br />
+                  <input  type="" class="form-control emlSearch" placeholder="Search Product"
+
+                  [(ngModel)]="writeMsgProjectModel" autocomplete="off"
+                  style="width:75%;border-radius: 4px;"
+                  />
+                  <div style="position:absolute;z-index:999;background-color: #fff;">
+                  <div class="sharehint-container border-deda"  *ngIf="writeMsgHintContainer==true"
+            style="position: relative; top: -10px;">
+                    <div class="animation-bottom10">
+                       <table class="table table-hover pointer">
+                                  <tr *ngFor="let hint of writeMessageUpdateProjectList; let i=index;" (click)="writeMsgProjectModel=hint;writeMsgHintContainer=false;" >
+                                  <td class=" text-left">{{hint.name}}</td>
+                                  </tr>
+                              </table>
+                      </div>
+                    </div>
+
+                  </div>
+
+            </div>
+            <!-- Product hint -->
+
+
+
+  <!-- To Address -->
+  <div>
+
+      <label style="color:#827E7E;">Message to :
+
+      <div style="border-radius: 4px;width:100%;position: relative;top: -10px; padding-top: 3px; " >
+        <div class="pull-left">
+             <span class="tags animate zoomIn" *ngFor="let emailList of emailLists;let i=index;">{{emailList}}<span class="tag-close-btn"><i class="fa fa-times" (click)="removeEmail(i);"></i></span></span>
+         </div>
+        <!-- <input class="pull-left inptag" id="tagenter" (keyup.enter)="addEmail($event.target.value)" placeholder="Enter Tag"/> -->
+      </div></label>
+      <br />
+      <input  type="" class="form-control emlSearch" placeholder="Search Email"
+      (keyup)="getUserListInfo($event.target.value); usersearchObject=$event.target.value;"
+      [(ngModel)]="usersearchObject" autocomplete="off"
+      (keyup.enter)="getUserListInfo($event.target.value);usersearchObject=$event.target.value;" style="width:75%;border-radius: 4px;"
+      />
+      <div style="position:absolute;z-index:999;background-color: #fff;">
+      <div class="sharehint-container border-deda" (mouseleave)='closeUserListContainer()' *ngIf="userhintContainer==true"
+style="position: relative; top: -10px;">
+        <div class="animation-bottom10">
+           <table class="table table-hover pointer">
+                      <tr *ngFor="let hint of userhintEmail; let i=index;" (click)="UserhintPull(hint);userhintContainer=false;" >
+                      <td class=" text-left">{{hint.email}}</td>
+                      </tr>
+                  </table>
+          </div>
+        </div>
+
+      </div>
+
+</div>
+<!-- To Address -->
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="form-group">
+        <h3 style="color:#827E7E;">Message</h3>
+        <textarea class="form-control" id="WriteMSG" style="width: 100%;height: 130px;border-radius: 4px;resize: none;overflow:auto; background:#e8e8e8;"></textarea>
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        <span *ngIf="showErr==true" >
+              <div class="alert alert-danger animated zoomIn pull-left">
+                  <strong><i class="fa fa-exclamation-circle"></i></strong> {{showErrMsg}}
+              </div>
+           </span>
+           <span *ngIf="showsuccssMsg==true" >
+                 <div class="alert alert-success animated zoomIn pull-left">
+                     <strong><i class="fa fa-check"></i></strong> {{showErrMsg}}
+                 </div>
+              </span>
+
+        <button type="button" class="btn btn-sm btn-mdb waves-effect" data-dismiss="modal" (click)="ClearData();">Cancel <i class="fa fa-times-circle"></i></button>
+        <!-- <button type="button" class="btn btn-warning pull-left">Save Draft</button> -->
+        <button type="button" class="btn btn-sm btn-primary waves-effect"
+        (click)="SendPress(messageDetail)"
+        >Send &nbsp;<i  class="fa fa-arrow-circle-right"></i></button>
+
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal compose message -->
+
+
+
+
+
+<common-footer></common-footer>

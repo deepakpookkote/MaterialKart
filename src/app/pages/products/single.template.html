@@ -1,0 +1,798 @@
+<top-menu-landing></top-menu-landing>
+<!-- Header -->
+
+
+<div style="height:70px;"></div>
+<!-- Contact Container -->
+<div class="container" *ngIf="product.productId!=''">
+
+ <!-- <div [innerHTML]="pageContent"></div> -->
+  <!-- Content -->
+  <div class="pull-right" style="font-size:16px;"> <br>
+  <!--  <a href="#page-listing"  ><i class="fa fa-search" aria-hidden="true"></i> Go back to search</a> -->
+  <a (click)="goback()"><i class="fa fa-backward" aria-hidden="true"></i> Go Back</a> &nbsp; &nbsp; &nbsp;
+  </div>
+  <h3>{{product.name}}&nbsp;
+
+<span style="position:relative; top:-5px;  font-size: 14px">
+  <span    *ngIf="accountType=='user' || accountType=='gbcistaff'">
+    <span  *ngIf="findInWishlist(product.productId)!=true;"><i (click)="wishListPopup(product,true)"  class="rubberBand animated pointer fa fa-bookmark-o fa-lg" aria-hidden="true"></i> </span>
+    <span  *ngIf="findInWishlist(product.productId)==true; "><i (click)="removeParticularWishlist(product.productId)" style="color: #ca3113" class="rubberBand animated pointer fa fa-bookmark fa-lg" aria-hidden="true"></i></span>
+  </span>
+</span>
+</h3>
+
+  <hr style="border-bottom:0px solid grey;">
+
+<div class="row">
+  <div class="col-md-6">
+
+
+
+
+
+          <article class="material-detail-info">
+            <!-- <header>Description</header> -->
+          <!--  <p class="product-description" [innerHTML]="product.description"></p> -->
+          <p class="product-description text-justify">{{product.description| slice:0:450}}..</p>
+          </article>
+
+
+
+
+
+
+
+<div style="border-top: 0px solid silver;padding-top: 5px; position:relative; top:0px;">
+
+
+
+
+
+
+
+        <div class="material-detail-info manufacturer-info" *ngIf="merchantInfo!=undefined">
+          <h4>Manufacturer Details</h4>
+<div style="    padding-top: 16px; padding-bottom: 25px;" >
+          <img *ngIf="product.manufacturer!=undefined" src="./webroot/images/manufacturer/{{product.manufacturer.logo}}" width="130" />
+</div>
+          <div class="material-basic-info-column" style="font-size:17px;">
+
+
+            <div class="row basic-info-row" *ngIf="merchantInfo.name">
+              <div class="col-md-4">Manufacturer</div>
+              <div class="col-md-8"><span ngDefaultControl>{{merchantInfo.name}}</span></div>
+            </div>
+            <div class="row basic-info-row" *ngIf="merchantInfo.websiteUrl">
+              <div class="col-md-4">Website</div>
+              <div class="col-md-8"><span ngDefaultControl>
+                <a href="{{merchantInfo.websiteUrl}}" target="_blank">{{merchantInfo.websiteUrl}}</a></span></div>
+            </div>
+            <div class="row basic-info-row" *ngIf="merchantInfo.email">
+              <div class="col-md-4">Email</div>
+              <div class="col-md-8"><span ngDefaultControl><a href="mailto:{{merchantInfo.email}}">{{merchantInfo.email}}</a></span></div>
+            </div>
+            <!-- <div class="row basic-info-row" *ngIf="merchantInfo.regionalContacts.length >0">
+              <div class="col-md-4">Store Locator</div>
+              <div class="col-md-8"><span ngDefaultControl><a href="{{merchantInfo.email}}" target="_blank">{{merchantInfo.regionalContacts[0].storeLocator}}</a></span></div>
+            </div> -->
+          </div>
+        </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+    <article class="material-detail-info" style="border-top: 0px solid silver;padding-top: 10px; position: relative; top: 0px;">
+      <h4>Basic Information</h4>
+      <section>
+        <div class="material-basic-info-column" style="font-size:17px;">
+          <div class=" row basic-info-row">
+            <div class="col-md-4">URL:</div>
+            <div class="col-md-8  " style="word-wrap: break-word; width: 350px;">
+              <a  href="{{product.websiteUrl}}" target="_blank">{{product.websiteUrl}}</a>
+            </div>
+          </div>
+          <div class="row basic-info-row">
+            <div class="col-md-4">Category</div>
+            <div class="col-md-8">{{product.category}}</div>
+          </div>
+          <div class="row basic-info-row">
+            <div class="col-md-4">Manufacturer<br>Location</div>
+            <div class="col-md-8">{{product.manufactureLocation}}</div>
+          </div>
+            <!-- <div class="row basic-info-row">
+              <div class="col-md-4">Product Status</div>
+              <div class="col-md-8 text-capitalize">{{product.status}}</div>
+            </div> -->
+        </div>
+      </section>
+    </article>
+
+
+
+
+
+
+
+
+
+
+  </div>
+  <div class="col-md-6 zoomIn animated">
+    <div class="">
+    <!-- <img *ngIf="product.images!=undefined" style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" src="{{getApiUrl}}images/src/{{product.images.image1}}" class="img-rounded" style="width:100% " /> -->
+<img  style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center img-rounded" *ngIf="product.images!=undefined" src="{{getApiUrl}}images/src/{{product.images.image1}}" height="400" width="500"/>
+</div>
+    <hr>
+
+
+
+
+    <article class="material-detail-info">
+
+      <h4>Product Tags</h4>
+      <section style="font-size:17px;">
+        <span>{{product.category}}</span>,
+
+        <span *ngFor="let params of addedParameters; let i=index;">
+          <span  >{{ toArrayValue( params )[0].param }}</span>
+          <span *ngIf="i<(addedParameters?.length)-1">,</span>
+        </span>
+      </section>
+    </article>
+
+<article class="material-detail-info" *ngIf="productInProjects?.length>0">
+  <h4>Projects</h4>
+  <section style="font-size:17px;">
+    <span *ngFor="let project of productInProjects; let i=index;">
+      <!-- routerLink="/page-project" -->
+      <!-- [routerLink]="['/page-project', project.category]" -->
+      <span class="pointer padding2"
+        [routerLink]="['/page-project', project.category]"
+       >{{project.category}}</span><span *ngIf="i<(productInProjects?.length)-1">,</span>
+    </span>
+  </section>
+</article>
+
+
+
+
+
+
+  </div>
+</div>
+<div class="material-detail-info" >
+
+
+  <h4>Ratings</h4>
+  <section>
+<div *ngFor="let rating of leadsPossible" style="font-size:17px;">
+  {{rating}}
+  <div *ngIf="rating=='LEED V4 BD+C CREDITS/PREREQUISITES'">
+    <ul>   <li *ngFor="let credits of leadbdcPossibles"> &nbsp; &nbsp; &#8226; &nbsp; {{credits}}</li> </ul>
+  </div>
+  <div *ngIf="rating=='LEED V4 ID+C CREDITS/PREREQUISITES'">
+    <ul>   <li *ngFor="let credits of leadidcPossibles"> &nbsp; &nbsp; &#8226; &nbsp; {{credits}}</li> </ul>
+  </div>
+</div>
+</section>
+ <hr>
+<!-- <header>Credits</header>
+<section>
+<div *ngFor="let credits of creditsPossible">{{credits}}</div>
+</section>
+<hr> -->
+
+
+  <h4>Product Parameters</h4>
+    <div class="table-responsive" style="font-size:17px;">
+      <table class="table table-bordered product-param-table" style="margin-top:0.6em">
+        <thead>
+          <tr>
+            <th style="font-weight:bold;">Parameter Name</th>
+            <th style="font-weight:bold;">Document URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let params of addedParameters; let i=index;">
+            <td>{{ toArrayValue( params )[0].param }}</td>
+            <td><a href="{{ toArrayValue( params )[0].informations['Document url'] }}" target="_blank">View Document</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+<!-- Chat msg design -->
+
+
+  <!--<div class="container">
+	<div class="row">
+        <div class="round hollow">
+        <a (click)="openChat();" id="addClass"><span class="fa fa-comments-o"></span>  Message Us &nbsp;<span class="badge"  *ngIf="messageUnread==true">5</span>  </a>
+        </div>
+  	</div>
+</div>
+
+
+<div class="popup-box chat-popup animate zoomIn" id="qnimate" style="animation-duration: 1s;">
+    		  <div class="popup-head">
+				<div class="popup-head-left pull-left">
+          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+
+          {{currentUserInfo.firstName}}</div>
+					  <div class="popup-head-right pull-right">
+						<div class="btn-group">
+
+              <button class="chat-header-button" data-toggle="dropdown" (click)="hideMenu1=!hideMenu1;hideMenu2=false;" type="button" aria-expanded="false">
+             <i class="fa fa-user"></i> </button>
+
+            &nbsp;
+    								  <button class="chat-header-button" data-toggle="dropdown" (click)="hideMenu1=false;hideMenu2=true;" type="button" aria-expanded="false">
+									   <i class="glyphicon glyphicon-cog"></i> </button>
+									  <ul role="" class="dropdown-menu pull-right" *ngIf="hideMenu2==true">
+
+
+                    <li><a><i class="fa fa-history" style="color:#7b7b7b;"></i>&nbsp;Chat History</a></li>
+										<li><a><i class="fa fa-envelope-o" style="color:#7b7b7b;"></i>&nbsp;Email Chat</a></li>
+                    <li><a (click)="clearComments();"><i class="fa fa-trash" style="color:red;"></i>&nbsp;Clear Chat</a></li>
+									  </ul>
+						</div>
+
+						<button (click)="closeChat();" data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><i class="glyphicon glyphicon-off"></i></button>
+          </div>
+          <div class="animate zoomIn" *ngIf="hideMenu1==true" style="animation-duration: 1s;">
+            <br />
+            <input type="" class="form-control emlSearch" placeholder="Search Email" style="border-radius: 5px; width: 325px;font-size: 10px;margin-top: 25px"
+            (keyup)="getUserListInfo($event.target.value); usersearchObject=$event.target.value;"
+            [(ngModel)]="usersearchObject" autocomplete="off"
+            (keyup.enter)="getUserListInfo($event.target.value);usersearchObject=$event.target.value;"
+            />
+
+            <div style="position:absolute;z-index:99;">
+            <div class="sharehint-container border-deda" (mouseleave)='closeUserListContainer()' *ngIf="userhintContainer==true"
+style="position: relative; top: -15px;">
+              <div class="animation-bottom10">
+                 <table class="table table-hover pointer">
+                            <tr *ngFor="let hint of userhintEmail; let i=index;" (click)=" UserhintPull(hint.email,hint.userId,'0');userhintContainer=false;" >
+                            <td class="text-capitalize text-left">{{hint.email}}</td>
+                            </tr>
+                        </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+			  </div>
+			<div class="popup-messages">
+
+
+
+			<div class="direct-chat-messages animate zoomIn" *ngFor="let Comment of Comments;let i=index;">
+
+                    <div>
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">{{currentUserInfo.firstName}}</span>
+                      </div>
+
+
+                      <div class="direct-chat-text">
+                        {{Comment.msg}}
+                      </div>
+          					  <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-timestamp pull-right">{{curr_hour}}:{{curr_min}}</span>
+                      </div>
+
+                    </div>
+                    <div class="chat-box-single-line">
+          								<abbr class="timestamp">{{Comment.date}}</abbr>
+          					</div>
+
+        </div>
+			</div>
+			<div class="popup-messages-footer">
+
+        <input style="width:98% !important" type="text" id="messgenter" placeholder="Type a message..." class="form-control" (keyup.enter)="addComment($event.target.value)">
+
+			<div class="btn-footer">
+        <div *ngIf="UserListErr==true" class='text-shadow fadeIn animated' style='color: #D8000C;font-style: oblique;font-size:13px;' >
+          <i class='fa fa-times-circle'></i>&nbsp;{{UserListErrMsg}}
+        </div>
+        <span class="tags animate zoomIn" *ngIf="selectedMessageUser!=''">Message to {{selectedMessageUser}}</span>
+
+			<button class="bg_none"><i class="glyphicon glyphicon-film"></i> </button>
+			<button class="bg_none"><i class="glyphicon glyphicon-camera"></i> </button>
+      <button *ngIf="selectedMessageUser!=''" class="bg_none " (click)="selectedMessageUser=''" title="Clear User"><i class="fa fa-eraser"></i> </button>
+			<button class="bg_none pull-right" (click)="SendPress();" title="Send Message"><i class="fa fa-paper-plane"></i> </button>
+			</div>
+			</div>
+	  </div>
+
+
+-->
+
+<!-- Comments Blogs  -->
+
+<div class=" ">
+
+  <div class='comments border-deda' style="font-size:17px;">
+    <h4>Internal Messaging
+      <div class="pull-right">
+        <div class="dropdown">
+          <button style="
+          padding: 4px;
+          font-size: 14px;
+          padding-bottom: 0px;
+          padding-top: 4px;
+              background:#fd6464;
+              " title="Report / Queries" class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown"> <i class="fa fa-flag" aria-hidden="true"></i>
+          <!--<span class="caret"></span>-->
+        </button>
+          <ul class="dropdown-menu" style="left: -120px; background:#eee;">
+            <li><a (click)="messageFlag='queries';messageFlagInput={}">Queries</a></li>
+            <li><a (click)="messageFlag='complaints';messageFlagInput={manufacturer:true}">Complaints</a></li>
+            <li><a (click)="messageFlag='copyright';messageFlagInput={manufacturer:true}">Copyright concerns</a></li>
+          </ul>
+        </div>
+      </div>
+    </h4>
+
+    <div class='inner'>
+      <div class='add-new'>
+        <div class="flag-alert" *ngIf="messageFlag!=''">
+        <div *ngIf="messageFlag=='queries'" class="alert alert-info " style="width:100%;">
+          Ask your questions with manufacturer.
+          <span (click)="messageFlag='';messageFlagInput={}" class="pull-right pointer"><i class="fa fa-times" aria-hidden="true"></i></span>
+        </div>
+        <div *ngIf="messageFlag=='complaints'" class="alert alert-info " style="width:100%;">
+          Complaints - regarding product quality or other.
+            <ul>
+              <li><input checked type="checkbox" id="manufacturerID" value="manufacturer" [(ngModel)]="messageFlagInput.manufacturer" />
+                  <label for="manufacturerID" class="pointer">Send message to manufacturer</label></li>
+              <li><input type="checkbox" value="siteadmin" id="siteadminID" [(ngModel)]="messageFlagInput.siteadmin" />
+                  <label for="siteadminID" class="pointer">Send message to site admin</label></li>
+            </ul>
+          <span (click)="messageFlag='';messageFlagInput={}" class="pull-right pointer topM10"><i class="fa fa-times" aria-hidden="true"></i></span>
+        </div>
+        <div *ngIf="messageFlag=='copyright'" class="alert alert-info " style="width:100%;">
+          Copyright concerns - unathorized use of copyrighted material, content, images.
+          <ul>
+            <li><input checked type="checkbox" id="manufacturerID" for="manufacturerID" value="manufacturer" [(ngModel)]="messageFlagInput.manufacturer" />
+              <label for="manufacturerID" class="pointer">Send message to manufacturer</label></li>
+            <li><input type="checkbox" value="siteadmin" id="siteadminID" [(ngModel)]="messageFlagInput.siteadmin" />
+              <label for="siteadminID" class="pointer">Send message to site admin</label ></li>
+          </ul>
+          <span (click)="messageFlag='';messageFlagInput={}" class="pull-right pointer topM10"><i class="fa fa-times" aria-hidden="true"></i></span>
+        </div>
+        </div>
+
+        <input *ngIf="messageFlag=='';" type="text" class="input your-name emlSearch" placeholder="Search Email"
+        (keyup)="getUserListInfo($event.target.value); usersearchObject=$event.target.value;"
+        [(ngModel)]="usersearchObject" autocomplete="off"
+        (keyup.enter)="getUserListInfo($event.target.value);usersearchObject=$event.target.value;"
+        />
+
+        <div style="position:absolute;z-index:99;">
+        <div class="sharehint-container border-deda" (mouseleave)='closeUserListContainer()' *ngIf="userhintContainer==true"
+style="position: relative; top: -10px;">
+          <div class="animation-bottom10">
+             <table class="table table-hover pointer">
+                        <tr *ngFor="let hint of userhintEmail; let i=index;" (click)=" UserhintPull(hint);userhintContainer=false;" >
+                        <td class=" text-left">{{hint.email}}</td>
+                        </tr>
+                    </table>
+            </div>
+          </div>
+
+        </div>
+        <textarea class='input your-msg' id="messgenter" placeholder='Type your message here...'></textarea>
+        <div *ngIf="UserListErr==true" class='text-shadow animated fadeIn' style='animation-duration: 1s;color: #D8000C;font-style: oblique;font-size:13px;' >
+          <br /><i class='fa fa-times-circle'></i>&nbsp;{{UserListErrMsg}}
+        </div>
+        <button class='btn btn-default pull-right waves-effect waves-light' (click)="SendPress();"><i class="fa fa-paper-plane"></i>&nbsp;Send message</button>
+      </div>
+    </div>
+  </div>
+
+
+<!-- AWATAR -->
+
+<!-- <div style="height: 30px;"></div>
+<div class="row" *ngIf="commentUsers?.length>0">
+  <div class="col-sm-1 border-deda margin5px text-capitalize text-center waves-effect waves-light" *ngFor="let user of commentUsers">
+    <div class="text-center"><img src="./webroot/images/general/user2-128.png" width="80%" /></div>
+    <div class="inner-label">{{user.firstName}} {{user.lastName}}</div>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+  <div class="modal show"  *ngIf="showMessanger==true" role="dialog" >
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <button
+(click)="showMessanger=false"
+           type="button" class="btn btn-warning btn-xs pull-right" style="padding:5px 10px 5px 10px;">
+            <!-- <i style="font-size: 12px;" class="fa fa-window-close" aria-hidden="true"></i>&nbsp; -->Exit</button>
+          <h4 class="modal-title">Message window</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <table class="table">
+            <tr>
+              <td><textarea rows="2" class="form-control"></textarea></td>
+              <td width="150"><button type="button" class="btn btn-default btn-xs" data-dismiss="modal"><i class="fa fa-paper-plane"></i>&nbsp;Send</button></td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<!-- comment list display -->
+	<div class="comments-container animate zoomIn" *ngFor="let Comment of Comments;let i=index;">
+
+		<ul id="comments-list" class="comments-list">
+			<li>
+				<div class="comment-main-level">
+					<!-- Avatar -->
+					<div class="comment-avatar"><img src="./webroot/images/general/user2-128.png" alt=""></div>
+					<!-- Contenedor del Comentario -->
+					<div class="comment-box">
+						<div class="comment-head">
+							<h6 class="comment-name by-author"><a href="">{{currentUserInfo.firstName}}</a>&nbsp;&nbsp;<i class="fa fa-hand-o-right" style="color:#03658c;"></i>
+                <label class="senderTag" >{{selectedMessageUserFN}}</label>
+              </h6>
+							<span>{{Comment.date}}</span>
+              <span class="replyIcon">
+							<!-- <i class="fa fa-reply" (click)="CommentCollapse($event);" id="{{currentUserInfo.merchantId}}" data-target="#demo"  data-toggle="collapse">&nbsp;reply</i> -->
+							<!-- <i class="fa fa-heart"></i> -->
+              </span>
+						</div>
+						<div class="comment-content">
+							{{Comment.msg}}
+						</div>
+            <div class="expanded animate zoomIn collapse" id="demo">
+              <textarea  placeholder='Enter your message....'></textarea>
+              <button type="button" class="btn btn-sm btn-mdb waves-effect" style="margin-right: 80px;padding: 3px 6px 3px 6px;font-size: 9px;font-weight: bold;margin-top: -8px;float: right;"><i class="fa fa-reply"></i>&nbsp;Reply</button>
+            </div>
+
+
+
+					</div>
+				</div>
+				<!-- Respuestas de los comentarios -->
+				<ul class="comments-list reply-list">
+					<li>
+						<!-- Avatar -->
+						<div class="comment-avatar"><img src="./webroot/images/general/user2-128.png" alt=""></div>
+						<!-- Contenedor del Comentario -->
+						<div class="comment-box">
+							 <div class="comment-head">
+								<h6 class="comment-name "><a >Message has been sent to {{selectedMessageUserFN}} </a></h6>
+								<!-- <span>{{Comment.date}}</span> -->
+                <!-- <span class="replyIcon">
+                <i class="fa fa-reply" (click)="CommentCollapse($event);" id="{{currentUserInfo.merchantId}}" data-target="#demo1"  data-toggle="collapse">&nbsp;reply</i>
+
+                </span> -->
+							</div>
+							<!-- <div class="comment-content">
+								 Response Message from the user ...
+							</div>
+              <div class="expanded animate zoomIn collapse" id="demo1">
+                <textarea  placeholder='Enter your message....'></textarea>
+                <button type="button" class="btn btn-sm btn-mdb waves-effect" style="margin-right: 80px;padding: 3px 6px 3px 6px;font-size: 9px;font-weight: bold;margin-top: -8px;float: right;"><i class="fa fa-reply"></i>&nbsp;Reply</button>
+              </div> -->
+
+
+
+
+
+						</div>
+					</li>
+
+					<!-- <li>
+
+						<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
+
+						<div class="comment-box">
+							<div class="comment-head">
+								<h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
+								<span>10 Minutes</span>
+                <span class="replyIcon">
+                <i class="fa fa-reply"></i>
+                <i class="fa fa-heart"></i>
+                </span>
+							</div>
+							<div class="comment-content">
+								Message from internal communication
+							</div>
+						</div>
+					</li> -->
+				</ul>
+			</li>
+
+			<!-- <li>
+				<div class="comment-main-level">
+
+					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></div>
+
+					<div class="comment-box">
+						<div class="comment-head">
+							<h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+							<span>hace 10 minutos</span>
+							<i class="fa fa-reply"></i>
+							<i class="fa fa-heart"></i>
+						</div>
+						<div class="comment-content">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+						</div>
+					</div>
+				</div>
+
+			</li> -->
+		</ul>
+	</div>
+  <!-- comment list display -->
+
+
+<!-- Comments Blogs  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- WishList -->
+
+        <div *ngIf="wishListWindow==true" id="open-modal" class="modal-window zoomInUp animated" (click)="modelClose($event)">
+          <div>
+          <a (click)="wishListWindow=false;wishListmanage=false;wishListshare=false;" title="Close" class="modal-close">Close</a>
+          <h4 *ngIf="wishListmanage==false && wishListshare==false" style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">A</span>dd this product to a project </h4>
+          <h4 *ngIf="wishListmanage==true && wishListshare==false"  style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">M</span>anaging the project </h4>
+          <h4 *ngIf="wishListmanage==false && wishListshare==true"  style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">S</span>haring the project </h4>
+          <div class="modal-area">
+
+            <div class="row" *ngIf="wishListmanage!=true && wishListshare!=true">
+              <div class="col-sm-5" *ngIf="wishItem!=undefined">
+                <img   *ngIf="wishItem.images!=undefined"
+                  style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%; height: 248px;"
+                  class="padding7 waves-effect img img-thumbnail border-deda"
+                   src="{{getApiUrl}}images/src/{{wishItem.images.image1}}"   width="100%"   />
+                <img   *ngIf="wishItem.images==undefined" class=" waves-effect img-thumbnail border-deda" src="webroot/images/loading_img.gif"   width="100%" />
+
+              </div>
+              <div class="col-sm-6 ">
+                  <b>{{wishItem.name}}</b>
+                  <p class="text-justify" style="min-height: 65px;">{{wishItem.description | slice:0:100}}..</p>
+
+                  <div style="position:relative;z-index:9" class="text-primary pull-right pointer" (click)="wishListmanage=true">Manage</div>
+
+
+
+                  <div class="md-form">
+                      <input type="text"
+                      (keyup)="wishListCategObj=$event.target.value"
+                      (change)="wishListCategObj=$event.target.value"
+                      [(ngModel)]="wishListCategObj"
+                       id="wishlistCategBox" class="form-control" autocomplete="off" list="wishListCategory">
+                      <label for="wishlistCategBox" class="">Project Name</label>
+
+        <div *ngIf="wishlistCategory?.length > 0" class="text-capitalize">
+                      <datalist id="wishListCategory"  class="text-capitalize">
+                        <option *ngFor="let categ of wishlistCategory" value="{{categ}}" class="text-capitalize" ></option>
+                      </datalist>
+        </div>
+        <div  *ngIf="wishlistCategory?.length <1">
+                      <datalist id="wishListCategory"  >
+                        <option value="General">
+
+                      </datalist>
+                </div>
+
+                  </div>
+
+
+
+                    <!-- <div class="form-group">
+                      <label>Tag</label>
+                      <input type="" value="Tag1, Tag2" data-role="tagsinput" class="form-control" />
+                    </div> -->
+                      <tag-cloud></tag-cloud>
+<br />
+                  <button
+                     (click)="pushWishlist(wishItem.productId,wishListCategObj);wishListCategObj='';"
+                   class="btn btn-primary padding7" style="width:100%;"><i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> &nbsp; Add to project
+                 </button><br />
+                   <div [innerHTML]="wishlistSuccessMsg"></div>
+              </div>
+            </div><!-- wishlist add -->
+
+            <div class="row " style="min-height:200px; max-height:250px; width:98%; overflow:auto;"
+            *ngIf="wishListmanage==true">
+              <div class="col-sm-12" >
+                <div class="fadeIn animated">
+
+
+
+
+                  <table class="table border-lessTable table-striped">
+
+                      <tbody> <!-- wishlistCategory ['My list','Favourite','Best Items','Most liked','Flooring items'] -->
+                          <tr *ngFor="let categ of wishlistCategory; let index=index">
+
+                              <td class="padding7" >
+                                <div   class="md-formm">
+                                       <input placeholder="Category name.." class="form-control text-capitalize" id="wishlistCategRename{{index}}" value="{{categ}}" type="text">
+
+                                   </div>
+
+
+                              </td>
+
+                              <td class="padding7 " style="padding-left: 20px!important;">
+
+                                  <a (click)="renameWishlist(index,categ)" class="teal-text"><i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i></a>
+                                  &nbsp; &nbsp;
+                               <a (click)="removeWishlist(index,categ)" style="color:red"><i class="fa fa-trash-o  fa-2x" aria-hidden="true"></i></a>
+                               &nbsp; &nbsp;
+                            <a (click)="wishListshare=true;wishListmanage=false;GetProjectCat(index,categ)" style="color:#5151dc"><i class="fa fa-share-alt  fa-2x" aria-hidden="true"></i></a>
+
+                              </td>
+                          </tr>
+
+
+                      </tbody>
+                  </table>
+
+
+                </div>
+              </div>
+            </div>
+<style>
+
+.sharehint-container{
+
+ background-color: #FFFFFF;
+/* width: 53.5%; */
+width:300px;
+/*position: relative;*/
+font-size: 14px;
+z-index: 9;
+}
+.sharehint-container div div{
+   padding:5px;
+   cursor: pointer;
+   font-size: 12px;
+}
+.sharehint-container div div:hover{
+  background-color:#faf8f8 !important;
+}
+
+</style>
+
+            <div class="row " style="min-height:200px; max-height:250px; width:98%; overflow:auto;"
+            *ngIf="wishListshare==true">
+              <div class="col-sm-12" >
+                <div class="fadeIn animated">
+
+                  <h3 style="">Sharing Project : {{SelectedProjCategory}}</h3>
+                     <div class="pull-left">
+                          <span class="tags animate zoomIn" *ngFor="let shareProj of sharedEmailObj;let i=index;">{{shareProj}}<span class="tag-close-btn"><i class="fa fa-times" (click)="removeEmail(i);"></i></span></span>
+                      </div>
+                      <br /><br />
+
+                    <input type="" class="form-control emlSearch" placeholder="Search Email" style="border-radius: 5px;width: 400px;font-size:15px;"
+                    (keyup)="ProductShareFilter($event.target.value); sharesearchObject=$event.target.value;"
+                    [(ngModel)]="sharesearchObject" autocomplete="off"
+                    (keyup.enter)="ProductShareFilter($event.target.value);sharesearchObject=$event.target.value;"
+                    />
+
+                    <div style="position:absolute;z-index:99;">
+                    <div class="sharehint-container border-deda" (mouseleave)='closeShareContainer()' *ngIf="sharehintContainer==true"
+        style="position: relative; top: -15px;">
+                      <div class="animation-bottom10">
+                         <table class="table table-hover pointer">
+                                    <tr *ngFor="let hint of sharehintEmail; let i=index;" (click)=" sharehintPull(hint.email,hint.userId,'0');sharehintContainer=false;" >
+                                    <td class="text-capitalize text-left">{{hint.email}}</td>
+                                    </tr>
+                                </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="shareErr==true" class='text-shadow fadeIn animated' style='color: #D8000C;font-style: oblique;font-size:13px;' >
+                      <i class='fa fa-times-circle'></i>&nbsp;{{shareErrMsg}}
+                    </div>
+
+                    <button type="button" class="btn btn-mdb btn-rounded waves-effect" (click)="SharingProjects();"><i class="fa fa-share-alt"></i> Share Projects</button>
+
+
+
+
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+        </div>
+
+
+
+
+<!-- WishList -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Content -->
+<a  (click)="scroll2Top()" class="scrollToTop zoomIn animated"></a>
+
+
+</div>
+
+
+<div style="height: 100px;"></div>
+
+    <common-footer></common-footer>

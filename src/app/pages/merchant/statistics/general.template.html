@@ -1,0 +1,112 @@
+<top-menu-merchant></top-menu-merchant>
+ <div class="acc-container-fluid">
+ <div class="row account-main-container "  >
+   <div class="col-sm-2 col-xs-1 left-main-wrap">
+     <div  class="account-left-menu"  >
+
+             <account-left-menu></account-left-menu>
+
+     </div>
+   </div>
+   <div class="col-sm-10 col-xs-11 right-main-wrap">
+       <div class="header-title-area">
+         <h3>Statistics - Report
+
+           <span class=" pull-right hidden-xs" style="font-size:14px;">
+             <span *ngIf="selcFlag==1">Weekly / Statistics  </span>
+             <span *ngIf="selcFlag==2">Monthly / Statistics  </span>
+             <span *ngIf="selcFlag==3">Yearly / Statistics  </span>
+             &nbsp; &nbsp; &nbsp; &nbsp;</span>
+         </h3>
+       </div>
+       <section>
+
+<div style="margin-top:20px;"></div>
+<!-- <div class="border-filter animated fadeIn">
+  <div style="text-align: center;font-size:16px;">
+     <a (click)="selcFlag=0;" >Weekly</a>
+      <span style="color:grey;">|</span>
+     <a (click)="selcFlag=1;">Monthly</a>
+     <span style="color:grey;">|</span>
+     <a (click)="selcFlag=1;">Yearly</a>
+  </div>
+
+
+
+</div> -->
+
+<div class="rightDiv " >
+  <!-- <i class="fa fa-filter" style="margin-top:15px;"></i> -->
+  <span *ngIf="DivEnableFlag==false">
+    <i class="fa fa-filter animated pulse" title="click to apply filter"
+    style="margin-top:-4px;text-align: center;font-size:20px;margin-top: 10px;color:#595959;" (click)="DivEnableFlag=!DivEnableFlag;FilterExpandFun();"></i>
+  </span>
+  <span class="" *ngIf="DivEnableFlag==true;">
+   <div style="text-align: center;font-size:16px;margin-top: 10px;">
+     <span><i class="fa fa-filter animated pulse" title="Disclose filter"
+       style="text-align: center;font-size:20px;color:#595959;" (click)="DivEnableFlag=!DivEnableFlag;FilterExpandFun();"></i></span> &nbsp;
+      <a (click)="selcFlag=1;DivEnableFlag=!DivEnableFlag;FilterExpandFun();" >Weekly</a>
+       <span style="color:grey;">|</span>
+      <a (click)="selcFlag=2;DivEnableFlag=!DivEnableFlag;FilterExpandFun();">Monthly</a>
+      <span style="color:grey;">|</span>
+      <a (click)="selcFlag=3;DivEnableFlag=!DivEnableFlag;FilterExpandFun();">Yearly</a>
+   </div>
+ </span>
+</div>
+
+
+
+<div class="container" style="width: 100%;">
+  <div class="row animated fadeIn">
+    <div class="col-md-4">
+      <div class="img-thumbnail card-1">
+          <div id="topFiveCategChart1"></div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="img-thumbnail card-1">
+        <div id="topFiveCategChart2"></div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="img-thumbnail card-1">
+        <div id="topFiveCategChart3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-top:20px;"></div>
+<div class="container" style="width: 100%;">
+  <div class="row animated fadeIn">
+    <div class="col-sm-6">
+      <div class="img-thumbnail card-1">
+          <div id="top5regionviewsChart"></div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="img-thumbnail card-1">
+        <div id="top5queriedChart"></div>
+      </div>
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+      <div style="margin-top:50px;"></div>
+
+
+            </section>
+        </div>
+      </div>
+      </div>
+
+
+
+      <common-footer></common-footer>

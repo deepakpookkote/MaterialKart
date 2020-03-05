@@ -1,0 +1,184 @@
+
+
+
+<top-menu-merchant></top-menu-merchant>
+<div class="acc-container-fluid">
+<div class="row account-main-container "  >
+  <div class="col-sm-2 col-xs-1 left-main-wrap">
+    <div  class="account-left-menu"  >
+
+            <account-left-menu></account-left-menu>
+
+    </div>
+  </div>
+  <div class="col-sm-10 col-xs-11 right-main-wrap">
+      <div class="header-title-area">
+        <h3>Statistics - Report
+
+          <span class=" pull-right hidden-xs" style="font-size:14px;">
+            <span *ngIf="ViewselcFlag==1">Last Week / Statistics  </span>
+            <span *ngIf="ViewselcFlag==2">Last Month / Statistics  </span>
+            <span *ngIf="ViewselcFlag==3">Last Year / Statistics  </span>
+            &nbsp; &nbsp; &nbsp; &nbsp;</span>
+        </h3>
+      </div>
+
+
+
+
+
+
+      <section>
+
+
+
+
+
+
+
+
+
+<div style="margin-top:20px;"></div>
+        <div class="row animated fadeIn">
+          <div class="col-sm-4">
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-list-alt" aria-hidden="true"></i></td>
+                  <td style="width: 100%;font-size:17px;" align="right"><span class="count">6</span><br>Total Manufacturers</td>
+                </tr>
+              </table>
+             </div>
+
+          </div>
+          <div class="col-sm-4">
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-users" aria-hidden="true"></i></td>
+                  <td style="width: 100%;font-size:17px;" align="right"><span class="count">8</span><br>Total Members</td>
+                </tr>
+              </table>
+             </div>
+          </div>
+          <div class="col-sm-4">
+
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-database" aria-hidden="true"></i></td>
+                  <td style="width: 100%;font-size:17px;" align="right"><span class="count">15</span><br>Total Products</td>
+                </tr>
+              </table>
+             </div>
+
+            </div>
+          <!-- <div class="col-sm-3">
+            <div class="boxx"><span class="count">10</span> <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; Orders today</div>
+          </div> -->
+        <!--  <div class="col-sm-3">
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-users" aria-hidden="true"></i></td>
+                  <td style="width: 100%;" align="right"><span class="count">20</span><br>Team Members</td>
+                </tr>
+              </table>
+             </div>
+           </div> -->
+
+        </div>
+<div style="margin-top:30px;"></div>
+        <div class="row animated fadeIn">
+          <div class="col-sm-4">
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-eye" style=""></i><i class="fa fa-check-circle activeStar"></i></td>
+                  <td style="width: 100%;font-size:17px;" align="right"><span class="count">35</span><br>Monthly active visitors</td>
+                </tr>
+              </table>
+             </div>
+
+          </div>
+          <div class="col-sm-4">
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-user-o" style=""> </i><i class="fa fa-check-circle activeStar"></i></td>
+                  <td style="width: 100%;font-size:17px;" align="right"><span class="count">4</span><br>Monthly active Manufacturers</td>
+                </tr>
+              </table>
+             </div>
+          </div>
+          <div class="col-sm-4">
+
+            <div class="boxx">
+              <table  >
+                <tr>
+                  <td style="position:relative;;left:20px;"><i class="fa fa-search" aria-hidden="true"></i></td>
+                  <td style="width: 100%;font-size:17px;" align="right"><span class="count">89</span><br>Total Monthly queries</td>
+                </tr>
+              </table>
+             </div>
+
+            </div>
+
+        </div>
+
+<div style="margin-top:30px;"></div>
+<div class="container" style="width: 100%;">
+  <div class="row animated fadeIn">
+
+    <div class="col-md-6">
+      <div class="img-thumbnail card-1">
+        <div id="top5queriedProdChart"></div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="img-thumbnail card-1">
+        <div id="top5queriedCatChart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- <div class="row">
+   <div class="col-md-6">
+
+     <div class="border-deda" style="overflow: hidden;">
+       <div style="position: absolute;top: 9px;left: 25px;z-index: 99;font-size:16px;">
+          <a (click)="selcFlag=0;loadChart();" >Weekly</a> <span style="color:grey;">|
+          </span>
+          <a (click)="selcFlag=1;loadChart();">Monthly</a>
+       </div>
+      <div id="containerChart"></div>
+    </div>
+
+   </div>
+   <div class="col-md-6">
+     <div class="activity-boxx border-deda" style="height: 402px;width: 103%;">
+       <div class='title '>Total Views<i class="fa fa-ellipsis-v pull-right" aria-hidden="true" style="margin-top: 5px;"></i> </div>
+          </div>
+   </div>
+
+ </div> -->
+
+
+
+
+
+
+
+
+<div style="margin-top:50px;"></div>
+
+
+      </section>
+  </div>
+</div>
+</div>
+
+
+
+<common-footer></common-footer>

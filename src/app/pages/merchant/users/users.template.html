@@ -1,0 +1,161 @@
+<top-menu-merchant></top-menu-merchant>
+<div class="acc-container-fluid">
+<div class="row account-main-container "  >
+  <div class="col-sm-2 col-xs-1 left-main-wrap">
+    <div  class="account-left-menu"  >
+
+            <account-left-menu></account-left-menu>
+
+    </div>
+  </div>
+  <div class="col-sm-10 col-xs-11 right-main-wrap">
+      <div class="header-title-area">
+        <h3>Users Lists
+          <!-- <small><span class=" pull-right hidden-xs">Dashboard / Products / Lists &nbsp; &nbsp; &nbsp; &nbsp;</span></small> -->
+        </h3>
+      </div>
+      <section>
+
+
+
+
+<div style="margin-top:20px;"></div>
+
+<div class="border-deda bg-white padding10 animated pulse" *ngIf="usersAdd==true">
+<merchant-users-add ></merchant-users-add>
+<div align="right" >
+
+<button (click)="usersAdd=false" class="  btn btn-sm btn-mdb bg-grey" style="font-size:12px;"><i class="fa fa-plus-square-o" aria-hidden="true"></i> &nbsp; Cancel</button>
+<button (click)="usersAdd=false" class=" btn btn-sm btn-mdb bg-grey" style="font-size:12px;"><i class="fa fa-plus-square-o" aria-hidden="true"></i> &nbsp; Create Account</button>
+
+</div>
+</div>
+
+        <div class="" *ngIf="usersAdd==false"><!-- Box -->
+
+<div class="border-deda bg-white padding10">
+          <div class="row ">
+              <!-- <div class="col-sm-1" style="margin-top: 1%">
+                 &nbsp;<i class="fa fa-filter" aria-hidden="true"></i> Filter &nbsp;
+              </div> -->
+            <div class="col-sm-4">
+                <input class="form-control" placeholder="User Name"
+                 (keyup)="srchName=$event.target.value;filterFunction();"
+                 (keyup.enter)="getProducts()" style="border-radius: 5px;"
+                  />
+            </div>
+            <div class="col-sm-4">
+              <input class="form-control" placeholder="Role"
+              (keyup)="srchCategory=$event.target.value;filterFunction();"
+              (keyup.enter)="getProducts()" style="border-radius: 5px;"
+              />
+            </div>
+            <!-- <div class="col-sm-3">
+          <button (click)="getProducts()" class="form-control btn btn-sm btn-mdb bg-grey"><i class="fa fa-search" aria-hidden="true"></i> &nbsp; Search</button>
+            </div> -->
+            <div class="col-sm-4 text-right">
+
+          <button (click)="usersAdd=true" class="form-control btn btn-sm btn-mdb bg-grey" style="font-size:12px;"><i class="fa fa-plus-square-o" aria-hidden="true"></i> &nbsp; Add New User</button>
+
+            </div>
+          </div> <!-- row -->
+
+    </div>
+          <div style="height: 20px;"></div>
+
+
+
+           <div class="table-responsive border-deda" style="min-height: 400px;">
+             <table class="table table-bordered table-striped" style="background-color:white;font-size:15px;">
+               <tr>
+                 <th class="text-center"  ><b>#</b></th>
+                 <th class="text-center"  ><b>Name</b></th>
+                 <!-- <th class="text-center"><b>Description</b></th> -->
+                 <th class="text-center"  ><b>Role</b></th>
+                 <!-- <th class="text-center"><b>Credits</b></th> -->
+                  <th class="text-center"  ><b>Contact</b></th>
+                 <th class="text-center" ><b>Location</b></th>
+                 <th class="text-center" ><b>Status</b></th>
+                 <th class="text-center" style="width:200px;"><b>Actions</b></th>
+
+               </tr>
+               <tr   class="animated pulse" style="animation-duration: 1s;" >
+                 <td class="text-center"  >1</td>
+                 <td class="text-center"  >Arun S</td>
+                  <td class="text-center"  >Master</td>
+                   <td class="text-center"  >+91987878797</td>
+                    <td class="text-center"  >Delhi</td>
+                    <td class="text-center"  >Active</td>
+                 <td class="text-center" style="width:200px;" >
+                    <button style="padding:5px" class="btn btn-xs btn-mdb" (click)="editProduct(item.productId)">
+                      &nbsp;<i class="fa fa-pencil"></i>&nbsp;Edit&nbsp;
+                  </button>
+                    <button style="padding:5px" class="btn btn-xs btn-mdb" (click)="deleteProduct(item.productId)">
+                      &nbsp;<i class="fa fa-trash-o"></i>&nbsp;Delete&nbsp;
+                    </button>
+                  </td>
+               </tr>
+               <!-- <tr *ngIf="products?.length<1"><td colspan="8" class="text-center">No Products Found</td></tr> -->
+            <!--   <tr *ngIf="products?.length<1"><td colspan="8" class="text-center animated pulse" style="animation-duration: 1s;color:#999FBF"><i class="fa fa-frown-o"></i>&nbsp;No Users Found</td></tr>
+-->
+<tr>
+<td colspan="6" align="right">
+
+  <nav >
+    <ul class="pagination" style="position: relative; left:-10px;" >
+      <li  *ngIf="pageJump<1"   class="page-item disabled">
+        <a style="background-color:#708a96;color:#ffffff;" class="page-link"  aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+     <li *ngIf="pageJump>0" (click)="pageJump=pageJump-1;getProducts()" class="page-item">
+        <a style="background-color:#708a96;color:#ffffff;" class="page-link"  aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item" >
+        <a class="page-link" style="border: 1px solid #708a96; height: 32px;"  >{{pageJump+1}} <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li *ngIf="products?.length > 0" (click)="pageJump=pageJump+1;getProducts()"  class="page-item">
+        <a style="background-color:#708a96;color:#ffffff;" class="page-link"   aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+        <li *ngIf="products?.length < 1"  class="page-item disabled">
+        <a style="background-color:#708a96;color:#ffffff;" class="page-link"   aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</td>
+</tr>
+
+             </table>
+
+           </div>
+        </div> <!-- Box -->
+
+
+
+
+
+
+
+
+        <div style="margin-top:50px;"></div>
+
+
+              </section>
+          </div>
+        </div>
+        </div>
+
+
+
+        <common-footer></common-footer>

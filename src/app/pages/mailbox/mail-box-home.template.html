@@ -1,0 +1,54 @@
+<top-menu-landing></top-menu-landing>
+<div style="height:60px;"></div>
+<div class=" " style="width:98%; ">
+  <div class="account-left-menu"  >
+
+
+        <account-left-menu [myParameters]="'message-box'"></account-left-menu>
+
+  </div>
+  <div class="row" style="min-height:500px;">
+    <div class="col-sm-2 "  >
+
+
+    </div>
+    <div class="col-sm-3 bg-info inbox-pipeline" >
+      <ng-template *ngIf="inboxLists?.length>0">
+      <div *ngFor="let item of inboxLists;" class="box-box" (click)="messageDetail=item">
+        <b class="text-capitalize box-title" *ngIf="messageType=='inbox'">{{item.fromName}}</b>
+          <b class="text-capitalize box-title" *ngIf="messageType=='sent'">{{item.toName}} <button class="btn btn-info pull-right" style="padding: 2px; font-size:9px;"> &nbsp; SENT &nbsp; </button></b>
+        <div>
+          <div class="text-capitalize box-subject">{{item.productName}}</div>
+          <div class="box-description">{{item.message|slice:0:84}}</div>
+          <div class="box-date">{{item.dateAdded.date|date:'short'}}</div>
+        </div>
+      </div>
+
+    </ng-template>
+      <ng-template *ngIf="inboxLists?.length==0">
+          <h4  style="padding: 20px;"class="text-capitalize box-title">Message Box Empty !</h4>
+        </ng-template>
+    </div>
+    <div class="col-sm-7" style="padding:0px;">
+      <div *ngIf="messageDetail">
+        <div class="bg-info" style="padding: 20px;">
+         <h4>{{messageDetail.productName}}</h4>
+         <div class="text-capitalize box-subject" *ngIf="messageType=='inbox'">{{messageDetail.fromName}} - {{messageDetail.dateAdded.date|date:'medium'}} </div>
+         <div class="text-capitalize box-subject" *ngIf="messageType=='sent'">
+           {{messageDetail.toName}} - {{messageDetail.dateAdded.date|date:'medium'}}
+           <button class="btn btn-info pull-right" style="padding: 2px;"> &nbsp; SENT &nbsp; </button>
+         </div>
+
+       </div>
+
+
+           <p class="text-justify" style="padding:20px;">{{messageDetail.message}}</p>
+
+      </div>
+      <div *ngIf="messageDetail==''" align="center">
+        <img src="./webroot/images/general/email-grey.jpg" style="  height: 200px; margin-top:20%;" />
+      </div>
+    </div>
+  </div>
+</div>
+<common-footer></common-footer>

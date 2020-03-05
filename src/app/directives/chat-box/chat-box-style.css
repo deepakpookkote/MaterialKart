@@ -1,0 +1,166 @@
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.ch-box {
+  width: 300px;
+  /*height: 350px;*/ /* written inside angular animation */
+  border: 1px solid #eeeeee; border-radius: 4px 4px 0 0;
+    border-top: 1px solid #7bc552;
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  z-index: 100;
+  /* box-shadow: 1px 2px 15px #bbb; */
+  background-color: white;
+  box-shadow: 0 0 5px #c3b9b9;
+}
+
+.ch-box:hover{
+  z-index: 9999; 
+}
+
+.ch-container {
+  position:relative;
+  height:100%;
+}
+
+.ch-header {
+  /*background:#444;*/
+border: 1px solid #69b241;
+      border-radius: 4px 4px 0 0;
+      color: #fff;
+      background-color: #7bc552;
+      background-image: radial-gradient(circle at 47% 65%,#7bc552,#69b241);
+      font-size: 14px;
+margin:-1px;
+
+  color:#fff;
+  padding:10px;
+/*  border-bottom:2px solid #2bd43b;
+  font-size: 13px; */
+}
+
+
+.ch-actions {
+  background:#ccc;
+  padding:5px;
+  box-shadow: 0px 1px 2px #999;
+  position:relative;
+
+
+}
+
+.ch-actions ul {
+  margin:0;
+  padding:0;
+  list-style-type:none;
+  overflow:hidden;
+}
+.ch-actions li {
+/*  float:left;
+  margin:5px;
+  font-size:11px; */
+  float: left;
+margin: 0px;
+font-size: 15px;
+padding-left: 22px;
+}
+.ch-actions li.settings {
+  float:right;
+}
+
+.ch-body {
+  background:#eee;
+  overflow-y:scroll;
+  /*height:188px;*/
+  height:248px;
+}
+
+.ch-chat {
+  position:absolute;
+  bottom:0;
+  border-top:1px solid #ccc;
+  width:100%;
+}
+.ch-chat input {
+  padding:10px;
+  border:0;
+  width:100%;
+}
+
+.ch-convo {
+  position:relative;
+  overflow:hidden;
+  margin-bottom:5px;
+}
+
+.ch-convo .ch-text {
+  padding:10px;
+  background:#fff;
+  margin:5px;
+  width:80%;
+  float:left;
+  box-shadow: 0 1px 2px #ccc;
+  font-size:14px!important;
+}
+.ch-p {
+    font-size:15px!important;
+}
+
+.ch-convo p {
+  margin-top:0;
+  margin-bottom:5px;
+}
+.ch-convo small {
+  color:#999;
+}
+
+.ch-convo .ch-face {
+  position:absolute;
+  bottom:5px;
+  right:10px;
+  border-left:5px solid #fff;
+  background:#fff;
+  height:30px;
+  box-shadow: 2px 0 3px #ccc;
+}
+
+.ch-them .ch-text {
+  float:right;
+}
+
+.ch-them .ch-face {
+  left: 10px;
+  border-left:0;
+  box-shadow: -2px 0 3px #ccc;
+  width:35px;
+}
+
+.ch-minIcon{
+  cursor:pointer;
+}
+
+
+
+.ch-atachmentArea .fa{
+  padding: 3px;
+    margin-right: 8px;
+    font-size: 17px;
+   cursor: pointer;
+}
+
+.ch-attachInput{
+  font-size: 30px;
+   background-color: #eeeeee;
+   padding: 20px;
+   margin: 5px;
+   border: 1px solid #c1c1c1;
+border-radius: 5px;
+   position: absolute;
+   top: 229px;
+   width: 92%;
+   text-align: center;
+}

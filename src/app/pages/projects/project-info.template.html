@@ -1,0 +1,580 @@
+
+<top-menu-landing></top-menu-landing>
+<div *ngIf="accountType!='' && accountType!=undefined" style="height:57px;"></div>
+
+<div class="row affix-row">
+    <div class="col-sm-3 col-md-2 affix-sidebar">
+		<div class="sidebar-nav">
+  <div class="navbar navbar-default" role="navigation">
+    <!-- <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+      <span class="visible-xs navbar-brand">Sidebar menu</span>
+    </div> -->
+    <div class="  sidebar-navbar-collapse">
+      <ul class="nav navbar-nav" id="sidenav01">
+        <!-- <li class="active">
+          <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01" class="collapsed">
+          <h4>
+          Control Panel
+          <br>
+          <small>IOSDSV <span class="caret"></span></small>
+          </h4>
+          </a>
+          <div class="collapse" id="toggleDemo0" style="height: 0px;">
+            <ul class="nav nav-list">
+              <li><a href="#">ProfileSubMenu1</a></li>
+              <li><a href="#">ProfileSubMenu2</a></li>
+              <li><a href="#">ProfileSubMenu3</a></li>
+            </ul>
+          </div>
+        </li> -->
+        <li class="catSelectionActive" style="font-size:17px;">
+            <div style="height:15px;"></div>
+            <h5 style="padding:5px;"><span class="glyphicon glyphicon-cloud" ></span>
+              <span style="font-size:15px;text-transform: capitalize;">Shortlisted Products</span>
+            </h5>
+            <div style="height:3px;"></div>
+            <input  type="" class="form-control"
+            (keyup)="makeActive1(acctiveidx);getFilterCategory($event.target.value);"
+            placeholder="Search Projects" style="border-radius: 5px;width:16%;margin-left: 5px;font-size:12px;"/>
+          <!-- <a data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
+
+          </a> -->
+          <!-- <div class="collapse" id="toggleDemo" style="height: 0px;"> #ced0d3-->
+          <!-- Default showing all wish list products -->
+          <ul class="nav nav-list animated fadeIn"  >
+            <li  ><a (click)="categSelection()" id="catLeft_-1"  style="color:#595959;">Show All</a></li>
+          </ul>
+<span *ngIf="wishlistCategory?.length>0">
+            <ul class="nav nav-list animated fadeIn" *ngFor="let categ of wishlistCategory;let i=index;" >
+              <!-- <li *ngIf="i==0" style="color:black;"><a (click)="getWishlistData()">All Projects</a></li> -->
+              <li  ><a (click)="categSelection(categ)" id="catLeft_{{i}}" style="color:#595959;">{{categ}}</a></li>
+
+            </ul>
+</span>
+<span *ngIf="wishlistCategory?.length==0">
+  <span class="text-center animated zoomIn" style="animation-duration: 1s;color:#595959;margin-left: 35px;font-weight: 500;font-size:15px;"><i class="fa fa-frown-o"></i>&nbsp;No Project Found</span>
+  </span>
+          <!-- </div> -->
+        </li>
+        <!-- <li class="active">
+          <a class="collapsed">
+          <h5><span class="glyphicon glyphicon-inbox"></span> Channels</h5>
+          </a>
+
+            <ul class="nav nav-list">
+              <li><a >#General</a></li>
+              <li><a >#Channel 1</a></li>
+              <li><a >#Channel 2</a></li>
+            </ul>
+
+        </li> -->
+        <!-- <li><a ><span class="glyphicon glyphicon-lock"></span> Normalmenu</a></li> -->
+        <!-- <li><a ><span class="glyphicon glyphicon-calendar"></span> WithBadges <span class="badge pull-right">42</span></a></li>
+        <li><a><span class="glyphicon glyphicon-cog"></span> PreferencesMenu</a></li> -->
+      </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+	</div>
+	<div class="col-sm-9 col-md-10 affix-content">
+		<div class="container">
+
+
+
+
+      <div *ngIf="accountType=='user' || accountType=='gbcistaff'" >
+
+
+      <!-- border-deda bg-white -->
+
+       <div class="sloww">
+      <div style="height:20px;"></div>
+              <div class="activity-boxxx" >
+                <div class='title '>
+                  <span class="title-span" style="font-size: 18px;font-style: normal;font-weight: 500;color: #708A96;">
+                    Product Shortlist
+                  </span>
+                  <span class="pull-right pointer card-1" *ngIf="SelectedProjCategory!='' && SelectedProjCategory!=null">
+                  <span  (click)="wishListWindow=true;wishListshare=false;wishListmanage=false;ViewMLflag=true;ViewMemberList(SelectedProjCategory);">
+                     <i class="fa fa-pencil"></i> Edit Project Team </span>
+
+                  </span>
+               </div>
+                <div style="height: 5px;"></div>
+
+      <div class="wish-list-products table-responsive product-slider bg-white " style="padding: 6px; padding-bottom: 16px;">
+
+
+      <table class=" "   *ngIf="wishlistData?.length>0" >
+      <tr>
+        <td *ngFor="let product of wishlistData;  " style="padding-right: 5px;">
+          <div class="border-deda padding7">
+            <div class="">
+               <img style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center  waves-effect " (click)="productPageSlider(product.productId)"
+               *ngIf="product.images!=undefined"   src="{{getApiUrl}}images/src/{{product.images.image1}}" height="80" width="100"/>
+              <img (click)="productPageSlider(product.productId)" *ngIf="product.images==undefined" class="waves-effect" src="webroot/images/loading_img.gif" height="80" width="100" />
+           </div>
+
+                <div class=""><span style="font-size:13px;">{{product.name  | slice:0:9}}</span>
+                 <span class="pull-right">
+                   <span><i aria-hidden="true" style="color: #ca3113" (click)="removeParticularWishlist(product.productId);" class="rubberBand animated pointer fa fa-bookmark fa-lg"></i> </span>
+                 </span>
+               </div>
+           </div>
+        </td>
+       </tr>
+      </table>
+      <div *ngIf="wishlistData?.length<1">
+         <h4 style="margin: 20px;" class="animate zoomInUp"> <i class="fa fa-bookmark-o fa-1x" aria-hidden="true"></i> No Products Shortlisted.</h4>
+      </div>
+
+
+
+
+      </div>
+
+
+      <div class="pull-right wishlist-slider-nav-right"  *ngIf="wishlistData?.length>7">
+        <ul>
+          <!-- <li (click)="doScroll('L')"><i  class="fa fa-backward" aria-hidden="true"></i></li> -->
+          <li (click)="doScroll('R')"><i  class="fa fa-forward"></i></li>
+          <!-- <li (click)="scrollPos=-1;doScroll('L')"><i class="fa fa-home" aria-hidden="true"></i></li> -->
+        </ul>
+      </div>
+      <div class="pull-left wishlist-slider-nav-left"  *ngIf="wishlistData?.length>7">
+        <ul>
+          <li (click)="doScroll('L')"><i  class="fa fa-backward"></i></li>
+          <!-- <li (click)="doScroll('R')"><i  class="fa fa-forward" aria-hidden="true"></i></li> -->
+          <!-- <li (click)="scrollPos=-1;doScroll('L')"><i class="fa fa-home" aria-hidden="true"></i></li> -->
+        </ul>
+      </div>
+
+           </div>
+      </div>
+
+
+      </div><!-- If user -->
+
+
+<div style="height: 10px;"></div>
+
+
+<div class="row">
+  <div class="col-sm-7">
+    <span class="commtt">
+      <span style="font-size: 18px;  font-style: normal;font-weight: 500;color: #708A96;">
+        Comments
+      </span>
+    <!-- <h5 class="title text-center">Comments</h5> -->
+    </span>
+<div class="commentBox">
+
+    <div class="" *ngIf="Comments!=''">
+        <div class="panel">
+          <span class="animate zoomIn" *ngFor="let Comment of Comments;let i=index;">
+            <div class="post-heading">
+                <div class="pull-left image">
+                  <i class="fa fa-user fa-3x  avatar"></i>
+
+                    <!-- <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image"> -->
+                </div>
+                <div class="pull-left meta">
+                    <div class="title">
+                        <a ><b class="text-capitalize">{{currentUserInfo.firstName}}</b></a>
+                        made a comment.
+                    </div>
+                    <h6 class="text-muted time" id="postDateID" style="color:#aaa;font-size:11px;padding-left: 13px;padding-right: 30px;font-style: oblique;">{{Comment.date}}<br /></h6>
+
+                </div>
+            </div>
+
+
+              <br />
+
+                <p style="color:#233661;">{{Comment.com}}</p>  <br />
+                <!-- <span class="Likeaction">
+                        <i class="fa fa-thumbs-up icon fa-1x waves-effect" (click)="Likecount(i);" style="color:blue;"></i>&nbsp;<label id="like{{i}}">{{likecnt}}</label>&nbsp;&nbsp;
+                        <i class="fa fa-thumbs-down icon fa-1x waves-effect" (click)="disLikecount(i);" style="color:red;"></i>&nbsp;{{dislikecnt}}
+
+                </span> -->
+
+
+          </span>
+
+        </div>
+        </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="col-sm-5">
+    <span class="dotted">
+    <h5>
+      <span style="font-size: 18px;font-style: normal;font-weight: 500;color: #708A96;text-transform: capitalize;">
+        Team Members
+      </span>
+    </h5>
+    </span>
+    <div class="">
+      <table class="table table-fixed">
+        <thead>
+          <tr>
+            <th style="text-align:center;width:30%;">Sl</th>
+            <th style="text-align:center;width:70%;">Users</th>
+            <!-- <th class="col-xs-6" style="text-align:center;">E-mail</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sharedUserslist of sharedUsersList;let i=index;" class="pointer">
+             <td style="text-align:center;width:30%;">{{i+1}}</td>
+             <td style="text-align:center;width:70%;">{{sharedUserslist.firstName}}</td>
+             <!-- <td class="col-xs-6" style="text-align:center;">{{sharedUserslist.email}}</td> -->
+           </tr>
+           <!-- <tr>
+             <td colspan="3" class="text-center animated pulse text-capitalize" style="animation-duration: 1s;color:#999FBF">
+               <i class="fa fa-frown-o"></i>&nbsp;User List is Empty !</td>
+           </tr> -->
+
+        </tbody>
+
+      </table>
+    </div>
+      <div style="height: 120px;"></div>
+
+    <!-- <div class="userListBox">
+      <div class="container">
+  <div class="row">
+
+        <table class="table  table-fixed">
+        <thead class="thead-inverse">
+            <tr>
+              <th>#</th>
+              <th>Users</th>
+
+              <th>Email</th>
+            </tr>
+          </thead>
+          </table>
+            <table class="table table-fixed ShareUL">
+          <tbody>
+            <tr *ngFor="let sharedUserslist of sharedUsersList;let i=index;" class="pointer">
+              <td scope="row" class="col-xs-2" >{{i+1}}</td>
+              <td class="col-xs-3">{{sharedUserslist.firstName}}</td>
+
+              <td class="col-xs-6">{{sharedUserslist.email}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+  </div>
+</div>
+<div style="height: 120px;"></div>
+
+
+    <table class="table table-hover ">
+      <thead class="thead-inverse">
+        <tr >
+          <th>#</th>
+          <th>Users</th>
+          <th>Last Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sharedUserslist of sharedUsersList;let i=index;" class="pointer">
+          <td scope="row" >{{i+1}}</td>
+          <td>{{sharedUserslist.firstName}}</td>
+          <td>{{sharedUserslist.lastName}}</td>
+          <td>{{sharedUserslist.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    </div> -->
+
+  </div>
+
+
+</div>
+
+<!-- <div style="height: 40px;"></div> -->
+<div class="row" style="  ">
+  <div class="col-sm-12">
+    <div style="position: fixed; bottom:0px; width: 80%; right: 0%; background: white; z-index:99;">
+        <!-- <div class="input-group"> -->
+          <!-- <div class="md-form"> -->
+              <i class="fa fa-comments fa-2x prefix" style="color: #999;font-weight: bold;"></i>
+              <input style="width:99% !important" type="text" id="form2" id="tagenter" placeholder="Add a comment" class="form-control" (keyup.enter)="addComment($event.target.value)">
+              <!-- <label for="form2">Add a comment</label> -->
+          <!-- </div> -->
+
+        <!-- </div> -->
+        <!-- <a class="btn btn-outline-danger btn-sm btn-rounded waves-effect" (click)="clearComments();">clear comments</a> -->
+      <!--  <a class="btn btn-outline-success btn-sm btn-rounded waves-effect" >Submit</a> -->
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+      <!-- <div style="height: 80px;"></div> -->
+
+
+
+
+
+      <!-- NewsFeed Section -->
+      <section id="newsFeed" class=""  >
+          <div class="container">
+
+
+      <!-- WishList -->
+
+              <div *ngIf="wishListWindow==true" id="open-modal" class="modal-window zoomInUp animated" (click)="modelClose($event)">
+                <div>
+                <a (click)="wishListWindow=false;wishListmanage=false;wishListshare=false;ViewMLflag=false;" title="Close" class="modal-close">Close</a>
+                <!-- <h4 *ngIf="wishListmanage==false && wishListshare==false && ViewMLflag==false" style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">A</span>dd this product to the project </h4> -->
+                <h4 *ngIf="wishListmanage==true && wishListshare==false && ViewMLflag==false"  style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">M</span>anaging the project </h4>
+                <h4 *ngIf="wishListmanage==false && wishListshare==true && ViewMLflag==false"  style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">A</span>dd member to the project </h4>
+                <h4 *ngIf="wishListmanage==false && wishListshare==false && ViewMLflag==true"  style="text-transform: lowercase!important;" ><span style="text-transform: capitalize!important;">T</span>eam members </h4>
+                <div class="modal-area">
+
+
+
+                  <div class="row " style="min-height:200px; max-height:250px; width:98%; overflow:auto;"
+                  *ngIf="wishListmanage==true">
+                    <div class="col-sm-12" >
+                      <div class="fadeIn animated">
+
+
+
+
+                        <table class="table border-lessTable table-striped">
+
+                            <tbody> <!-- wishlistCategory ['My list','Favourite','Best Items','Most liked','Flooring items'] -->
+                                <tr *ngFor="let categ of wishlistCategory; let index=index">
+
+                                    <td class="padding7" >
+                                      <div   class="md-formm">
+                                             <input placeholder="Category name.." class="form-control text-capitalize" id="wishlistCategRename{{index}}" value="{{categ}}" type="text">
+
+                                         </div>
+
+
+                                    </td>
+
+                                    <td class="padding7 " style="padding-left: 20px!important;">
+
+                                        <a (click)="renameWishlist(index,categ)" class="teal-text"><i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i></a>
+                                        &nbsp; &nbsp;
+                                     <a (click)="removeWishlist(index,categ)" style="color:red"><i class="fa fa-trash-o  fa-2x" aria-hidden="true"></i></a>
+                                     &nbsp; &nbsp;
+                                  <a (click)="wishListshare=true;wishListmanage=false;GetProjectCat(index,categ)" style="color:#5151dc"><i class="fa fa-share-alt  fa-2x" aria-hidden="true"></i></a>
+
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row " style="min-height:200px; max-height:250px; width:98%; overflow:auto;"
+                  *ngIf="wishListshare==true">
+                    <div class="col-sm-12" >
+                      <div class="fadeIn animated">
+
+                        <div class="row">
+                          <div class="col-sm-4">
+                              <h3 style="">Project : {{SelectedProjCategory}}</h3>
+                          </div>
+                          <div class="col-sm-8">
+                            <button type="button" class="btn btn-sm btn-mdb btn-rounded waves-effect pull-right" (click)="wishListshare=false;ViewMemberList(SelectedProjCategory);"><i class="fa fa-users"></i> View Member</button>
+                          </div>
+                        </div>
+
+
+
+
+                           <div class="pull-left">
+                                <span class="tags animate zoomIn" *ngFor="let shareProj of sharedEmailObj;let i=index;">{{shareProj}}<span class="tag-close-btn"><i class="fa fa-times" (click)="removeEmail(i);"></i></span></span>
+                            </div>
+                            <br /><br />
+                            <span >
+                          <input  type="" class="form-control emlSearch" placeholder="Search Email" style="border-radius: 5px;width: 400px;font-size:15px;"
+                          (keyup)="ProductShareFilter($event.target.value); sharesearchObject=$event.target.value;"
+                          [(ngModel)]="sharesearchObject" autocomplete="off"
+                          (keyup.enter)="ProductShareFilter($event.target.value);sharesearchObject=$event.target.value;"
+                          />
+
+                          <div style="position:absolute;z-index:99;">
+                          <div class="sharehint-container border-deda" (mouseleave)='closeShareContainer()' *ngIf="sharehintContainer==true"
+              style="position: relative; top: -15px;">
+                            <div class="animation-bottom10">
+                               <table class="table table-hover pointer">
+                                          <tr *ngFor="let hint of sharehintEmail; let i=index;" (click)=" sharehintPull(hint.email,hint.userId,'0');sharehintContainer=false;" >
+                                          <td class=" text-left">{{hint.email}}</td>
+                                          </tr>
+                                      </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="shareErr==true" class='text-shadow fadeIn animated' style='color: #D8000C;font-style: oblique;font-size:13px;' >
+                            <i class='fa fa-times-circle'></i>&nbsp;{{shareErrMsg}}
+                          </div>
+
+                          &nbsp; &nbsp; <input type="checkbox" checked/> Allow to modify<br>
+                          <button type="button" class="btn btn-sm btn-mdb btn-rounded waves-effect" (click)="SharingProjects();"><i class="fa fa-user-plus"></i> Add Member</button>
+
+                          </span>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row " style="min-height:200px; max-height:400px; width:98%; overflow:auto;"
+                  *ngIf="ViewMLflag==true">
+                    <div class="col-sm-12" >
+                      <div class="fadeIn animated">
+                        <div class="row">
+                          <div class="col-sm-4">
+                              <h3 style="">Project : {{SelectedProjCategory}}</h3>
+                          </div>
+                          <div class="col-sm-8">
+
+                            <button type="button" class="btn btn-sm btn-mdb btn-rounded waves-effect pull-right" (click)="wishListshare=true;ViewMLflag=false;"><i class="fa fa-user-plus"></i> Add Member</button>
+
+                          </div>
+                        </div>
+
+                        <input  type="" class="pull-right form-control" placeholder="Search Member" style="border-radius: 5px;width: 220px;font-size:15px;"/>
+
+
+
+
+<br />
+<!-- <div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+    <input mdbActive type="text" id="form2" class="form-control">
+    <label for="form2">Example label</label>
+</div> -->
+
+
+
+                            <table class="table table-fixed animate zoomIn">
+                              <thead>
+                                <tr>
+                                  <th style="text-align:center;width:10%;">Sl</th>
+                                  <th style="text-align:center;width:60%;">Members</th>
+                                    <th style="text-align:center;width:20%;">Modify</th>
+                                  <th style="text-align:center;width:10%;">Remove</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let ProjML of ProjectMemeberList;let i=index;" class="pointer">
+                                   <td style="text-align:center;width:10%;">{{i+1}}</td>
+                                   <td style="text-align:center;width:60%;">{{ProjML.firstName}}</td>
+                                   <td style="text-align:center;width:20%;">Yes</td>
+                                   <td style="text-align:center;width:10%;">
+                                     <i class="fa fa-trash-o" style="color:red;"
+                                       (click)="removeMember(ProjML.userId,SelectedProjCategory)"
+                                       title="Remove this Member"></i>
+                                   </td>
+
+                                 </tr>
+
+
+                              </tbody>
+
+                            </table>
+                            <div style="height: 30px;"></div>
+
+
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+              </div>
+
+
+
+
+      <!-- WishList -->
+
+
+
+
+
+
+
+
+
+
+
+
+  <a  (click)="scroll2Top()" class="scrollToTop zoomIn animated"></a>
+
+          </div><!-- /.container -->
+      </section>
+
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <common-footer></common-footer> -->

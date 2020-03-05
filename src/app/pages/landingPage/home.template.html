@@ -1,0 +1,1110 @@
+<style>
+/*@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v22/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}*/
+.material-icons {
+/*font-family: 'Material Icons';*/
+font-weight: normal;
+font-style: normal;
+font-size: 40px;
+line-height: 1;
+letter-spacing: normal;
+text-transform: none;
+display: inline-block;
+white-space: nowrap;
+word-wrap: normal;
+direction: ltr;
+-webkit-font-feature-settings: 'liga';
+-webkit-font-smoothing: antialiased;
+}
+.search-button,.search-close-button {
+   background: transparent center center no-repeat;
+   background-size: 24px 24px;
+   cursor: pointer;
+   position: absolute; top: -33px;
+   border: 0;
+   display: block;
+   height: 48px;
+   overflow: hidden;
+   width: 48px;
+   z-index: 2;
+   color: #fff
+ }
+ .search-widget {
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 16px;
+    height: 29px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    /*right: 24px;
+    top: 15px;*/
+    transition: .2s cubic-bezier(.4,0,.2,1);
+    width: 0;
+    z-index: 2;
+}
+.search-widget {
+    width: 500px;
+    margin-top: -20px;
+}
+.search-widget input, .search-widget input[type=text] {
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,.87);
+    border-radius: 0;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    padding: 5px 0;
+    width: 100%;
+    text-align: left;
+    background: 0;
+    box-shadow: none;
+    color: #fff;
+    position: absolute; top: -33px;
+}
+
+.search-widget label {
+    box-sizing: border-box;
+    bottom: 0;
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,.54);
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    position: absolute; top: -33px;
+    /*display: block;
+    top: 7px;
+    width: 100%;*/
+    overflow: hidden;
+    white-space: nowrap;
+}
+.search-widget label:after {
+    box-sizing: border-box;
+    background-color: rgba(255,255,255,.87);
+    bottom: 0;
+    content: '';
+    height: 2px;
+    width: 10px;
+    left: 45%;
+    position: absolute; top: -33px;
+    transition: .2s cubic-bezier(.4,0,.2,1);
+    visibility: hidden;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+/*  color: #fff; */
+}
+::-moz-placeholder { /* Firefox 19+ */
+  /*color: #fff;*/
+}
+
+input:focus {
+    border-bottom: 2px solid rgba(255,255,255,.87) !important;
+    outline: 0 !important;
+}
+.articleThumbnail img{
+  height: 119px !important;
+}
+.service-provider-thumbnail img{
+  height: 180px;
+  width: 180px;
+  padding: 5%;
+  margin-left: 25%;
+}
+.service-provider-title {
+    height: 43px;
+    margin-bottom: 1%;
+}
+.service-provider-contact {
+    height: 11em;
+    margin-bottom: 2%;
+}
+.service-provider-content {
+    background-color: #fff;
+    box-shadow: 0 0 3px #ccc;
+    padding: 12px;
+    cursor: pointer;
+    height: 460px;
+}
+</style>
+<top-menu-landing></top-menu-landing>
+ <!-- Header -->
+<header id="header" (click)="hintContainer=false" *ngIf="accountType=='' || accountType==undefined">
+  <div class="intro">
+    <div class="overlay">
+      <div class="container">
+        <!-- <div class="row" style="margin-top:5%">
+          <div class="search-widget qp-ui qp-ui-search-input" >
+            <button class="search-button" style="margin-left:-45px"><i class="material-icons">search</i></button>
+            <input name="q" type="text" id="search-input" autocomplete="off">
+            <button class="search-close-button"><i class="material-icons">close</i></button>
+            <label for="search-input">Search</label>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="intro-text banner-search-area animation-bottom80" style="margin-top: 100px;">
+            <!-- <h1>Hello</h1> -->
+            <!-- <h1 class="text-uppercase" >Looking for Materials ?</h1> -->
+            <div class="search-container" >
+              <div class="search-widget" >
+
+                <input name="q" id="search-input"
+                style="text-align:center; font-size:28px;"
+placeholder="Search"
+
+                 (keyup)="hintFilter($event.target.value); searchObject=$event.target.value;"
+                 [(ngModel)]="searchObject" autocomplete="off"
+                 (keyup.enter)="productPage(searchObject);"
+
+                 >
+                <!-- <button (click)="searchObject=''; globalService.setData({})" class="search-close-button"><i class="material-icons">close</i></button> -->
+              <!--  <label for="search-input">Search</label> -->
+                <button class="search-button" style="margin-left:480px"
+                (click)="productPage(searchObject);" title="click for search">
+                  <i class="fa fa-search"></i></button>
+              </div>
+
+              <div class="hint-container"   *ngIf="hintContainer==true" >
+                <div   class="group text-left animation-bottom10">
+
+
+                  <div
+                  class="text-capitalize "
+                     *ngFor="let hint of hintProducts; let i=index;"
+                     (click)=" hintPull(hint.name,hint.productId)"
+                     >
+                     {{hint.name}}
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- <input class="form-control text-box" (keyup)="hintFilter($event.target.value);" [(ngModel)]="searchObject" placeholder="Search...." />
+              <button class="btn btn-xs pull-right" (click)="productPage(searchObject)">Find </button>
+              <span class="clearx pull-right" (click)="searchObject=''; globalService.setData({})"><i class="fa fa-times" aria-hidden="true"></i></span>
+              <div class="hint-container" *ngIf="hintContainer==true">
+                <div class="group text-left animation-bottom10">
+
+                  <div
+                  class="text-capitalize "
+                     *ngFor="let hint of hintProducts; let i=index;"
+                     (click)=" hintPull(hint.name,hint.productId)"
+                     >
+                     {{hint.name}}
+                  </div>
+
+                </div>
+              </div> -->
+            </div>
+            <!-- <a href="#about" class="btn btn-custom btn-lg page-scroll">Get Started</a>  -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<div  >
+
+<div *ngIf="accountType!='' && accountType!=undefined" style="height:60px;"></div>
+
+
+<div *ngIf="accountType!='' && accountType!=undefined">
+
+<style>
+
+.search-control{
+
+ cursor: pointer;
+ color: #bbb;
+}
+.search-control:hover {color:#686868;}
+.fa-home {
+ font-size:22px;
+}
+.search-box {
+ width:100%;
+ position: relative;
+  left:-40px;
+ height:48px;
+ transition:opacity 0.4s linear ,visibility 0.4s linear 0s;
+}
+.search-box > #search { background-color: #ffffff;
+ width:640px;
+ height:48px;
+ border-radius:6px 0px 0px 6px;
+ box-shadow:none;
+ box-shadow: 1px 2px 2px #ddd;
+}
+.search-box input , input:focus {
+ border:none;
+ box-shadow:none;
+ background-color:none;
+ outline: 0;
+ font-size:16px;
+ color:grey;
+ padding:0px 12px;
+}
+.also {
+ /*font-family:'fontawesome';*/
+ color:#bbb;
+ display:inline-block;
+ background-color:#fff;
+ height:48px;
+ width:48px;
+ line-height: 48px;
+ text-align: center;
+ cursor: pointer;
+ border-left:1px solid #ddd;
+ position: absolute;
+ top:0;
+ box-shadow: 1px 2px 2px #ddd;
+ border-radius: 5px;
+}
+.search-link:hover {color:#686868;}
+.setting {
+ border-radius:0px 6px 6px 0px;
+ margin-left:48px;
+ font-size:18px;
+}
+.setting:hover {color:#686868;}
+
+.search-box .hint-container{
+
+ background-color: #FFFFFF;
+/* width: 53.5%; */
+width:655px;
+position: relative; top: 20px;
+z-index: 9;
+}
+.search-box .hint-container div div{
+   padding:5px;
+   cursor: pointer;
+}
+.search-box .hint-container div div:hover{
+  background-color:#ebe8e8;
+}
+</style>
+
+<div style="background:#ebe8e8; padding:40px;  " >
+ <div class="containerr" align="center">
+  <div class="search-box" id="SBox"  >
+      <input id="search" placeholder="Search..." type="text"
+
+
+        (keyup)="hintFilter($event.target.value); searchObject=$event.target.value;"
+        [(ngModel)]="searchObject" autocomplete="off"
+        (keyup.enter)="hintFilter($event.target.value);searchObject=$event.target.value;productPage(searchObject);"
+
+      >
+
+     <div class="also search-link" (click)="productPage(searchObject)"   id="searchclick"><i class="fa fa-search" aria-hidden="true"></i></div>
+    <!-- <a href="#page-listing" class="fa fa-list also setting"></a>-->
+
+     <div class="hint-container border-deda"
+     (mouseleave)='closeSearchBoxHintContainer()'
+     *ngIf="hintContainer==true" >
+       <div   class="group text-left animation-bottom10">
+
+
+         <div
+         class="text-capitalize "
+            *ngFor="let hint of hintProducts; let i=index;"
+            (click)=" hintPull(hint.name,hint.productId);hintContainer=false;"
+            >
+            {{hint.name}}
+         </div>
+
+
+       </div>
+     </div><!-- hint container -->
+
+  </div>
+
+</div><!-- container -->
+</div><!-- silver -->
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container"  *ngIf="accountType=='merchant'">
+
+  <div style="margin-top:20px;"></div>
+     <div align="center" style="margin-left:10%;margin-right:10%;">
+          <div class="row animated fadeIn">
+            <div class="col-sm-4">
+              <div class="boxx">
+                <table  >
+                  <tr>
+                    <td style="position:relative;;left:20px;"><i class="fa fa-bell" aria-hidden="true"></i></td>
+                    <td style="width: 100%;font-size:17px;" align="right"><span class="count">0</span><br>Notifications</td>
+                  </tr>
+                </table>
+               </div>
+
+            </div>
+            <div class="col-sm-4">
+              <div class="boxx">
+                <table  >
+                  <tr>
+                    <td style="position:relative;;left:20px;"><i class="fa fa-map-marker" aria-hidden="true"></i></td>
+                    <td
+                    title="Total unique visitors from last 24 hours"
+                     style="width: 100%;font-size:17px;" align="right"><span class="count">8</span><br>Total Unique Views</td>
+                  </tr>
+                </table>
+               </div>
+            </div>
+            <div class="col-sm-4">
+
+              <div class="boxx">
+                <table  >
+                  <tr>
+                    <td style="position:relative;;left:20px;"><i class="fa fa-database" aria-hidden="true"></i></td>
+                    <td style="width: 100%;font-size:17px;" align="right"><span class="count">{{totalProducts}}</span><br>Products</td>
+                  </tr>
+                </table>
+               </div>
+
+              </div>
+            <!-- <div class="col-sm-3">
+              <div class="boxx"><span class="count">10</span> <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; Orders today</div>
+            </div> -->
+          <!--  <div class="col-sm-3">
+              <div class="boxx">
+                <table  >
+                  <tr>
+                    <td style="position:relative;;left:20px;"><i class="fa fa-users" aria-hidden="true"></i></td>
+                    <td style="width: 100%;" align="right"><span class="count">20</span><br>Team Members</td>
+                  </tr>
+                </table>
+               </div>
+             </div>-->
+
+          </div>
+        </div> <!-- Row container -->
+<div style="height: 30px;"></div>
+</div>
+
+
+
+
+
+
+
+<div *ngIf="accountType=='user' || accountType=='gbcistaff'" >
+
+
+<!-- border-deda bg-white -->
+<style>
+
+.activity-boxxx{
+  border-radius: 5px;
+  border:1px solid #d6d4d4;
+  padding-left: 6px;
+  padding-right: 20px;
+}
+
+  .activity-boxxx .title .pull-right,  .activity-boxxx .title .pull-right span span select{
+    color: #5596a5;
+background-color: #dddddd; padding: 0 0px 8px 8px;
+border: 1px solid #dddddd;
+border-radius: 3px; margin-right: 6px;
+        margin-top: 10px;
+  }
+
+
+
+  .activity-boxxx .title .title-span{
+    position:relative; top: 12px; left: 20px; font-size: 18px;
+  }
+  .activity-boxxx .img-thumbnail img{
+    min-height: 150px;
+  }
+
+  .wish-list-products{
+    width: 100%;
+
+  }
+.wish-list-products .table td{
+  border-top: 0px solid!important;
+
+}
+
+.wish-list-products table td{
+  padding-right: 0px;
+}
+
+.wishlist-slider-nav-right i,.wishlist-slider-nav-left i{
+  position: relative;
+  top: -150px; z-index: 999;
+  border-radius: 50%;
+  background-color: #f1f1f1;
+padding: 10px;
+  border: 1px solid silver; cursor: pointer;
+}
+.wishlist-slider-nav-right i{
+  left:20px;
+  box-shadow: -2px 1px 5px silver;
+}
+.wishlist-slider-nav-left i{
+    left:-5px;
+  box-shadow: 2px 1px 5px silver;
+}
+
+.card-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.card-1:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+</style>
+ <div class="container">
+<div style="height:20px;"></div>
+        <div class="activity-boxxx" style="font-size: 15px;">
+          <div class='title '><span class="title-span">Product Shortlist</span>
+            <span class="pull-right pointer ">
+            <span  (click)="getWishlistCategory();wishListWindow=true;wishListshare==true;wishListmanage=true;">  <i class="fa fa-cog" aria-hidden="true"></i> Manage Projects </span>
+              <span>
+                <i class="fa fa-filter" aria-hidden="true" style="position:relative; left: 20px;"></i>
+
+<span *ngIf="wishlistCategory?.length > 0">
+  <select class="text-capitalize" (change)="getWishlistData($event.target.value)" style="border:0px solid; padding-left: 16px!important;">
+    <option value="">Filter Projects</option>
+    <option *ngFor="let categ of wishlistCategory" value="{{categ}}" ><i class="icon-filter"></i> {{categ}}</option>
+  </select>
+</span>
+<span class="text-capitalize" *ngIf="wishlistCategory?.length <1">
+  <select (change)="getWishlistData($event.target.value)"  style="border:0px solid; padding-left: 16px!important;">
+    <option value="">Filter Projects</option>
+    <option value="General"><i class="icon-filter"></i> General</option>
+  </select>
+</span>
+
+
+
+            </span>
+            </span>
+         </div>
+          <div style="height: 5px;"></div>
+
+<div class="wish-list-products table-responsive product-slider bg-white " style="padding: 14px; padding-bottom: 34px;">
+
+
+<table class=" "   *ngIf="wishlistData?.length>0" >
+<tr>
+  <td *ngFor="let product of wishlistData;  " style="min-width: 223px;">
+    <div class="img img-thumbnail padding7 border-deda">
+      <div class="view ">
+         <img style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center waves-effect img-fluid" (click)="productPageSlider(product.productId)"
+         *ngIf="product.images!=undefined"   src="{{getApiUrl}}images/src/{{product.images.image1}}/180x150" height="150" width="180"/>
+        <img (click)="productPageSlider(product.productId)" *ngIf="product.images==undefined" class="waves-effect" src="webroot/images/loading_img.gif" height="150" width="180" />
+     </div>
+
+          <div class="padding5" style="font-size:14px;">
+            {{product.name  | slice:0:20}}
+           <span class="pull-right">
+             <span><i aria-hidden="true" style="color: #ca3113" (click)="removeParticularWishlist(product.productId);" class="rubberBand animated pointer fa fa-bookmark fa-lg"></i> </span>
+           </span>
+          </div>
+     </div>
+  </td>
+ </tr>
+</table>
+<div *ngIf="wishlistData?.length<1">
+   <h4 style="margin: 20px;" class="animate zoomInUp"> <i class="fa fa-bookmark-o fa-1x"></i> No Products Shortlisted.</h4>
+</div>
+
+
+
+
+</div>
+
+<div class="pull-right wishlist-slider-nav-right"  *ngIf="wishlistData?.length>5">
+  <ul>
+    <!-- <li (click)="doScroll('L')"><i  class="fa fa-backward" aria-hidden="true"></i></li> -->
+    <li (click)="doScroll('R')"><i  class="fa fa-forward" aria-hidden="true"></i></li>
+    <!-- <li (click)="scrollPos=-1;doScroll('L')"><i class="fa fa-home" aria-hidden="true"></i></li> -->
+  </ul>
+</div>
+<div class="pull-left wishlist-slider-nav-left"  *ngIf="wishlistData?.length>5">
+  <ul>
+    <li (click)="doScroll('L')"><i  class="fa fa-backward" aria-hidden="true"></i></li>
+    <!-- <li (click)="doScroll('R')"><i  class="fa fa-forward" aria-hidden="true"></i></li> -->
+    <!-- <li (click)="scrollPos=-1;doScroll('L')"><i class="fa fa-home" aria-hidden="true"></i></li> -->
+  </ul>
+</div>
+
+     </div>
+</div>
+
+
+</div><!-- If user -->
+
+
+
+
+
+
+
+<section class="top-material-section" style="padding-top:30px">
+  <h2 class="text-center" style="margin-bottom:60px">Recent Products</h2>
+<div class="container"  >
+<div class="row" style="min-height:400px;font-size: 15px;">
+  <div style="margin-top: 20px;" class="col-sm-3  animation-bottom80"
+   *ngFor="let product of products; let i=index; let last=last;">
+<div class="img img-thumbnail border-deda padding7" >
+<div class="text-center view hm-zoom">
+  <img style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center" (click)="productPageSlider(product.productId)" *ngIf="product.images!=undefined" class="waves-effect" src="{{getApiUrl}}images/src/{{product.images.image1}}/245x200" height="200" width="245"/>
+  <img (click)="productPageSlider(product.productId)" *ngIf="product.images==undefined" class="waves-effect" src="webroot/images/loading_img.gif" height="200" width="240" />
+</div>
+  <label (click)="productPage(product.productId)" class="waves-effect">{{product.name  | slice:0:25}}</label>
+  <div style="min-height:35px;">
+  <span *ngIf="product.manufacturer!=undefined && product.manufacturer!='' && product.manufacturer!=null">{{product.manufacturer.name | slice:0:30}}</span>
+
+  <span  class="pull-right" *ngIf="accountType=='user' || accountType=='gbcistaff'" >
+
+      <span data-toggle="tooltip" title="Add to Compare" class="zoomIn animated pointer" *ngIf="findInCompare(product.productId)!=true;" id="{{product.productId}}" (click)="addCompareProduct(product.productId,product.category);">
+        <img src="./webroot/images/general/comparenormal.png" style="width:20px;height:18px;" />&nbsp;
+      </span>
+      <span data-toggle="tooltip" title="Remove from Compare" class="zoomIn animated pointer" *ngIf="findInCompare(product.productId)==true;" id="{{product.productId}}" (click)="removeCompareProduct(product.productId);">
+        <img src="./webroot/images/general/compareselected.png" style="width:20px;height:18px;" />&nbsp;
+      </span>
+
+
+    <span  *ngIf="findInWishlist(product.productId)!=true;" data-toggle="tooltip" title="Add to Project"><i (click)="wishListPopup(product,true)"  class="rubberBand animated pointer fa fa-bookmark-o fa-lg" aria-hidden="true"></i> </span>
+    <span  *ngIf="findInWishlist(product.productId)==true; " data-toggle="tooltip" title="Remove from Project"><i (click)="removeParticularWishlist(product.productId)" style="color: #ca3113" class="rubberBand animated pointer fa fa-bookmark fa-lg" aria-hidden="true"></i></span>
+
+
+  </span>
+</div>
+
+</div>
+
+  </div>
+
+</div><!-- Products -->
+
+<div style="height: 40px;"></div>
+<div class="text-center">
+  <button class="btn btn-primary waves-effect"
+  *ngIf="loadMoreProductBtn!=true"
+  (click)="loadMoreProducts();"
+  > &nbsp; <span>
+    Load more products &nbsp;
+   </span>
+ </button>
+  <button class="btn btn-info waves-effect" *ngIf="loadMoreProductBtn==true"> &nbsp; &nbsp;
+    <span *ngIf="loadMorefinish?.length>0">
+      Loading.....&nbsp; &nbsp; <span class="fa fa-spinner fa-spin"></span>
+    </span>
+    <span *ngIf="loadMorefinish?.length<1">
+      No More Products&nbsp; &nbsp;
+     </span> &nbsp; &nbsp;
+   </button>
+</div>
+
+</div>
+</section>
+<style>
+.float1{
+  position: fixed;
+width: 110px;
+height: 35px;
+bottom: 40px;
+right: 8px;
+z-index: 999;
+background-color: #eaeaea;
+color: #636363;
+border-radius: 20px;
+text-align: center;
+box-shadow: 2px 2px 3px #999;
+
+}
+
+.my-float{
+  margin-top: 6px;
+  font-size: 18px;
+}
+
+.float1:hover{
+  color:#636363;
+}
+.CompareProductbox {
+    width: 15%;
+    margin: 0 auto;
+    background-color: #eaeaea;
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 30px;
+    position: fixed;
+    bottom: 19px;
+    right: 92px;
+    z-index: 999;
+    box-shadow: 2px 2px 3px #999;
+}
+.CompareProductbox label{
+ font-size: 15px;
+ cursor: pointer;
+}
+.CompareProductbox span:hover{
+ color: red;
+ font-size: 17px;
+ transition: 0.9s;
+
+}
+</style>
+ <!-- href="#compare-product" -->
+
+<div class="CompareProductbox  card-1 bounceIn animated pointer my-float pointer" *ngIf="productCompareData!='' && productCompareData!=undefined && productCompareData!=null">
+  <a (click)="GotoComparePage();" style="color:black;" >
+    <span>
+      <img src="./webroot/images/general/comparenormal.png" style="width:20px;height:20px;" />&nbsp;<label><b>Compare</b></label>
+    </span>
+  </a>
+      &nbsp;&nbsp;
+    <span (click)="ClearCompareData();">
+      <i class="fa fa-times-circle fa-1x waves-effect"  style="color:#636363 !important;font-size: 20px;" ></i>&nbsp;<label><b>Clear</b></label>
+    </span>
+    <!-- <div > -->
+      <span  class="animated fadeIn" style="color: red;font-size: 12px;font-weight: 300;" *ngIf="cmpErrshow==true">
+        Add 2 product's for compare
+      </span>
+    <!-- </div> -->
+</div>
+
+<!-- <a href="#compare-product" class=" card-1 float1 bounceIn animated pointer" *ngIf="productCompareData!='' && productCompareData!=undefined && productCompareData!=null">
+
+<label class="my-float pointer">
+<img src="./webroot/images/general/comparenormal.png" style="width:20px;height:20px;" />&nbsp;Compare
+</label>
+
+</a> -->
+
+
+
+
+
+
+<div style="height: 40px;"></div>
+
+
+
+
+
+<!-- NewsFeed Section -->
+<section id="newsFeed" class="newsFeed-section-1"  >
+    <div class="container">
+
+
+
+
+
+
+
+      <div>
+        <div style="height: 20px;"></div>
+        <h2 class="text-center" style="margin-bottom:60px" >Assessment Organizations</h2>
+        <!-- <div style="border-bottom:1px solid #cec9c9;  "></div> -->
+        <div style="height: 30px;"></div>
+
+         <div class="row">
+           <div class="col-md-4">
+             <div class="service-provider-content border-deda bg-white ">
+               <div class="service-provider-thumbnail">
+                 <img class="img-fluid" src="./webroot/images/landing-page/service-providers/UL_Mark.png" alt="Card image cap">
+               </div>
+               <div class="service-provider-title">
+                 <h4 class="card-title text-capitalize">UL</h4>
+               </div>
+               <div class="service-provider-contact">
+                 <address style="font-size:17px;color: #595959;">
+                   <div class="addressNew">California
+                   47173 Benicia Street
+                   Fremont, CA 94538
+                   U.S.A.</div>
+                   <span><br /><br />
+                     <i _ngcontent-qmh-2="" aria-hidden="true" class="fa fa-phone mr5"></i>
+                     510.319.4000
+                   </span><br />
+                   <span>
+                     <i class="fa fa-envelope mr5"></i>
+                      <a style="color: #595959;" href="mailto:CustomerExperienceCenter@ul.com" >CustomerExperienceCenter@ul.com</a>
+                   </span>
+                 </address>
+               </div>
+               <div class="service-provider-link">
+                 <a target="_new" href="http://www.ul.com/" class="btn btn-primary mb15 pull-right padding7 waves-effect">Visit Website</a>
+               </div>
+             </div>
+           </div>
+           <div class="col-md-4">
+             <div class="service-provider-content border-deda bg-white">
+               <div class="service-provider-thumbnail">
+                   <img class="img-fluid" src="./webroot/images/landing-page/service-providers/cradletocradle.png" alt="Card image cap">
+               </div>
+               <div class="service-provider-title">
+                 <h4 class="card-title text-capitalize">Cradle to cradle innovation institute</h4>
+               </div>
+               <div class="service-provider-contact">
+                 <address style="font-size:17px;color:#595959;">
+                   <div class="addressNew" style="min-height:72px;">475 14th Street Suite 290
+                   Oakland,<br>
+                    CA 94612
+                    <br></div>
+                   <span><br />
+                     <i _ngcontent-qmh-2="" aria-hidden="true" class="fa fa-phone mr5"></i>
+                     (415) 816-7087
+                   </span><br />
+                   <span>
+                     <i  class="fa fa-envelope mr5"></i>
+                     <a style="color: #595959;" href="mailto:info@c2ccertified.org">info@c2ccertified.org</a>
+                   </span><br />
+                 </address>
+               </div>
+               <div class="service-provider-link">
+                 <a target="_new" href=" http://www.c2ccertified.org/" class="btn btn-primary mb15 pull-right padding7 waves-effect">Visit Website</a>
+               </div>
+             </div>
+           </div>
+           <div class="col-md-4">
+             <div class="service-provider-content border-deda bg-white">
+               <div class="service-provider-thumbnail">
+                 <img class="img-fluid" src="./webroot/images/landing-page/service-providers/thinkstep.png" alt="Card image cap">
+               </div>
+               <div class="service-provider-title">
+                 <h4 class="text-capitalize">Thinkstep</h4>
+               </div>
+               <div class="service-provider-contact">
+                 <address style="font-size:17px;color: #595959;">
+                   <div class="addressNew" style="margin-bottom:-23px;">Global Headquarters,
+                   Hauptstraße 111-113,
+                   70771 Leinfelden-Echterdingen,
+                   Germany</div>
+                   <span><br /><br />
+                     <i _ngcontent-qmh-2="" aria-hidden="true" class="fa fa-phone mr5"></i>
+                     +49 711 34 18 17 0
+                   </span><br />
+                   <span>
+                     <i class="fa fa-envelope mr5"></i>
+                         <a style="color: #595959;" href="mailto:info@thinkstep.com">info@thinkstep.com</a>
+                   </span>
+                 </address>
+               </div>
+               <div class="service-provider-link">
+                 <a target="_new" href="https://www.thinkstep.com/" class="btn btn-primary mb15 pull-right padding7 waves-effect">Visit Website</a>
+               </div>
+             </div>
+           </div>
+         </div>
+      </div>
+
+
+
+
+
+<div style="height: 60px;"></div>
+
+      <h2 class="text-center" style="margin-bottom:60px" >Articles</h2>
+      <!-- <div style="border-bottom:1px solid #cec9c9;  "></div> -->
+      <div style="height: 30px;"></div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4" *ngFor="let article of articles;" style="margin-top:20px">
+                <div class="welcome-section text-center waves-effect" (click)="redirectToArticle(article.articleurl)" >
+                    <div class="articleThumbnail">
+                      <img src="{{this.ApiURL+'images/src/'+article.images.image1}}" class="img-responsive" alt="..">
+                    </div>
+                    <div class="articleInfo" style="margin-top: 5%">
+                      <div class="article-publish-date pull-left" style="color: #2196F3;font-size: 1.2em;font-weight: 500;">{{article.publishDate.date | date}}
+                      </div><br>
+                      <div class="articleDescription">
+                        <p>{{article.title}}</p>
+                      </div>
+                      <div class="border"></div>
+                      <div class="articleAuthor" style="float: left;font-size: 1.3em;font-weight: 500;
+                        color: black;">
+                        By  <span class="">{{article.author}}</span>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.row -->
+
+
+
+
+<!-- <div >
+  <div style="min-height:35px; border: 1px solid silver;border-radius: 4px;width:60%;" >
+    <div class="pull-left">
+         <span class="tags animate zoomIn" *ngFor="let tag of tags;let i=index;">{{tag}}<span class="tag-close-btn"><i class="fa fa-times" (click)="removeTags(i);"></i></span></span>
+     </div>
+    <input class="pull-left" id="tagenter" (keyup.enter)="addTag($event.target.value)" style="padding: 3px;border:0px;color:#82828E;padding-top: 4px;padding-bottom: 2px;" placeholder="Enter Tag"/>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- WishList -->
+
+        <div *ngIf="wishListWindow==true" id="open-modal" class="modal-window zoomInUp animated" (click)="modelClose($event)">
+          <div>
+            <span *ngIf="(wishListmanage==true && wishListshare==false)||(wishListmanage==false && wishListshare==false)">
+          <a (click)="wishListWindow=false;wishListmanage=false;wishListshare=false;" title="Close" class="modal-close">Close</a>
+          </span>
+          <span *ngIf="(wishListmanage==false && wishListshare==true)">
+        <a (click)="wishListshare=false;wishListmanage=true;" title="Close" class="modal-close">Close</a>
+        </span>
+          <h4 *ngIf="wishListmanage==false && wishListshare==false" style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">A</span>dd this product to the project </h4>
+          <h4 *ngIf="wishListmanage==true && wishListshare==false"  style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">M</span>anage Projects </h4>
+          <h4 *ngIf="wishListmanage==false && wishListshare==true"  style="text-transform: lowercase!important;"><span style="text-transform: capitalize!important;">A</span>dd member to the project </h4>
+          <div class="modal-area">
+
+            <div class="row" *ngIf="wishListmanage!=true && wishListshare!=true">
+              <div class="col-sm-5" *ngIf="wishItem!=undefined">
+                <img   *ngIf="wishItem.images!=undefined"
+                  style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%; height: 248px;"
+                  class="padding7 waves-effect img img-thumbnail border-deda"
+                   src="{{getApiUrl}}images/src/{{wishItem.images.image1}}"   width="100%"   />
+                <img   *ngIf="wishItem.images==undefined" class=" waves-effect img-thumbnail border-deda" src="webroot/images/loading_img.gif"   width="100%" />
+
+              </div>
+              <div class="col-sm-6 ">
+                  <p><b style="font-size:16px;">{{wishItem.name}}</b></p>
+
+
+                  <p class="text-justify" style="min-height: 65px;">{{wishItem.description | slice:0:100}}..</p>
+
+                  <div style="position:relative;z-index:9" class="text-primary pull-right pointer" (click)="wishListmanage=true">Manage Project</div>
+
+
+
+                  <div class="md-form">
+                      <input type="text"
+                      (keyup)="wishListCategObj=$event.target.value"
+                      (change)="wishListCategObj=$event.target.value"
+                      [(ngModel)]="wishListCategObj"
+                       id="wishlistCategBox" class="form-control" autocomplete="off" list="wishListCategory">
+                      <label for="wishlistCategBox" class="">Project Name</label>
+
+        <div *ngIf="wishlistCategory?.length > 0" class="text-capitalize">
+                      <datalist id="wishListCategory"  class="text-capitalize">
+                        <option *ngFor="let categ of wishlistCategory" value="{{categ}}" class="text-capitalize" ></option>
+                      </datalist>
+        </div>
+        <div  *ngIf="wishlistCategory?.length <1">
+                      <datalist id="wishListCategory"  >
+                        <option value="General">
+
+                      </datalist>
+                </div>
+
+                  </div>
+
+
+
+                    <!-- <div class="form-group">
+                      <label>Tag</label>
+                      <input type="" value="Tag1, Tag2" data-role="tagsinput" class="form-control" />
+                    </div> -->
+                      <tag-cloud></tag-cloud>
+<br />
+                  <button
+                     (click)="pushWishlist(wishItem.productId,wishListCategObj);wishListCategObj='';"
+                   class="btn btn-primary padding7" style="width:100%;"><i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> &nbsp; Add to project
+                 </button><br />
+                   <div [innerHTML]="wishlistSuccessMsg"></div>
+              </div>
+            </div><!-- wishlist add -->
+
+            <div class="row " style="min-height:200px; max-height:250px; width:98%; overflow:auto;"
+            *ngIf="wishListmanage==true">
+              <div class="col-sm-12" >
+                <div class="fadeIn animated">
+
+
+
+
+                  <table class="table border-lessTable table-striped">
+
+                      <tbody> <!-- wishlistCategory ['My list','Favourite','Best Items','Most liked','Flooring items'] -->
+                        <div *ngIf="WLRenameFlag==true" class="alert alert-success fadeIn animated">
+                            <strong><i class="fa fa-thumbs-o-up"></i></strong>&nbsp;Successfully updated!
+                        </div>
+
+                          <tr *ngFor="let categ of wishlistCategory; let index=index">
+
+                              <td class="padding7" >
+                                <div   class="md-formm">
+                                       <input placeholder="Category name.." class="form-control text-capitalize" id="wishlistCategRename{{index}}" value="{{categ}}" type="text">
+
+                                   </div>
+
+
+
+                              </td>
+
+                              <td class="padding7 " style="padding-left: 20px!important;">
+
+                                  <a (click)="renameWishlist(index,categ)" class="teal-text" title="update project"><i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i></a>
+                                  &nbsp; &nbsp;
+                               <a (click)="removeWishlist(index,categ)" style="color:red;" title="remove project"><i class="fa fa-trash-o  fa-2x" aria-hidden="true"></i></a>
+                               &nbsp; &nbsp;
+                            <a (click)="wishListshare=true;wishListmanage=false;GetProjectCat(index,categ)" title="add user to this project" style="color:#595959;"><i class="fa fa-user-plus  fa-2x" aria-hidden="true"></i></a>
+
+                              </td>
+                          </tr>
+
+
+
+                      </tbody>
+                  </table>
+
+
+                </div>
+              </div>
+            </div>
+<style>
+
+.sharehint-container{
+
+ background-color: #FFFFFF;
+/* width: 53.5%; */
+width:399px;
+/*position: relative;*/
+z-index: 9;
+}
+.sharehint-container div div{
+   padding:5px;
+   cursor: pointer;
+   font-size: 12px;
+}
+.sharehint-container div div:hover{
+  background-color:#faf8f8 !important;
+}
+
+</style>
+
+            <div class="row " style="min-height:200px; max-height:250px; width:98%; overflow:auto;"
+            *ngIf="wishListshare==true">
+              <div class="col-sm-12" >
+
+
+                <div class="fadeIn animated">
+
+                  <h3 style="font-size:18px;">Project : {{SelectedProjCategory}}</h3>
+                     <div class="pull-left">
+                          <span class="tags animate zoomIn" *ngFor="let shareProj of sharedEmailObj;let i=index;">{{shareProj}}<span class="tag-close-btn"><i class="fa fa-times" (click)="removeEmail(i);"></i></span></span>
+                      </div>
+                      <br /><br />
+
+                    <input type="" class="form-control emlSearch" placeholder="Search Email" style="border-radius: 5px;width: 400px;font-size:15px;"
+                    (keyup)="ProductShareFilter($event.target.value); sharesearchObject=$event.target.value;"
+                    [(ngModel)]="sharesearchObject" autocomplete="off"
+                    (keyup.enter)="ProductShareFilter($event.target.value);sharesearchObject=$event.target.value;"
+                    />
+
+                    <div style="position:absolute;z-index:99;">
+                    <div class="sharehint-container border-deda" (mouseleave)='closeShareContainer()' *ngIf="sharehintContainer==true"
+        style="position: relative; top: -15px;">
+                      <div class="animation-bottom10">
+                         <table class="table table-hover pointer">
+                                    <tr *ngFor="let hint of sharehintEmail; let i=index;" (click)=" sharehintPull(hint.email,hint.userId,'0');sharehintContainer=false;" >
+                                    <td class="text-capitalize text-left">{{hint.email}}</td>
+                                    </tr>
+                                </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="shareErr==true" class='text-shadow fadeIn animated' style='color: #D8000C;font-style: oblique;font-size:13px;' >
+                      <i class='fa fa-times-circle'></i>&nbsp;{{shareErrMsg}}
+                    </div>
+
+                    <button type="button" class="btn btn-mdb btn-rounded waves-effect" title="Add new member to this project" (click)="SharingProjects();"><i class="fa fa-user-plus"></i> Add Member</button>
+
+
+
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+        </div>
+
+
+
+
+<!-- WishList -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div><!-- /.container -->
+</section>
+
+
+
+</div><!-- main div -->
+
+<common-footer></common-footer>

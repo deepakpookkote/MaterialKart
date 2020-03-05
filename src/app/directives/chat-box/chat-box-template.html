@@ -1,0 +1,83 @@
+<div class="ch-box" [@chatState]="state">
+  <div class="ch-container">
+    <div class="ch-header pointer" (click)="state=state=='inactive'?'active':'inactive';">
+      <span class="ch-name pointer"  title="Connect with other members"  ><i class="fa fa-weixin" aria-hidden="true"></i> Chat Box</span>
+      <span *ngIf="state!='inactive'" class="ch-name pull-right ch-minIcon"  >
+        <i class="fa fa-window-minimize" aria-hidden="true"></i>
+      </span>
+      <span *ngIf="state=='inactive'" class="ch-name pull-right ch-minIcon"
+     > <!-- actionActive() -->
+        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div class="ch-actions">
+      <ul>
+        <!--<li><a href="#">Video</a></li>
+        <li><a href="#">Call</a></li>
+        <li class="settings"><a href="#">Settings</a></li> -->
+        <li><a title="Search inside chat messages"> <i class="fa fa-search" aria-hidden="true"></i> </a></li>
+        <li><a title="Filter by users"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+          <li><a title="Send invitation"><i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
+
+          <li class="settings"><a><i class="fa fa-bars" aria-hidden="true"></i></a></li>
+      </ul>
+    </div>
+  <div *ngIf="state!='inactive'">
+    <div class="ch-body">
+      <div class="ch-convo">
+        <div class="ch-text">
+          <p class="ch-p text-justify">Sample message for chat box, Just to test.</p>
+          <small>33 mins ago</small>
+        </div>
+        <div class="ch-face">
+          <img src="http://lorempixel.com/30/30/sports" />
+        </div>
+      </div>
+      <div class="ch-convo ch-them">
+        <div class="ch-text">
+          <p class="ch-p text-justify">Sample message for chat box, Just to test.</p>
+          <small>31 mins ago</small>
+        </div>
+        <div class="ch-face">
+          <img src="http://lorempixel.com/30/30/cats" />
+        </div>
+      </div>
+      <div class="ch-convo">
+        <div class="ch-text">
+          <p class="ch-p text-justify">Sample message for chat box, Just to test.</p>
+          <small>30 mins ago</small>
+        </div>
+        <div class="ch-face">
+          <img src="http://lorempixel.com/30/30/sports" />
+        </div>
+      </div>
+    </div>
+  <!--  <div>
+       <div *ngIf="fileAttachment==true"
+       class="ch-attachInput animated slideInUp">
+       <i title="Attach File" class="fa fa-paperclip " aria-hidden="true"></i>
+     </div>
+     <div *ngIf="imageAttachment==true"
+     class="ch-attachInput animated slideInUp">
+     <i title="Attach File" class="fa fa-picture-o " aria-hidden="true"></i>
+   </div>
+ </div> -->
+    <div class="pull-right ch-atachmentArea" >
+      <input #fileInput type="file" id="fileFor" style="display:none;" />
+      <i title="Attach File" for="fileFor"
+       (click)="fileInput.click()"
+       class="fa fa-paperclip " aria-hidden="true"></i>
+  <input #imageInput type="file" id="fileFor" style="display:none;" />
+      <i title="Attach Image"
+      (click)="imageInput.click()"
+       class="fa fa-picture-o" aria-hidden="true"></i>
+      <i title="Send &#9166;" class="fa fa-paper-plane" aria-hidden="true"></i>
+      &nbsp; &nbsp;
+    </div>
+    <div class="ch-chat">
+<button (click)="handShake()">Chat</button>
+      <input type="text" (change)="messageChnage($event.target.value);" placeholder="Write a message &#9166;" />
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,346 @@
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var app_component_1 = require("./../../../app.component");
+var common_1 = require("@angular/common");
+var global_service_1 = require("./../../../services/global.service");
+var ApiService_1 = require("./../../../services/ApiService");
+var ratings_service_1 = require("./../../../services/ratings/ratings.service");
+var MerchantProductAdd = (function (_super) {
+    __extends(MerchantProductAdd, _super);
+    function MerchantProductAdd(router, globalService, apiService, _location, ratingsService, cdRef) {
+        var _this = _super.call(this, router, globalService, apiService) || this;
+        _this.router = router;
+        _this.globalService = globalService;
+        _this.apiService = apiService;
+        _this._location = _location;
+        _this.ratingsService = ratingsService;
+        _this.cdRef = cdRef;
+        // public addMore:number=1;
+        _this.apiKey = localStorage.getItem('GBCItoken');
+        // public primaryRange:any=[];
+        // public parameterCodes:any=[];
+        // public LEEDV4EBOM_parameterCodes:any=[];
+        // public LEEDV4BDID_parameterCodes:any=[];
+        // public selectedCategory:any;
+        // public dynamicParameters:any = [];
+        _this.productImage1 = "../../webroot/images/general/file-upload.jpg";
+        _this.productImage2 = "../../webroot/images/general/file-upload.jpg";
+        _this.productImage3 = "../../webroot/images/general/file-upload.jpg";
+        _this.successMessage = false;
+        // public failureMessage = false;
+        // public noParamInfo = true;
+        _this.productCategory = "";
+        _this.addParameter = true;
+        _this.parameterCategCheckbox = {};
+        //Newly added instances for fetching data from Json
+        _this.RatingArray = [];
+        _this.CategoryArray = [];
+        _this.carArr = [];
+        _this.ParametersArray = [];
+        _this.parameterList = [];
+        _this.parameterTitle = [];
+        _this.prdRating = '';
+        _this.prdCategory = '';
+        _this.prdParameters = '';
+        _this.subMenuArray = [];
+        _this.parameterCollections = [];
+        _this.productInformationYES = "";
+        _this.additionalInformation = false;
+        _this.additionalInformationAry = {};
+        _this.prdRecords = [];
+        _this.parameters = [];
+        _this.ratingCategoriesArray = [];
+        _this.input_parameter = {};
+        _this.submenu1 = [];
+        _this.formErrors = [];
+        _this.parameterArrayList = [];
+        _this.userInput = {};
+        _this.ratingCategories = (ratingsService.ratingCategories);
+        _this.ratingCategoriesArray = _this.toArrayKeyValue(_this.ratingsService.ratingCategories);
+        _this.parametersExplorer = ratingsService.parametersExplorer;
+        _this.parameters = _this.toArrayKeyValue(_this.ratingsService.parametersExplorer);
+        _this.thresholdsLists = ratingsService.thresholds;
+        _this.prdRecords.productName = '';
+        _this.prdRecords.manufactLocation = '';
+        _this.prdRecords.productDescription = '';
+        _this.prdRecords.websiteUrl = '';
+        _this.ApiURL = _this.apiService.base;
+        return _this;
+    }
+    MerchantProductAdd.prototype.ngOnInit = function () {
+    };
+    MerchantProductAdd.prototype.addSubmenu1 = function (category, val) {
+        if (this.input_parameter[category] == undefined) {
+            this.input_parameter[category] = {};
+        }
+        this.input_parameter[category]['submenu1'] = val;
+    };
+    MerchantProductAdd.prototype.addEntryField = function (category, val) {
+        if (this.input_parameter[category] == undefined) {
+            this.input_parameter[category] = {};
+        }
+        this.input_parameter[category]['entryField'] = val;
+    };
+    MerchantProductAdd.prototype.addDocumentUrl = function (category, val) {
+        if (this.input_parameter[category] == undefined) {
+            this.input_parameter[category] = {};
+        }
+        this.input_parameter[category]['documentUrl'] = val;
+    };
+    MerchantProductAdd.prototype.addSubmenu2 = function (category, subItem2, val) {
+        if (this.input_parameter[category] == undefined) {
+            this.input_parameter[category] = {};
+        }
+        if (this.input_parameter[category]['submenu2'] == undefined) {
+            this.input_parameter[category]['submenu2'] = {};
+        }
+        this.input_parameter[category]['submenu2'][subItem2] = val;
+    };
+    MerchantProductAdd.prototype.resetCategory = function (category) {
+        delete this.input_parameter[category];
+    };
+    MerchantProductAdd.prototype.productparametersValues = function (category, submenu1) {
+        if (this.userInput[category] != undefined) {
+            this.userInput[category]['submenu1'] = submenu1;
+        }
+        else {
+            this.userInput[category] = {};
+            this.userInput[category]['submenu1'] = submenu1;
+        }
+    };
+    //
+    //  public dispIndex:any=0;
+    //  assighDispIndex(indxVal:any){
+    //    this.dispIndex=indxVal;
+    //  }
+    MerchantProductAdd.prototype.PrintIndex = function (index) {
+        console.log('index', index);
+    };
+    MerchantProductAdd.prototype.toArrayCategory = function (obj) {
+        var ary = Object.keys(obj).map(function (key) { return key; });
+        return ary.sort();
+    };
+    MerchantProductAdd.prototype.toArrayValue = function (obj) {
+        return Object.keys(obj).map(function (key) { return obj[key]; });
+    };
+    MerchantProductAdd.prototype.toArrayKeyValue = function (obj) {
+        return Object.keys(obj).map(function (key) { return { key: key, value: obj[key] }; });
+    };
+    MerchantProductAdd.prototype.goback = function () {
+        this._location.back();
+    };
+    MerchantProductAdd.prototype.changingParameters = function () {
+        $('#productCategory').val('');
+        $('.productParameters').val('');
+    };
+    MerchantProductAdd.prototype.selectedOption = function () {
+        $("#productCategory").change(function () {
+            if ($(this).val() == "YES") {
+                $("#informationDiv").show();
+            }
+            else {
+                $("#informationDiv").hide();
+            }
+        });
+    };
+    //------ Extra --------
+    MerchantProductAdd.prototype.createRange = function (number) {
+        /* This method is equal to for(var i=0; i<=5; i++ ) // forloop
+           In template just define  <div  *ngFor="let item of createRange(5)">
+           Now Iteration will go upto 5 */
+        this.primaryRange = [];
+        for (var i = 1; i <= number; i++) {
+            this.primaryRange.push(i);
+        }
+        return this.primaryRange;
+    };
+    MerchantProductAdd.prototype.readUrl = function (event, prod) {
+        var _this = this;
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                if (prod == 'image1')
+                    _this.productImage1 = event.target.result;
+                else if (prod == 'image2')
+                    _this.productImage2 = event.target.result;
+                else
+                    _this.productImage3 = event.target.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    };
+    //
+    // inputcollect(arg1:any,arg2:any){
+    //   console.log('values',arg1,arg2);
+    // }
+    MerchantProductAdd.prototype.addProduct = function () {
+        var _this = this;
+        this.formErrors = [];
+        if (this.prdRecords.productName == '')
+            this.formErrors.push('Name field must.');
+        if (this.prdCategory == '')
+            this.formErrors.push('Category field must.');
+        if (this.prdRecords.manufactLocation == '')
+            this.formErrors.push('Manufacturer Location field must.');
+        if (this.prdRecords.productDescription == '')
+            this.formErrors.push('Product description field must.');
+        if (this.prdRecords.websiteUrl == '')
+            this.formErrors.push('Website URL field must.');
+        if (this.formErrors.length > 0) {
+            return 0;
+        }
+        var params = JSON.parse(JSON.stringify(this.input_parameter));
+        this.apiService.merchantProductAdd({
+            data: {
+                key: this.apiKey,
+                form: {
+                    name: this.prdRecords.productName,
+                    category: this.prdCategory,
+                    status: 'hold',
+                    manufactureLocation: this.prdRecords.manufactLocation,
+                    description: this.prdRecords.productDescription,
+                    websiteUrl: this.prdRecords.websiteUrl,
+                    v2parameters: params
+                }
+            }
+        }).then(function (res) {
+            if (res.status == 'success') {
+                _this.successMessage = true;
+                var parent_1 = _this;
+                var productId_1 = res.productId;
+                if ($('#image1')[0].files[0]) {
+                    var formData = new FormData();
+                    formData.append('key', _this.apiKey);
+                    formData.append('productId', productId_1);
+                    formData.append('imageCategory', 'productImage');
+                    formData.append('image1', $('#image1')[0].files[0]);
+                    //console.log(formData);
+                    $.ajax({
+                        url: _this.ApiURL + 'images/push',
+                        type: 'POST', data: formData,
+                        cache: false, contentType: false, processData: false,
+                        complete: function (res) {
+                            var resp = (res.responseText);
+                            res = (resp.substring(resp.lastIndexOf('"status":"') + 10, resp.lastIndexOf('","reference"'))); /// eval("(" + res.responseText + ")");
+                            if (res == "success") {
+                                parent_1.productImage1 = "../../webroot/images/general/cloud_uploaded.jpg";
+                                if ($('#image2')[0].files[0]) {
+                                    var formData2 = new FormData();
+                                    formData2.append('key', parent_1.apiKey);
+                                    formData2.append('productId', productId_1);
+                                    formData2.append('imageCategory', 'productImage');
+                                    formData2.append('image2', $('#image2')[0].files[0]);
+                                    //console.log(formData);
+                                    $.ajax({
+                                        url: parent_1.ApiURL + 'images/push',
+                                        type: 'POST', data: formData2,
+                                        cache: false, contentType: false, processData: false,
+                                        complete: function (res) {
+                                            // console.log(res);
+                                            //   console.log('Image 02',res);
+                                            var resp = (res.responseText);
+                                            res = (resp.substring(resp.lastIndexOf('"status":"') + 10, resp.lastIndexOf('","reference"'))); /// eval("(" + res.responseText + ")");
+                                            if (res == "success") {
+                                                parent_1.productImage2 = "../../webroot/images/general/cloud_uploaded.jpg";
+                                                if ($('#image3')[0].files[0]) {
+                                                    var formData3 = new FormData();
+                                                    formData3.append('key', parent_1.apiKey);
+                                                    formData3.append('productId', productId_1);
+                                                    formData3.append('imageCategory', 'productImage');
+                                                    formData3.append('image3', $('#image3')[0].files[0]);
+                                                    //console.log(formData);
+                                                    $.ajax({
+                                                        url: parent_1.ApiURL + 'images/push',
+                                                        type: 'POST', data: formData3,
+                                                        cache: false, contentType: false, processData: false,
+                                                        complete: function (res) {
+                                                            //   console.log('Image 03',res);
+                                                            var resp = (res.responseText);
+                                                            res = (resp.substring(resp.lastIndexOf('"status":"') + 10, resp.lastIndexOf('","reference"'))); /// eval("(" + res.responseText + ")");
+                                                            if (res == "success") {
+                                                                parent_1.productImage3 = "../../webroot/images/general/cloud_uploaded.jpg";
+                                                                swal("Success", "Successfully Updated", "success");
+                                                                parent_1.successMessage = false;
+                                                            }
+                                                            else {
+                                                                swal("Failure", "unable to upload Image", "warning");
+                                                                parent_1.successMessage = false;
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else {
+                                                    swal("Success", "Successfully Updated", "success");
+                                                    parent_1.successMessage = false;
+                                                }
+                                            }
+                                            else {
+                                                swal("Failure", "unable to upload Image", "warning");
+                                                parent_1.successMessage = false;
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+                                    swal("Success", "Successfully Updated", "success");
+                                    parent_1.successMessage = false;
+                                }
+                            }
+                            else {
+                                swal("Failure", "unable to upload Image", "warning");
+                                parent_1.successMessage = false;
+                            }
+                        }
+                    });
+                }
+                else {
+                    swal("Success", "Successfully Updated", "success");
+                    parent_1.successMessage = false;
+                }
+                _this.prdRecords.productName = "";
+                _this.prdCategory = "";
+                _this.prdRecords.manufactLocation = "";
+                _this.prdRecords.productDescription = "";
+                _this.prdRecords.websiteUrl = "";
+                _this.input_parameter = {};
+            }
+        }).catch(function (err) {
+            console.log('Error while uploading Product !', err);
+        });
+    };
+    MerchantProductAdd = __decorate([
+        core_1.Component({
+            styles: ["\n       .parameter-table tr th{\n         background-color:white;\n       }\n       .parameter-table tr th,.parameter-table tr td{\n         border: 1px solid #a8a3a3;\n       }\n       .min-width-200{\n         min-width:88px!important;\n       }\n\n       .image-input{\n         border: none;\n         box-shadow: none;\n       }\n       .bgBlack{\n         background: #000000;\n         padding:8px;\n       }\n       .bgBlack:hover {\n         background: #000000;\n         cursor: pointer;\n       }\n       .dropdownLabel {\n         font-size:15.5px !important;\n       }\n\n       .error{\n         color:red;\n       }\n       .rotate:hover{\n          color: red;\n          transition: 0.9s;\n          transform: rotateY(180deg);\n      }\n      .alert-info {\n        color: #31708f;\n        background: none;\n        border: none;\n      }\n    "],
+            templateUrl: './app/pages/merchant/products/add.template.html',
+        }),
+        __metadata("design:paramtypes", [router_1.Router,
+            global_service_1.globalService,
+            ApiService_1.ApiService,
+            common_1.Location,
+            ratings_service_1.RatingsService,
+            core_1.ChangeDetectorRef])
+    ], MerchantProductAdd);
+    return MerchantProductAdd;
+}(app_component_1.AppComponent));
+exports.MerchantProductAdd = MerchantProductAdd;

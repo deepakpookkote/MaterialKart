@@ -1,0 +1,160 @@
+<top-menu-merchant></top-menu-merchant>
+<div class="acc-container-fluid">
+<div class="row account-main-container "  >
+  <div class="col-sm-2 col-xs-1 left-main-wrap">
+    <div  class="account-left-menu"  >
+
+            <account-left-menu></account-left-menu>
+
+    </div>
+  </div>
+  <div class="col-sm-10 col-xs-11 right-main-wrap">
+      <div class="header-title-area">
+        <h3>Product Approval
+          <!-- <small><span class=" pull-right hidden-xs">Dashboard / Products / Lists &nbsp; &nbsp; &nbsp; &nbsp;</span></small> -->
+        </h3>
+      </div>
+      <section>
+
+
+
+
+<div style="margin-top:20px;"></div>
+
+        <div class="">
+
+<div class="border-deda bg-white padding10" style="font-size:17px;">
+          <div class="row ">
+              <!-- <div class="col-sm-1" style="margin-top: 1%">
+                 &nbsp;<i class="fa fa-filter" aria-hidden="true"></i> Filter &nbsp;
+              </div> -->
+            <div class="col-sm-4">
+                <input class="form-control" placeholder="Product Name" id="srchName1"
+                 (keyup)="filterFunction();"
+                  />
+            </div>
+            <div class="col-sm-4">
+              <input class="form-control" placeholder="Manufacturer Name" id="srchcat1"
+               (keyup)="filterFunction();"
+                />
+              <!-- <input class="form-control" placeholder="Category Name"
+              (keyup)="srchCategory=$event.target.value"
+              (keyup.enter)="getProducts()"
+              /> -->
+            </div>
+            <div class="col-sm-4">
+              <!-- <input class="form-control" placeholder="Category Name"
+              (keyup)="srchCategory=$event.target.value"
+              (keyup.enter)="getProducts()"
+              /> -->
+              <select class="form-control" (change)="srchstatus=$event.target.value;getProducts();" style="color:#999FBF">
+
+                            <option value=""><span >Select status</span></option>
+                             <option value="active">Active</option>
+                             <option value="hold">hold</option>
+
+             </select>
+            </div>
+            <!-- <div class="col-sm-3">
+          <button (click)="getProducts()" class="form-control btn btn-sm btn-mdb bg-grey waves-effect"><i class="fa fa-search" aria-hidden="true"></i> &nbsp; Search</button>
+            </div> -->
+
+          </div> <!-- row -->
+
+    </div>
+          <div style="height: 20px;"></div>
+
+
+
+           <div class="table-responsive border-deda checkclass" style="min-height: 400px;">
+             <table class="table table-bordered table-striped " style="background-color:white;">
+               <tr style="font-size:17px;">
+                 <th class="text-center"><b>Product</b></th>
+                 <th class="text-center"><b>Name</b></th>
+                 <th class="text-center"><b>Category</b></th>
+                 <th class="text-center"><b>Status</b></th>
+                 <!-- <th class="text-center"><b>Views</b></th>
+                 <th class="text-center"><b>Actions</b></th> -->
+               </tr>
+               <tr *ngFor="let item of products" class="animated zoomIn" style="animation-duration: 1s;font-size:14px;" >
+                 <td>
+                   <img style="background:url('./webroot/images/loading.gif') no-repeat;background-size:100%;" class="text-center img-thumbnail" *ngIf="item.images!=undefined" class="waves-effect" src="{{getApiUrl}}images/src/{{item.images.image1}}/100x70" height="70" width="100"/>
+                 </td>
+                 <td class="text-center">{{item.name | slice:0:30}}
+                   <!-- <br />{{item.description | slice:0:60}} -->
+                 </td>
+                 <td class="text-center">{{item.category}}</td>
+                <td class="text-center" *ngIf="item.status=='active'">
+                      <input id="checkbox3" style="margin: 25px 0 0;" value="{{item.productId}}"  type="checkbox" checked>
+                </td>
+                <td class="text-center" *ngIf="item.status!='active'">
+                      <input id="checkbox3" style="margin: 25px 0 0;" value="{{item.productId}}" type="checkbox">
+                </td>
+
+               </tr>
+               <tr *ngIf="products?.length<1" ><td colspan="8" class="text-center animated zoomIn" style="animation-duration: 1s;color:#999FBF;font-size:14px;"><i class="fa fa-frown-o"></i>&nbsp;No Products Found</td></tr>
+
+<tr>
+<td colspan="6" align="right">
+  <button class="btn btn-sm btn-mdb waves-effect" style="margin-top:20px;float:left;" (click)="SaveApproveProduct();">Save changes</button>
+  <nav >
+    <ul class="pagination" style="position: relative; left:-10px;" >
+      <li  *ngIf="pageJump<1"   class="page-item disabled">
+        <a style="background-color:#708a96;color:#ffffff;" class="page-link"  aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+     <li *ngIf="pageJump>0" (click)="pageJump=pageJump-1;getProducts()" class="page-item">
+        <a style="background-color:#708a96;color:#ffffff;" class="page-link"  aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item" >
+        <a class="page-link" style="border: 1px solid #708a96; height: 32px;"  >{{pageJump+1}} <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li *ngIf="productLen > 0" (click)="pageJump=pageJump+1;getProducts()"  class="page-item ">
+        <a style="background-color:#708a96;color:#ffffff;" class="page-link"   aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+        <li *ngIf="productLen<1"  class="page-item disabled">
+        <a style="background-color:#708a96;color:#ffffff;" class="page-link"   aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</td>
+</tr>
+
+             </table>
+             <div id="dispmsg">
+
+             </div>
+
+           </div>
+        </div> <!-- Box -->
+
+
+
+
+
+
+
+
+        <div style="margin-top:50px;"></div>
+
+
+              </section>
+          </div>
+        </div>
+        </div>
+
+
+
+        <common-footer></common-footer>

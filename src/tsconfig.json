@@ -1,0 +1,15 @@
+{
+ "compileOnSave": true,
+ "buildOnSave": false,
+ "compilerOptions": {
+   "target": "es5",
+   "module": "commonjs",
+   "moduleResolution": "node",
+   "sourceMap": false,
+   "experimentalDecorators": true,
+   "emitDecoratorMetadata": true,
+   "lib": [ "es2015", "dom" ],
+   "noImplicitAny": true,
+   "suppressImplicitAnyIndexErrors": true
+ }
+}
